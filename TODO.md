@@ -1,0 +1,5 @@
+- [x] Use MiniMessages instead of the legacy format.
+- [x] Clarify configuration options and translate them into English.
+- [x] Add checkstyle
+- [ ] Create a README with an example GIF.
+- [x] Implement a safeguard to prevent breaking the headInfo if it originates from this plugin.
