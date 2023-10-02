@@ -3,6 +3,8 @@ package com.eternalcode.lobbyheads.head;
 import com.eternalcode.lobbyheads.configuration.implementation.HeadsConfiguration;
 import com.eternalcode.lobbyheads.delay.Delay;
 import com.eternalcode.lobbyheads.notification.NotificationAnnouncer;
+import com.eternalcode.lobbyheads.position.Position;
+import com.eternalcode.lobbyheads.position.PositionAdapter;
 import org.bukkit.Location;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockState;
@@ -73,8 +75,8 @@ public class HeadController implements Listener {
             return;
         }
 
-        Location location = clickedBlock.getLocation();
-        this.headService.find(location).ifPresent(headInfo -> this.headBlockService.replaceHead(player, location, skull, headInfo));
+        Position position = PositionAdapter.convert(clickedBlock.getLocation());
+        this.headService.find(position).ifPresent(headInfo -> this.headBlockService.replaceHead(player, position, skull, headInfo));
 
         this.delay.markDelay(player.getUniqueId(), this.config.delay());
     }

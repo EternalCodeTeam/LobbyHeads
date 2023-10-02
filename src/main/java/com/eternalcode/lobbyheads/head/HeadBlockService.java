@@ -2,7 +2,8 @@ package com.eternalcode.lobbyheads.head;
 
 import com.eternalcode.lobbyheads.configuration.implementation.HeadsConfiguration;
 import com.eternalcode.lobbyheads.notification.NotificationAnnouncer;
-import org.bukkit.Location;
+import com.eternalcode.lobbyheads.position.Position;
+import com.eternalcode.lobbyheads.position.PositionAdapter;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.block.Skull;
@@ -28,7 +29,7 @@ public class HeadBlockService {
         Block block = player.getTargetBlock(null, 5);
 
         for (HeadInfo headInfo : this.config.heads) {
-            if (headInfo.getLocation().equals(block.getLocation())) {
+            if (headInfo.getPosition().equals(PositionAdapter.convert(block.getLocation()))) {
                 this.headService.removeHologram(headInfo);
                 this.config.heads.remove(headInfo);
                 this.config.save();
@@ -47,12 +48,12 @@ public class HeadBlockService {
             return;
         }
 
-        if (this.headService.find(block.getLocation()).isPresent()) {
+        if (this.headService.find(PositionAdapter.convert(block.getLocation())).isPresent()) {
             this.notificationAnnouncer.sendMessage(player, this.config.messages.headAlreadyExists);
             return;
         }
 
-        HeadInfo headInfo = new HeadInfo(block.getLocation(), player.getName(), player.getUniqueId());
+        HeadInfo headInfo = new HeadInfo(PositionAdapter.convert(block.getLocation()), player.getName(), player.getUniqueId());
 
         this.headService.createHologram(player, headInfo, this.config.head.headFormat);
         this.config.heads.add(headInfo);
@@ -60,7 +61,7 @@ public class HeadBlockService {
         this.notificationAnnouncer.sendMessage(player, this.config.messages.headAdded);
     }
 
-    void replaceHead(Player player, Location location, Skull skull, HeadInfo headInfo) {
+    void replaceHead(Player player, Position position, Skull skull, HeadInfo headInfo) {
         UUID replacedByUUID = headInfo.getReplacedByUUID();
         Set<UUID> replacedUUIDs = headInfo.getReplacedUUIDs();
 
@@ -80,11 +81,11 @@ public class HeadBlockService {
         this.headService.updateHologram(headInfo);
 
         if (this.config.head.soundEnabled) {
-            player.playSound(location, this.config.head.sound, this.config.head.volume, this.config.head.pitch);
+            player.playSound(PositionAdapter.convert(position), this.config.head.sound, this.config.head.volume, this.config.head.pitch);
         }
 
         if (this.config.head.particleEnabled) {
-            player.spawnParticle(this.config.head.particle, location, this.config.head.count, 0.5, 0.5, 0.5);
+            player.spawnParticle(this.config.head.particle, PositionAdapter.convert(position), this.config.head.count, 0.5, 0.5, 0.5);
         }
 
         skull.setOwningPlayer(player);
@@ -93,7 +94,7 @@ public class HeadBlockService {
 
     boolean isHead(Block block) {
         if (block.getType() == Material.PLAYER_HEAD) {
-            Optional<HeadInfo> headInfo = this.headService.find(block.getLocation());
+            Optional<HeadInfo> headInfo = this.headService.find(PositionAdapter.convert(block.getLocation()));
             return headInfo.isPresent();
         }
         return false;

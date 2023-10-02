@@ -2,6 +2,8 @@ package com.eternalcode.lobbyheads.head;
 
 import com.eternalcode.lobbyheads.adventure.AdventureLegacy;
 import com.eternalcode.lobbyheads.configuration.implementation.HeadsConfiguration;
+import com.eternalcode.lobbyheads.position.Position;
+import com.eternalcode.lobbyheads.position.PositionAdapter;
 import com.github.unldenis.hologram.Hologram;
 import com.github.unldenis.hologram.HologramPool;
 import com.mojang.authlib.GameProfile;
@@ -52,7 +54,7 @@ public class HeadService {
         Component deserialize = this.miniMessage.deserialize(string);
         String serialize = AdventureLegacy.SECTION_SERIALIZER.serialize(deserialize);
 
-        Hologram hologram = Hologram.builder(this.plugin, this.getLocationOffset(headInfo))
+        Hologram hologram = Hologram.builder(this.plugin, PositionAdapter.convert(this.getLocationOffset(headInfo)))
             .addLine(serialize)
             .name(this.getHologramName(headInfo))
             .loadAndBuild(this.hologramPool);
@@ -71,9 +73,9 @@ public class HeadService {
         }
     }
 
-    public Optional<HeadInfo> find(Location location) {
+    public Optional<HeadInfo> find(Position position) {
         return this.config.heads.stream()
-            .filter(head -> head.getLocation().equals(location))
+            .filter(head -> head.getPosition().equals(position))
             .findAny();
     }
 
@@ -93,7 +95,7 @@ public class HeadService {
         SkullData skullData = this.skullAPI.awaitSkullData(headInfo.getPlayerName(), 5, TimeUnit.SECONDS);
         BukkitScheduler scheduler = this.plugin.getServer().getScheduler();
 
-        BlockState blockState = headInfo.getLocation().getBlock().getState();
+        BlockState blockState = PositionAdapter.convert(headInfo.getPosition()).getBlock().getState();
         if (blockState instanceof Skull skull) {
             this.prepareSkullUpdate(scheduler, skullData, skull);
         }
@@ -119,8 +121,9 @@ public class HeadService {
         skull.update();
     }
 
-    private Location getLocationOffset(HeadInfo headInfo) {
-        return headInfo.getLocation().clone().add(0.5, -0.3, 0.5);
+    private Position getLocationOffset(HeadInfo headInfo) {
+        Location location = PositionAdapter.convert(headInfo.getPosition()).clone().add(0.5, -0.3, 0.5);
+        return PositionAdapter.convert(location);
     }
 
     private void showHologramToPlayers(Hologram hologram) {
@@ -130,7 +133,7 @@ public class HeadService {
     }
 
     private String getHologramName(HeadInfo headInfo) {
-        Location location = headInfo.getLocation();
-        return HOLOGRAM_NAME_PREFIX + location.getWorld().getName() + "," + location.getX() + "," + location.getY() + "," + location.getZ();
+        Position position = headInfo.getPosition();
+        return HOLOGRAM_NAME_PREFIX + position.getWorld() + "," + position.getX() + "," + position.getY() + "," + position.getZ();
     }
 }

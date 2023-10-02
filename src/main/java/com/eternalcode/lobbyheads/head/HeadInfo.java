@@ -1,28 +1,27 @@
 package com.eternalcode.lobbyheads.head;
 
-import org.bukkit.Location;
-
+import com.eternalcode.lobbyheads.position.Position;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
 
 public class HeadInfo {
 
-    private final Location location;
+    private final Position position;
     private final Set<UUID> replacedUUIDs;
     private String playerName;
     private UUID playerUUID;
     private UUID replacedByUUID;
 
-    public HeadInfo(Location location, String playerName, UUID playerUUID) {
-        this.location = location;
+    public HeadInfo(Position position, String playerName, UUID playerUUID) {
+        this.position = position;
         this.playerName = playerName;
         this.playerUUID = playerUUID;
         this.replacedUUIDs = new HashSet<>();
     }
 
-    public Location getLocation() {
-        return this.location;
+    public Position getPosition() {
+        return this.position;
     }
 
     public String getPlayerName() {

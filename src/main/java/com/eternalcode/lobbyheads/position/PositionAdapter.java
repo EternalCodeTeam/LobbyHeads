@@ -1,4 +1,4 @@
-package com.eternalcode.lobbyheads.configuration.shared;
+package com.eternalcode.lobbyheads.position;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Location;

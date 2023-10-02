@@ -1,7 +1,7 @@
 package com.eternalcode.lobbyheads.configuration;
 
-import com.eternalcode.lobbyheads.configuration.migration.HC0001_Migrate_Location_to_Position;
 import com.eternalcode.lobbyheads.configuration.serializer.HeadInfoSerializer;
+import com.eternalcode.lobbyheads.configuration.serializer.PositionSerializer;
 import eu.okaeri.configs.ConfigManager;
 import eu.okaeri.configs.OkaeriConfig;
 import eu.okaeri.configs.serdes.commons.SerdesCommons;
@@ -38,13 +38,14 @@ public class ConfigurationService {
         Yaml yaml = new Yaml(constructor, representer, dumperOptions, loaderOptions, resolver);
         YamlSnakeYamlConfigurer yamlConfigurer = new YamlSnakeYamlConfigurer(yaml);
 
-        configFile.withConfigurer(yamlConfigurer, new SerdesCommons());
-        configFile.withSerdesPack(registry -> registry.register(new HeadInfoSerializer()));
-        configFile.withBindFile(file);
-        configFile.saveDefaults();
-        configFile.withRemoveOrphans(true);
-        configFile.migrate(new HC0001_Migrate_Location_to_Position());
-        configFile.load(true);
+        configFile
+            .withConfigurer(yamlConfigurer, new SerdesCommons())
+            .withSerdesPack(registry -> registry.register(new HeadInfoSerializer()))
+            .withSerdesPack(registry -> registry.register(new PositionSerializer()))
+            .withBindFile(file)
+            .saveDefaults()
+            .withRemoveOrphans(true)
+            .load(true);
 
         this.configs.add(configFile);
 
