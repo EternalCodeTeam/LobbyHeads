@@ -13,13 +13,15 @@ import java.util.List;
 
 public class HeadCommand implements CommandExecutor, TabCompleter {
 
-    private final HeadsConfiguration headsConfiguration;
+    private static final String HEAD_MANAGEMENT_PERMISSION = "lobbyheads.admin";
+
+    private final HeadsConfiguration config;
     private final ConfigurationService configurationService;
     private final NotificationAnnouncer notificationAnnouncer;
     private final HeadBlockService headBlockService;
 
-    public HeadCommand(HeadsConfiguration headsConfiguration, ConfigurationService configurationService, NotificationAnnouncer notificationAnnouncer, HeadBlockService headBlockService) {
-        this.headsConfiguration = headsConfiguration;
+    public HeadCommand(HeadsConfiguration config, ConfigurationService configurationService, NotificationAnnouncer notificationAnnouncer, HeadBlockService headBlockService) {
+        this.config = config;
         this.configurationService = configurationService;
         this.notificationAnnouncer = notificationAnnouncer;
         this.headBlockService = headBlockService;
@@ -27,17 +29,17 @@ public class HeadCommand implements CommandExecutor, TabCompleter {
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-        if (!sender.hasPermission("lobbyheads.admin")) {
-            this.notificationAnnouncer.sendMessage(sender, this.headsConfiguration.messages.youAreNotPermittedToUseThisCommand);
+        if (!sender.hasPermission(HEAD_MANAGEMENT_PERMISSION)) {
+            this.notificationAnnouncer.sendMessage(sender, this.config.messages.youAreNotPermittedToUseThisCommand);
             return false;
         }
 
         if (!(sender instanceof Player player)) {
-            this.notificationAnnouncer.sendMessage(sender, this.headsConfiguration.messages.onlyForPlayers);
+            this.notificationAnnouncer.sendMessage(sender, this.config.messages.onlyForPlayers);
             return true;
         }
 
-        String invalidUsage = this.headsConfiguration.messages.invalidUsage;
+        String invalidUsage = this.config.messages.invalidUsage;
 
         if (args.length < 1) {
             this.notificationAnnouncer.sendMessage(player, invalidUsage);
@@ -51,7 +53,7 @@ public class HeadCommand implements CommandExecutor, TabCompleter {
             case "remove" -> this.headBlockService.removeHead(player);
             case "reload" -> {
                 this.configurationService.reload();
-                this.notificationAnnouncer.sendMessage(player, this.headsConfiguration.messages.configurationReloaded);
+                this.notificationAnnouncer.sendMessage(player, this.config.messages.configurationReloaded);
             }
             default -> this.notificationAnnouncer.sendMessage(player, invalidUsage);
         }
@@ -61,10 +63,10 @@ public class HeadCommand implements CommandExecutor, TabCompleter {
 
     @Override
     public List<String> onTabComplete(CommandSender sender, Command command, String label, String[] args) {
-        return List.of(
-            "add",
-            "remove",
-            "reload"
-        );
+        if (args.length > 1 && sender.hasPermission(HEAD_MANAGEMENT_PERMISSION)) {
+            return List.of("add", "remove", "reload");
+        }
+
+        return List.of();
     }
 }

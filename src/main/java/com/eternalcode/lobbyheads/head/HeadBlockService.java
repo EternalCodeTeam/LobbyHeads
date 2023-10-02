@@ -8,17 +8,18 @@ import org.bukkit.block.Block;
 import org.bukkit.block.Skull;
 import org.bukkit.entity.Player;
 
+import java.util.Optional;
 import java.util.Set;
 import java.util.UUID;
 
 public class HeadBlockService {
 
-    private final HeadsConfiguration headsConfiguration;
+    private final HeadsConfiguration config;
     private final HeadService headService;
     private final NotificationAnnouncer notificationAnnouncer;
 
-    public HeadBlockService(HeadsConfiguration headsConfiguration, HeadService headService, NotificationAnnouncer notificationAnnouncer) {
-        this.headsConfiguration = headsConfiguration;
+    public HeadBlockService(HeadsConfiguration config, HeadService headService, NotificationAnnouncer notificationAnnouncer) {
+        this.config = config;
         this.headService = headService;
         this.notificationAnnouncer = notificationAnnouncer;
     }
@@ -26,12 +27,12 @@ public class HeadBlockService {
     void removeHead(Player player) {
         Block block = player.getTargetBlock(null, 5);
 
-        for (HeadInfo headInfo : this.headsConfiguration.heads) {
+        for (HeadInfo headInfo : this.config.heads) {
             if (headInfo.getLocation().equals(block.getLocation())) {
                 this.headService.removeHologram(headInfo);
-                this.headsConfiguration.heads.remove(headInfo);
-                this.headsConfiguration.save();
-                this.notificationAnnouncer.sendMessage(player, this.headsConfiguration.messages.headRemoved);
+                this.config.heads.remove(headInfo);
+                this.config.save();
+                this.notificationAnnouncer.sendMessage(player, this.config.messages.headRemoved);
 
                 return;
             }
@@ -42,21 +43,21 @@ public class HeadBlockService {
         Block block = player.getTargetBlock(null, 5);
 
         if (block.getType() != Material.PLAYER_HEAD) {
-            this.notificationAnnouncer.sendMessage(player, this.headsConfiguration.messages.youAreNotLookingAtHead);
+            this.notificationAnnouncer.sendMessage(player, this.config.messages.youAreNotLookingAtHead);
             return;
         }
 
         if (this.headService.find(block.getLocation()).isPresent()) {
-            this.notificationAnnouncer.sendMessage(player, this.headsConfiguration.messages.headAlreadyExists);
+            this.notificationAnnouncer.sendMessage(player, this.config.messages.headAlreadyExists);
             return;
         }
 
         HeadInfo headInfo = new HeadInfo(block.getLocation(), player.getName(), player.getUniqueId());
 
-        this.headService.createHologram(player, headInfo, this.headsConfiguration.head.headFormat);
-        this.headsConfiguration.heads.add(headInfo);
-        this.headsConfiguration.save();
-        this.notificationAnnouncer.sendMessage(player, this.headsConfiguration.messages.headAdded);
+        this.headService.createHologram(player, headInfo, this.config.head.headFormat);
+        this.config.heads.add(headInfo);
+        this.config.save();
+        this.notificationAnnouncer.sendMessage(player, this.config.messages.headAdded);
     }
 
     void replaceHead(Player player, Location location, Skull skull, HeadInfo headInfo) {
@@ -68,7 +69,7 @@ public class HeadBlockService {
         }
 
         if (replacedUUIDs.contains(player.getUniqueId())) {
-            this.notificationAnnouncer.sendMessage(player, this.headsConfiguration.messages.youAreAlreadyReplaceThisHead);
+            this.notificationAnnouncer.sendMessage(player, this.config.messages.youAreAlreadyReplaceThisHead);
             return;
         }
 
@@ -78,16 +79,24 @@ public class HeadBlockService {
         replacedUUIDs.add(player.getUniqueId());
         this.headService.updateHologram(headInfo);
 
-        if (this.headsConfiguration.head.soundEnabled) {
-            player.playSound(location, this.headsConfiguration.head.sound, this.headsConfiguration.head.volume, this.headsConfiguration.head.pitch);
+        if (this.config.head.soundEnabled) {
+            player.playSound(location, this.config.head.sound, this.config.head.volume, this.config.head.pitch);
         }
 
-        if (this.headsConfiguration.head.particleEnabled) {
-            player.spawnParticle(this.headsConfiguration.head.particle, location, this.headsConfiguration.head.count, 0.5, 0.5, 0.5);
+        if (this.config.head.particleEnabled) {
+            player.spawnParticle(this.config.head.particle, location, this.config.head.count, 0.5, 0.5, 0.5);
         }
 
         skull.setOwningPlayer(player);
         skull.update();
+    }
+
+    boolean isHead(Block block) {
+        if (block.getType() == Material.PLAYER_HEAD) {
+            Optional<HeadInfo> headInfo = this.headService.find(block.getLocation());
+            return headInfo.isPresent();
+        }
+        return false;
     }
 
 }

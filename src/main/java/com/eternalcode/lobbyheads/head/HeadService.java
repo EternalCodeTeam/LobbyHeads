@@ -11,7 +11,6 @@ import dev.rollczi.liteskullapi.SkullData;
 import me.clip.placeholderapi.PlaceholderAPI;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.minimessage.MiniMessage;
-import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.Server;
@@ -34,15 +33,15 @@ public class HeadService {
     private final HologramPool hologramPool;
     private final SkullAPI skullAPI;
     private final Plugin plugin;
-    private final HeadsConfiguration headsConfiguration;
+    private final HeadsConfiguration config;
     private final MiniMessage miniMessage;
     private final Server server;
 
-    public HeadService(SkullAPI skullAPI, Plugin plugin, HeadsConfiguration headsConfiguration, MiniMessage miniMessage, Server server) {
+    public HeadService(SkullAPI skullAPI, Plugin plugin, HeadsConfiguration config, MiniMessage miniMessage, Server server) {
         this.skullAPI = skullAPI;
         this.plugin = plugin;
         this.hologramPool = new HologramPool(plugin, 50);
-        this.headsConfiguration = headsConfiguration;
+        this.config = config;
         this.miniMessage = miniMessage;
         this.server = server;
     }
@@ -65,15 +64,15 @@ public class HeadService {
     }
 
     public void loadHolograms() {
-        String defaultHeadFormat = this.headsConfiguration.head.defaultHeadFormat;
+        String defaultHeadFormat = this.config.head.defaultHeadFormat;
 
-        for (HeadInfo headInfo : this.headsConfiguration.heads) {
+        for (HeadInfo headInfo : this.config.heads) {
             this.createHologram(this.server.getOfflinePlayer(headInfo.getPlayerUUID()), headInfo, defaultHeadFormat);
         }
     }
 
     public Optional<HeadInfo> find(Location location) {
-        return this.headsConfiguration.heads.stream()
+        return this.config.heads.stream()
             .filter(head -> head.getLocation().equals(location))
             .findAny();
     }
@@ -86,7 +85,7 @@ public class HeadService {
 
     public void updateHologram(HeadInfo headInfo) {
         this.removeHologram(headInfo);
-        this.createHologram(this.server.getOfflinePlayer(headInfo.getPlayerUUID()), headInfo, this.headsConfiguration.head.headFormat);
+        this.createHologram(this.server.getOfflinePlayer(headInfo.getPlayerUUID()), headInfo, this.config.head.headFormat);
     }
 
 
