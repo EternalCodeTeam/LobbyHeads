@@ -1,4 +1,4 @@
-package com.eternalcode.lobbyheads;
+package com.eternalcode.lobbyheads.head;
 
 import com.eternalcode.lobbyheads.configuration.ConfigurationService;
 import com.eternalcode.lobbyheads.configuration.implementation.HeadsConfiguration;
