@@ -1,5 +1,6 @@
 package com.eternalcode.lobbyheads.configuration;
 
+import com.eternalcode.lobbyheads.configuration.migration.HC0001_Migrate_Location_to_Position;
 import com.eternalcode.lobbyheads.configuration.serializer.HeadInfoSerializer;
 import eu.okaeri.configs.ConfigManager;
 import eu.okaeri.configs.OkaeriConfig;
@@ -42,6 +43,7 @@ public class ConfigurationService {
         configFile.withBindFile(file);
         configFile.saveDefaults();
         configFile.withRemoveOrphans(true);
+        configFile.migrate(new HC0001_Migrate_Location_to_Position());
         configFile.load(true);
 
         this.configs.add(configFile);
