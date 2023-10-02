@@ -16,20 +16,20 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.EquipmentSlot;
 
 import java.util.Optional;
-import java.util.Set;
-import java.util.UUID;
 
 public class HeadController implements Listener {
 
     private final HeadsConfiguration headsConfiguration;
     private final HeadService headService;
     private final NotificationAnnouncer notificationAnnouncer;
+    private final HeadBlockService headBlockService;
     private final Delay delay;
 
-    public HeadController(HeadsConfiguration headsConfiguration, HeadService headService, NotificationAnnouncer notificationAnnouncer) {
+    public HeadController(HeadsConfiguration headsConfiguration, HeadService headService, NotificationAnnouncer notificationAnnouncer, HeadBlockService headBlockService) {
         this.headsConfiguration = headsConfiguration;
         this.headService = headService;
         this.notificationAnnouncer = notificationAnnouncer;
+        this.headBlockService = headBlockService;
         this.delay = new Delay<>(this.headsConfiguration);
     }
 
@@ -83,39 +83,9 @@ public class HeadController implements Listener {
         }
 
         Location location = clickedBlock.getLocation();
-        this.headService.find(location).ifPresent(headInfo -> this.headReplacement(player, location, skull, headInfo));
+        this.headService.find(location).ifPresent(headInfo -> this.headBlockService.replaceHead(player, location, skull, headInfo));
 
         this.delay.markDelay(player.getUniqueId(), this.headsConfiguration.delay());
     }
 
-    private void headReplacement(Player player, Location location, Skull skull, HeadInfo headInfo) {
-        UUID replacedByUUID = headInfo.getReplacedByUUID();
-        Set<UUID> replacedUUIDs = headInfo.getReplacedUUIDs();
-
-        if (replacedByUUID != null && !replacedByUUID.equals(player.getUniqueId())) {
-            replacedUUIDs.remove(replacedByUUID);
-        }
-
-        if (replacedUUIDs.contains(player.getUniqueId())) {
-            this.notificationAnnouncer.sendMessage(player, this.headsConfiguration.messages.youAreAlreadyReplaceThisHead);
-            return;
-        }
-
-        headInfo.setPlayerName(player.getName());
-        headInfo.setPlayerUUID(player.getUniqueId());
-        headInfo.setReplacedByUUID(player.getUniqueId());
-        replacedUUIDs.add(player.getUniqueId());
-        this.headService.updateHologram(headInfo);
-
-        if (this.headsConfiguration.head.soundEnabled) {
-            player.playSound(location, this.headsConfiguration.head.sound, this.headsConfiguration.head.volume, this.headsConfiguration.head.pitch);
-        }
-
-        if (this.headsConfiguration.head.particleEnabled) {
-            player.spawnParticle(this.headsConfiguration.head.particle, location, this.headsConfiguration.head.count, 0.5, 0.5, 0.5);
-        }
-
-        skull.setOwningPlayer(player);
-        skull.update();
-    }
 }

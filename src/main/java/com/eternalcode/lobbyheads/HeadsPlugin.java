@@ -3,6 +3,7 @@ package com.eternalcode.lobbyheads;
 import com.eternalcode.lobbyheads.adventure.AdventureLegacyColorProcessor;
 import com.eternalcode.lobbyheads.configuration.ConfigurationService;
 import com.eternalcode.lobbyheads.configuration.implementation.HeadsConfiguration;
+import com.eternalcode.lobbyheads.head.HeadBlockService;
 import com.eternalcode.lobbyheads.head.HeadCommand;
 import com.eternalcode.lobbyheads.head.HeadController;
 import com.eternalcode.lobbyheads.head.HeadService;
@@ -45,8 +46,10 @@ public class HeadsPlugin extends JavaPlugin {
         HeadService headService = new HeadService(this.skullAPI, this, headsConfiguration, miniMessage, server);
         headService.loadHolograms();
 
-        this.getCommand("heads").setExecutor(new HeadCommand(headsConfiguration, headService, configurationService, notificationAnnouncer));
-        this.getServer().getPluginManager().registerEvents(new HeadController(headsConfiguration, headService, notificationAnnouncer), this);
+        HeadBlockService headBlockService = new HeadBlockService(headsConfiguration, headService, notificationAnnouncer);
+
+        this.getCommand("heads").setExecutor(new HeadCommand(headsConfiguration, configurationService, notificationAnnouncer, headBlockService));
+        this.getServer().getPluginManager().registerEvents(new HeadController(headsConfiguration, headService, notificationAnnouncer, headBlockService), this);
     }
 
     @Override
