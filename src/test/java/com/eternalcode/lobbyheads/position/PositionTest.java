@@ -7,11 +7,12 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class PositionTest {
 
+    public static final String TEST_WORLD = "TestWorld";
     private Position position;
 
     @BeforeEach
     void setUp() {
-        this.position = new Position(10.5, 20.5, 30.5, 10.2F, 10.1F, "TestWorld");
+        this.position = new Position(10.5, 20.5, 30.5, 10.2F, 10.1F, TEST_WORLD);
     }
 
     @Test
@@ -41,7 +42,7 @@ class PositionTest {
 
     @Test
     void testGetWorld(){
-        assertEquals("TestWorld", position.getWorld());
+        assertEquals(TEST_WORLD, position.getWorld());
     }
 
     @Test
