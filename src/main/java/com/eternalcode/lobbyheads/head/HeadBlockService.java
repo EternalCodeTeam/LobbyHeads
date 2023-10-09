@@ -63,7 +63,7 @@ public class HeadBlockService {
 
     void replaceHead(Player player, Position position, Skull skull, HeadInfo headInfo) {
         UUID replacedByUUID = headInfo.getReplacedByUUID();
-        Set<UUID> replacedUUIDs = headInfo.getReplacedUUIDs();
+        Set<UUID> replacedUUIDs = headInfo.setReplacedUUIDs();
 
         if (replacedByUUID != null && !replacedByUUID.equals(player.getUniqueId())) {
             replacedUUIDs.remove(replacedByUUID);
