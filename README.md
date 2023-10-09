@@ -7,6 +7,16 @@ can be awarded to premium ranks as a special recognition.
 ## Preview:
 TODO: Add a GIF here.
 
+## Permissions
+
+The Plugin comes with two available permissions:
+
+| Permision | Usage |
+| :--- | :--- |
+| lobbyheads.replace | Allows the User to replace heads on demand. |
+| lobbyheads.admin | Allows the User adding or removing heads |
+
+
 ## Usage Instructions
 
 1. Post-installation, get player head from gamemode.
