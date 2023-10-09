@@ -11,6 +11,9 @@
 # Build directories
 build/
 
+# RunServer
+run/
+
 # OS generated files
 .DS_Store
 [Dd]esktop.ini
