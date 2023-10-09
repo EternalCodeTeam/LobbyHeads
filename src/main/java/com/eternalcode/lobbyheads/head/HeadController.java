@@ -16,6 +16,8 @@ import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.EquipmentSlot;
 
+import java.util.UUID;
+
 public class HeadController implements Listener {
 
     private static final String REPLACEMENT_PERMISSION = "lobbyheads.replace";
@@ -24,7 +26,7 @@ public class HeadController implements Listener {
     private final HeadService headService;
     private final NotificationAnnouncer notificationAnnouncer;
     private final HeadBlockService headBlockService;
-    private final Delay delay;
+    private final Delay<UUID> delay;
 
     public HeadController(HeadsConfiguration config, HeadService headService, NotificationAnnouncer notificationAnnouncer, HeadBlockService headBlockService) {
         this.config = config;
