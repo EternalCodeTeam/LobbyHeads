@@ -51,6 +51,7 @@ dependencies {
 
     // spigot-api
     compileOnly("org.spigotmc:spigot-api:1.20.1-R0.1-SNAPSHOT")
+    testImplementation("org.spigotmc:spigot-api:1.20.1-R0.1-SNAPSHOT")
 
     // mojang's authlib
     compileOnly("com.mojang:authlib:1.6.25")
@@ -60,6 +61,12 @@ dependencies {
 
     // PlaceholderAPI, if anyone wants to parse placeholders in the head's name
     compileOnly("me.clip:placeholderapi:2.11.3")
+
+    // tests setup
+    testImplementation("org.codehaus.groovy:groovy-all:3.0.19")
+    testImplementation("org.junit.jupiter:junit-jupiter-api:5.10.0")
+    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.10.0")
+    testImplementation("org.mockito:mockito-core:5.5.0")
 }
 
 java {
@@ -87,42 +94,39 @@ bukkit {
 
 }
 
-tasks {
-    runServer {
-        minecraftVersion("1.20.1")
-    }
+tasks.compileJava {
+    options.compilerArgs = listOf("-Xlint:deprecation", "-Xlint:unchecked")
+    options.encoding = "UTF-8"
+}
 
-    withType<ShadowJar> {
-        archiveFileName.set("LobbyHeads v${project.version}.jar")
+tasks.getByName<Test>("test") {
+    useJUnitPlatform()
+}
 
-        exclude(
+tasks.runServer {
+    minecraftVersion("1.20.2")
+}
+
+tasks.shadowJar {
+    archiveFileName.set("LobbyHeads v${project.version}.jar")
+
+    exclude(
             "org/intellij/lang/annotations/**",
             "org/jetbrains/annotations/**",
             "META-INF/**",
-        )
+    )
 
-        dependsOn("checkstyleMain")
+    dependsOn("checkstyleMain")
 
-        mergeServiceFiles()
+    mergeServiceFiles()
 
-        val prefix = "com.eternalcode.lobbyheads.libs"
-        listOf(
+    val prefix = "com.eternalcode.lobbyheads.libs"
+    listOf(
             "dev.rollczi",
             "eu.okaeri",
             "panda",
             "org.yaml",
             "net.kyori",
             "com.github.unldenis",
-        ).forEach { relocate(it, prefix) }
-    }
-
-    withType<JavaCompile> {
-        options.compilerArgs = listOf("-Xlint:deprecation", "-Xlint:unchecked")
-        options.encoding = "UTF-8"
-    }
-
-    getByName<Test>("test") {
-        useJUnitPlatform()
-    }
-
+    ).forEach { relocate(it, prefix) }
 }
