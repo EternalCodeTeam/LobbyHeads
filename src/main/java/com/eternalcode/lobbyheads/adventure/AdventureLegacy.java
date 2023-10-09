@@ -28,10 +28,4 @@ public final class AdventureLegacy {
     public static Component component(String text) {
         return LEGACY_SERIALIZER.deserialize(text);
     }
-
-    public static List<Component> components(Iterable<String> texts) {
-        return StreamSupport.stream(texts.spliterator(), false)
-            .map(LEGACY_SERIALIZER::deserialize)
-            .collect(Collectors.toList());
-    }
 }
