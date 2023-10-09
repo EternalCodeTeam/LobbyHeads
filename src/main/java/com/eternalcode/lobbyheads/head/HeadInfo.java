@@ -1,6 +1,8 @@
 package com.eternalcode.lobbyheads.head;
 
 import com.eternalcode.lobbyheads.position.Position;
+
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
@@ -41,6 +43,10 @@ public class HeadInfo {
     }
 
     public Set<UUID> getReplacedUUIDs() {
+        return Collections.unmodifiableSet(this.replacedUUIDs);
+    }
+
+    public Set<UUID> setReplacedUUIDs() {
         return this.replacedUUIDs;
     }
 

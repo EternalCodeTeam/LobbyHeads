@@ -3,12 +3,14 @@
 *.ipr
 *.iws
 .idea/
+
+# Gradle files
 .gradle/
-run/
-out/
+!gradle-wrapper.jar
+
+# Build directories
 build/
 
+# OS generated files
 .DS_Store
 [Dd]esktop.ini
-
-!gradle/wrapper/gradle-wrapper.jar
