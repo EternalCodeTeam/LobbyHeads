@@ -7,10 +7,8 @@ import com.eternalcode.lobbyheads.head.modern.event.HeadUpdateEvent;
 import com.eternalcode.lobbyheads.position.Position;
 import org.bukkit.entity.Player;
 
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.UUID;
 
 public class HeadManager {
 
@@ -27,7 +25,7 @@ public class HeadManager {
 
             this.heads.put(position, head);
 
-            this.eventCaller.callEvent(new HeadCreateEvent(player.getUniqueId()));
+            this.eventCaller.callEvent(new HeadCreateEvent(player.getUniqueId(), position));
         }
     }
 
@@ -48,7 +46,7 @@ public class HeadManager {
             head.setPlayerName(player.getName());
             head.setPlayerUUID(player.getUniqueId());
 
-            this.eventCaller.callEvent(new HeadUpdateEvent(player.getUniqueId()));
+            this.eventCaller.callEvent(new HeadUpdateEvent(player.getUniqueId(), position));
         }
     }
 

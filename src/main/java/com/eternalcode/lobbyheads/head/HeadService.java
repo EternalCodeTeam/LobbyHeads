@@ -101,25 +101,7 @@ public class HeadService {
         }
     }
 
-    private void prepareSkullUpdate(BukkitScheduler scheduler, SkullData skullData, Skull skull) {
-        scheduler.runTask(this.plugin, () -> this.updateSkull(skullData, skull));
-    }
 
-    private void updateSkull(SkullData skullData, Skull skull) {
-        GameProfile gameProfile = new GameProfile(UUID.randomUUID(), null);
-        gameProfile.getProperties().put(SKULL_TEXTURE_PROPERTY_KEY, new Property(SKULL_TEXTURE_PROPERTY_KEY, skullData.getValue()));
-
-        try {
-            Field profileField = skull.getClass().getDeclaredField("profile");
-            profileField.setAccessible(true);
-            profileField.set(skull, gameProfile);
-        }
-        catch (NoSuchFieldException | IllegalAccessException exception) {
-            exception.printStackTrace();
-        }
-
-        skull.update();
-    }
 
     private Position getLocationOffset(HeadInfo headInfo) {
         Location location = PositionAdapter.convert(headInfo.getPosition()).clone().add(0.5, -0.3, 0.5);
