@@ -8,9 +8,10 @@ import com.eternalcode.lobbyheads.head.HeadController;
 import com.eternalcode.lobbyheads.head.HeadManager;
 import com.eternalcode.lobbyheads.head.block.HeadBlockController;
 import com.eternalcode.lobbyheads.head.command.HeadCommand;
+import com.eternalcode.lobbyheads.head.hologram.HologramController;
 import com.eternalcode.lobbyheads.head.hologram.HologramService;
-import com.eternalcode.lobbyheads.head.particle.HeadParticleController;
-import com.eternalcode.lobbyheads.head.sound.HeadSoundController;
+import com.eternalcode.lobbyheads.head.particle.ParticleController;
+import com.eternalcode.lobbyheads.head.sound.SoundController;
 import com.eternalcode.lobbyheads.notification.NotificationAnnouncer;
 import dev.rollczi.liteskullapi.LiteSkullFactory;
 import dev.rollczi.liteskullapi.SkullAPI;
@@ -62,9 +63,10 @@ public class HeadsPlugin extends JavaPlugin {
             new HeadController(config, this.headManager, notificationAnnouncer),
 
             // sub-controllers
-            new HeadSoundController(server, config),
-            new HeadParticleController(server, config),
-            new HeadBlockController(this, server.getScheduler(), this.skullAPI)
+            new SoundController(server, config),
+            new ParticleController(server, config),
+            new HeadBlockController(this, server.getScheduler(), this.skullAPI),
+            new HologramController(hologramService, config, server)
         ).forEach(listener -> server.getPluginManager().registerEvents(listener, this));
     }
 

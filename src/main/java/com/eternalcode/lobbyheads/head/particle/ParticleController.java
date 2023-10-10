@@ -12,12 +12,12 @@ import org.bukkit.event.Listener;
 
 import java.util.UUID;
 
-public class HeadParticleController implements Listener {
+public class ParticleController implements Listener {
 
     private final Server server;
     private final HeadsConfiguration config;
 
-    public HeadParticleController(Server server, HeadsConfiguration config) {
+    public ParticleController(Server server, HeadsConfiguration config) {
         this.server = server;
         this.config = config;
     }

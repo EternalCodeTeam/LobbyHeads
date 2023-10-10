@@ -12,12 +12,12 @@ import org.bukkit.event.Listener;
 
 import java.util.UUID;
 
-public class HeadSoundController implements Listener {
+public class SoundController implements Listener {
 
     private final Server server;
     private final HeadsConfiguration config;
 
-    public HeadSoundController(Server server, HeadsConfiguration config) {
+    public SoundController(Server server, HeadsConfiguration config) {
         this.server = server;
         this.config = config;
     }
