@@ -35,7 +35,7 @@ public class HeadsPlugin extends JavaPlugin {
         Server server = this.getServer();
 
         ConfigurationService configurationService = new ConfigurationService();
-        HeadsConfiguration headsConfiguration = configurationService.create(HeadsConfiguration.class, new File(this.getDataFolder(), "config.yml"));
+        HeadsConfiguration config = configurationService.create(HeadsConfiguration.class, new File(this.getDataFolder(), "config.yml"));
 
         EventCaller eventCaller = new EventCaller(server);
 
@@ -51,19 +51,19 @@ public class HeadsPlugin extends JavaPlugin {
 
         NotificationAnnouncer notificationAnnouncer = new NotificationAnnouncer(this.audienceProvider, miniMessage);
 
-        this.headManager = new HeadManager(eventCaller);
-        HologramService hologramService = new HologramService(this, headsConfiguration, miniMessage, server);
+        this.headManager = new HeadManager(eventCaller, config);
+        HologramService hologramService = new HologramService(this, config, miniMessage, server);
         hologramService.loadHolograms();
 
 
-        this.getCommand("heads").setExecutor(new HeadCommand(headsConfiguration, configurationService, notificationAnnouncer, this.headManager));
+        this.getCommand("heads").setExecutor(new HeadCommand(config, configurationService, notificationAnnouncer, this.headManager));
 
         Stream.of(
-            new HeadController(headsConfiguration, this.headManager, notificationAnnouncer),
+            new HeadController(config, this.headManager, notificationAnnouncer),
 
             // sub-controllers
-            new HeadSoundController(server, headsConfiguration),
-            new HeadParticleController(server, headsConfiguration),
+            new HeadSoundController(server, config),
+            new HeadParticleController(server, config),
             new HeadBlockController(this, server.getScheduler(), this.skullAPI)
         ).forEach(listener -> server.getPluginManager().registerEvents(listener, this));
     }

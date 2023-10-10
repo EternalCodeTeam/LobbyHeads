@@ -1,5 +1,6 @@
 package com.eternalcode.lobbyheads.head;
 
+import com.eternalcode.lobbyheads.configuration.implementation.HeadsConfiguration;
 import com.eternalcode.lobbyheads.event.EventCaller;
 import com.eternalcode.lobbyheads.head.event.HeadCreateEvent;
 import com.eternalcode.lobbyheads.head.event.HeadRemoveEvent;
@@ -15,18 +16,22 @@ public class HeadManager {
     private final Map<Position, Head> heads = new HashMap<>();
     private final EventCaller eventCaller;
 
-    public HeadManager(EventCaller eventCaller) {
+    private final HeadsConfiguration config;
+
+    public HeadManager(EventCaller eventCaller, HeadsConfiguration config) {
         this.eventCaller = eventCaller;
+        this.config = config;
     }
 
     public void addHead(Player player, Position position) {
-        if (!this.heads.containsKey(position)) {
-            Head head = new Head(position, player.getName(), player.getUniqueId());
+        this.heads.computeIfAbsent(position, pos -> {
+            Head head = new Head(pos, player.getName(), player.getUniqueId());
 
-            this.heads.put(position, head);
+            this.config.heads.add(head);
+            this.eventCaller.callEvent(new HeadCreateEvent(player.getUniqueId(), pos));
 
-            this.eventCaller.callEvent(new HeadCreateEvent(player.getUniqueId(), position));
-        }
+            return head;
+        });
     }
 
     public void removeHead(Position position) {
@@ -34,6 +39,7 @@ public class HeadManager {
             Head head = this.heads.get(position);
 
             this.heads.remove(position);
+            this.config.heads.remove(head);
 
             this.eventCaller.callEvent(new HeadRemoveEvent(head.getPlayerUUID(), position));
         }
@@ -46,6 +52,11 @@ public class HeadManager {
             head.setPlayerName(player.getName());
             head.setPlayerUUID(player.getUniqueId());
             head.setReplacedByUUID(player.getUniqueId());
+
+            int index = this.config.heads.indexOf(head);
+            if (index != -1) {
+                this.config.heads.set(index, head);
+            }
 
             this.eventCaller.callEvent(new HeadUpdateEvent(player.getUniqueId(), position));
         }
