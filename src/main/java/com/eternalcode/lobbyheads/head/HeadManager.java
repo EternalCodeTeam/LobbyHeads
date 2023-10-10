@@ -51,7 +51,7 @@ public class HeadManager {
 
             head.setPlayerName(player.getName());
             head.setPlayerUUID(player.getUniqueId());
-            head.setReplacedByUUID(player.getUniqueId());
+            head.setLastReplacedUUID(player.getUniqueId());
 
             int index = this.config.heads.indexOf(head);
             if (index != -1) {
