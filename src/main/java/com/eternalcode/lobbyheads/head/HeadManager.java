@@ -1,9 +1,9 @@
-package com.eternalcode.lobbyheads.head.modern;
+package com.eternalcode.lobbyheads.head;
 
 import com.eternalcode.lobbyheads.event.EventCaller;
-import com.eternalcode.lobbyheads.head.modern.event.HeadCreateEvent;
-import com.eternalcode.lobbyheads.head.modern.event.HeadRemoveEvent;
-import com.eternalcode.lobbyheads.head.modern.event.HeadUpdateEvent;
+import com.eternalcode.lobbyheads.head.event.HeadCreateEvent;
+import com.eternalcode.lobbyheads.head.event.HeadRemoveEvent;
+import com.eternalcode.lobbyheads.head.event.HeadUpdateEvent;
 import com.eternalcode.lobbyheads.position.Position;
 import org.bukkit.entity.Player;
 
@@ -35,7 +35,7 @@ public class HeadManager {
 
             this.heads.remove(position);
 
-            this.eventCaller.callEvent(new HeadRemoveEvent(head.getPlayerUUID()));
+            this.eventCaller.callEvent(new HeadRemoveEvent(head.getPlayerUUID(), position));
         }
     }
 
@@ -45,6 +45,7 @@ public class HeadManager {
 
             head.setPlayerName(player.getName());
             head.setPlayerUUID(player.getUniqueId());
+            head.setReplacedByUUID(player.getUniqueId());
 
             this.eventCaller.callEvent(new HeadUpdateEvent(player.getUniqueId(), position));
         }

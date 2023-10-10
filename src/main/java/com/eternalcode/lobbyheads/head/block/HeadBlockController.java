@@ -1,6 +1,6 @@
-package com.eternalcode.lobbyheads.head.modern.block;
+package com.eternalcode.lobbyheads.head.block;
 
-import com.eternalcode.lobbyheads.head.modern.event.HeadCreateEvent;
+import com.eternalcode.lobbyheads.head.event.HeadCreateEvent;
 import com.eternalcode.lobbyheads.position.Position;
 import com.eternalcode.lobbyheads.position.PositionAdapter;
 import com.mojang.authlib.GameProfile;

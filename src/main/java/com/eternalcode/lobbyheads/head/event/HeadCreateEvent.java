@@ -1,4 +1,4 @@
-package com.eternalcode.lobbyheads.head.modern.event;
+package com.eternalcode.lobbyheads.head.event;
 
 import com.eternalcode.lobbyheads.position.Position;
 import org.bukkit.event.Event;
@@ -7,13 +7,13 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.UUID;
 
-public class HeadUpdateEvent extends Event {
+public class HeadCreateEvent extends Event {
 
     private static final HandlerList handlers = new HandlerList();
     private final UUID player;
     private final Position position;
 
-    public HeadUpdateEvent(UUID player, Position position) {
+    public HeadCreateEvent(UUID player, Position position) {
         this.player = player;
         this.position = position;
     }
@@ -24,10 +24,6 @@ public class HeadUpdateEvent extends Event {
 
     public Position getPosition() {
         return this.position;
-    }
-
-    public static HandlerList getHandlerList() {
-        return handlers;
     }
 
     @Override

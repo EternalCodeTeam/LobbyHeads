@@ -1,7 +1,7 @@
-package com.eternalcode.lobbyheads.head.modern.particle;
+package com.eternalcode.lobbyheads.head.particle;
 
 import com.eternalcode.lobbyheads.configuration.implementation.HeadsConfiguration;
-import com.eternalcode.lobbyheads.head.modern.event.HeadUpdateEvent;
+import com.eternalcode.lobbyheads.head.event.HeadUpdateEvent;
 import com.eternalcode.lobbyheads.position.Position;
 import com.eternalcode.lobbyheads.position.PositionAdapter;
 import org.bukkit.Location;

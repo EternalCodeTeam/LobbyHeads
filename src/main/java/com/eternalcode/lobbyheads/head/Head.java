@@ -2,12 +2,11 @@ package com.eternalcode.lobbyheads.head;
 
 import com.eternalcode.lobbyheads.position.Position;
 
-import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
 
-public class HeadInfo {
+public class Head {
 
     private final Position position;
     private final Set<UUID> replacedUUIDs;
@@ -15,7 +14,7 @@ public class HeadInfo {
     private UUID playerUUID;
     private UUID replacedByUUID;
 
-    public HeadInfo(Position position, String playerName, UUID playerUUID) {
+    public Head(Position position, String playerName, UUID playerUUID) {
         this.position = position;
         this.playerName = playerName;
         this.playerUUID = playerUUID;
@@ -23,11 +22,15 @@ public class HeadInfo {
     }
 
     public Position getPosition() {
-        return this.position;
+        return position;
+    }
+
+    public Set<UUID> getReplacedUUIDs() {
+        return replacedUUIDs;
     }
 
     public String getPlayerName() {
-        return this.playerName;
+        return playerName;
     }
 
     public void setPlayerName(String playerName) {
@@ -35,23 +38,15 @@ public class HeadInfo {
     }
 
     public UUID getPlayerUUID() {
-        return this.playerUUID;
+        return playerUUID;
     }
 
     public void setPlayerUUID(UUID playerUUID) {
         this.playerUUID = playerUUID;
     }
 
-    public Set<UUID> getReplacedUUIDs() {
-        return Collections.unmodifiableSet(this.replacedUUIDs);
-    }
-
-    public Set<UUID> setReplacedUUIDs() {
-        return this.replacedUUIDs;
-    }
-
     public UUID getReplacedByUUID() {
-        return this.replacedByUUID;
+        return replacedByUUID;
     }
 
     public void setReplacedByUUID(UUID replacedByUUID) {

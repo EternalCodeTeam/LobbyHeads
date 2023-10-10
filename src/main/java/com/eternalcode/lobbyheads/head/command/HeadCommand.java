@@ -1,9 +1,9 @@
-package com.eternalcode.lobbyheads.head.modern.command;
+package com.eternalcode.lobbyheads.head.command;
 
 import com.eternalcode.lobbyheads.configuration.ConfigurationService;
 import com.eternalcode.lobbyheads.configuration.implementation.HeadsConfiguration;
-import com.eternalcode.lobbyheads.head.modern.Head;
-import com.eternalcode.lobbyheads.head.modern.HeadManager;
+import com.eternalcode.lobbyheads.head.Head;
+import com.eternalcode.lobbyheads.head.HeadManager;
 import com.eternalcode.lobbyheads.notification.NotificationAnnouncer;
 import com.eternalcode.lobbyheads.position.Position;
 import com.eternalcode.lobbyheads.position.PositionAdapter;

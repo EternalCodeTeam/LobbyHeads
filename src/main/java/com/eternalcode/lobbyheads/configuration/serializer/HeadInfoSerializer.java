@@ -1,6 +1,5 @@
 package com.eternalcode.lobbyheads.configuration.serializer;
 
-import com.eternalcode.lobbyheads.head.HeadInfo;
 import com.eternalcode.lobbyheads.position.Position;
 import eu.okaeri.configs.schema.GenericsDeclaration;
 import eu.okaeri.configs.serdes.DeserializationData;
