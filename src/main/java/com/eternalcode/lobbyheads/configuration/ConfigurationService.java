@@ -58,4 +58,8 @@ public class ConfigurationService {
         }
     }
 
+    public void save(OkaeriConfig config) {
+        config.save();
+    }
+
 }

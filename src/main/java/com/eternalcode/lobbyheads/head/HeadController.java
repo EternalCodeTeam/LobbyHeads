@@ -17,6 +17,8 @@ import java.util.UUID;
 
 public class HeadController implements Listener {
 
+    public static final String HEAD_REPLACE_PERMISSION = "lobbyheads.replace";
+
     private final HeadsConfiguration config;
     private final Delay<UUID> delay;
     private final HeadManager headManager;
@@ -47,7 +49,17 @@ public class HeadController implements Listener {
 
         UUID playerUUID = player.getUniqueId();
 
+        if (!player.hasPermission(HEAD_REPLACE_PERMISSION)) {
+            this.notificationAnnouncer.sendMessage(player, this.config.messages.youAreNotPermittedToReplaceHeads);
+            return;
+        }
+
         if (this.delay.hasDelay(playerUUID)) {
+            return;
+        }
+
+        if (head.getLastReplacedUUID().equals(playerUUID)) {
+            this.notificationAnnouncer.sendMessage(player, this.config.messages.youAreAlreadyReplaceThisHead);
             return;
         }
 

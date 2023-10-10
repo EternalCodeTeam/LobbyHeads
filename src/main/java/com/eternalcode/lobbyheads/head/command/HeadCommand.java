@@ -8,6 +8,7 @@ import com.eternalcode.lobbyheads.notification.NotificationAnnouncer;
 import com.eternalcode.lobbyheads.position.Position;
 import com.eternalcode.lobbyheads.position.PositionAdapter;
 import org.bukkit.Location;
+import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -58,16 +59,30 @@ public class HeadCommand implements CommandExecutor, TabCompleter {
         Location location = block.getLocation();
         Position convert = PositionAdapter.convert(location);
 
-        Head head = this.headManager.getHead(convert);
-
-        if (head == null) {
-            this.notificationAnnouncer.sendMessage(player, this.config.messages.youAreNotLookingAtHead);
-            return true;
-        }
-
         switch (subcommand) {
-            case "add" -> this.headManager.addHead(player, convert);
-            case "remove" -> this.headManager.removeHead(convert);
+            case "add" -> {
+                if (location.getBlock().getType() != Material.PLAYER_HEAD) {
+                    this.notificationAnnouncer.sendMessage(player, this.config.messages.youAreNotLookingAtHead);
+                    return true;
+                }
+
+                if (this.headManager.getHead(convert) != null) {
+                    this.notificationAnnouncer.sendMessage(player, this.config.messages.headAlreadyExists);
+                    return true;
+                }
+
+                this.headManager.addHead(player, convert);
+            }
+            case "remove" -> {
+                Head head = this.headManager.getHead(convert);
+
+                if (head == null) {
+                    this.notificationAnnouncer.sendMessage(player, this.config.messages.youAreNotLookingAtHead);
+                    return true;
+                }
+
+                this.headManager.removeHead(convert);
+            }
             case "reload" -> {
                 this.configurationService.reload();
                 this.notificationAnnouncer.sendMessage(player, this.config.messages.configurationReloaded);

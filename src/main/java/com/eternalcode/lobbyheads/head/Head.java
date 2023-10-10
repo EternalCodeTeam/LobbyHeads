@@ -11,10 +11,11 @@ public class Head {
     private UUID playerUUID;
     private UUID lastReplacedUUID;
 
-    public Head(Position position, String playerName, UUID playerUUID) {
+    public Head(Position position, String playerName, UUID playerUUID, UUID lastReplacedUUID) {
         this.position = position;
         this.playerName = playerName;
         this.playerUUID = playerUUID;
+        this.lastReplacedUUID = lastReplacedUUID;
     }
 
     public Position getPosition() {

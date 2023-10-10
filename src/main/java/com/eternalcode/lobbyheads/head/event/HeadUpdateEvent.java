@@ -30,4 +30,8 @@ public class HeadUpdateEvent extends Event {
     public @NotNull HandlerList getHandlers() {
         return handlers;
     }
+
+    public static HandlerList getHandlerList() {
+        return handlers;
+    }
 }
