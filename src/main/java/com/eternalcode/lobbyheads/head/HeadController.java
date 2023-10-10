@@ -3,12 +3,9 @@ package com.eternalcode.lobbyheads.head;
 import com.eternalcode.lobbyheads.configuration.implementation.HeadsConfiguration;
 import com.eternalcode.lobbyheads.delay.Delay;
 import com.eternalcode.lobbyheads.notification.NotificationAnnouncer;
-import com.eternalcode.lobbyheads.position.Position;
 import com.eternalcode.lobbyheads.position.PositionAdapter;
 import org.bukkit.Location;
 import org.bukkit.block.Block;
-import org.bukkit.block.BlockState;
-import org.bukkit.block.Skull;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -16,69 +13,73 @@ import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.EquipmentSlot;
 
+import java.util.UUID;
+
 public class HeadController implements Listener {
 
-    private static final String REPLACEMENT_PERMISSION = "lobbyheads.replace";
+    public static final String HEAD_REPLACE_PERMISSION = "lobbyheads.replace";
 
     private final HeadsConfiguration config;
-    private final HeadService headService;
+    private final Delay<UUID> delay;
+    private final HeadManager headManager;
     private final NotificationAnnouncer notificationAnnouncer;
-    private final HeadBlockService headBlockService;
-    private final Delay delay;
 
-    public HeadController(HeadsConfiguration config, HeadService headService, NotificationAnnouncer notificationAnnouncer, HeadBlockService headBlockService) {
+    public HeadController(HeadsConfiguration config, HeadManager headManager, NotificationAnnouncer notificationAnnouncer) {
         this.config = config;
-        this.headService = headService;
+        this.headManager = headManager;
         this.notificationAnnouncer = notificationAnnouncer;
-        this.headBlockService = headBlockService;
         this.delay = new Delay<>(this.config);
     }
 
     @EventHandler
-    void onPlayerInteract(PlayerInteractEvent event) {
+    private void onPlayerInteract(PlayerInteractEvent event) {
         Player player = event.getPlayer();
         Block clickedBlock = event.getClickedBlock();
 
-        if (clickedBlock == null || event.getHand() != EquipmentSlot.HAND) {
+        if (clickedBlock == null) {
             return;
         }
 
-        if (!this.headBlockService.isHead(clickedBlock)) {
+        Location location = clickedBlock.getLocation();
+
+        Head head = this.headManager.getHead(PositionAdapter.convert(location));
+
+        if (head == null) {
             return;
         }
 
-        if (this.delay.hasDelay(player.getUniqueId())) {
-            return;
-        }
+        UUID playerUUID = player.getUniqueId();
 
-        this.processHeadReplacement(player, clickedBlock);
-    }
-
-    @EventHandler
-    void onBlockBreak(BlockBreakEvent event) {
-        Block brokenBlock = event.getBlock();
-
-        if (this.headBlockService.isHead(brokenBlock)) {
-            event.setCancelled(true);
-        }
-    }
-
-    void processHeadReplacement(Player player, Block clickedBlock) {
-        if (!player.hasPermission(REPLACEMENT_PERMISSION)) {
+        if (!player.hasPermission(HEAD_REPLACE_PERMISSION)) {
             this.notificationAnnouncer.sendMessage(player, this.config.messages.youAreNotPermittedToReplaceHeads);
             return;
         }
 
-        BlockState state = clickedBlock.getState();
-
-        if (!(state instanceof Skull skull)) {
+        if (this.delay.hasDelay(playerUUID)) {
             return;
         }
 
-        Position position = PositionAdapter.convert(clickedBlock.getLocation());
-        this.headService.find(position).ifPresent(headInfo -> this.headBlockService.replaceHead(player, position, skull, headInfo));
+        if (head.getLastReplacedUUID().equals(playerUUID)) {
+            this.notificationAnnouncer.sendMessage(player, this.config.messages.youAreAlreadyReplaceThisHead);
+            return;
+        }
 
-        this.delay.markDelay(player.getUniqueId(), this.config.delay());
+        this.headManager.updateHead(player, PositionAdapter.convert(location));
+        this.delay.markDelay(playerUUID);
     }
 
+    @EventHandler
+    private void onBlockBreak(BlockBreakEvent event) {
+        Player player = event.getPlayer();
+        Block clickedBlock = event.getBlock();
+        Location location = clickedBlock.getLocation();
+
+        Head head = this.headManager.getHead(PositionAdapter.convert(location));
+
+        if (head == null) {
+            return;
+        }
+
+        event.setCancelled(true);
+    }
 }

@@ -13,13 +13,6 @@ import java.util.function.BiConsumer;
 
 public final class NotificationAnnouncer {
 
-    private static final Map<NotificationType, BiConsumer<Audience, Component>> NOTIFICATION_HANDLERS = Map.of(
-        NotificationType.CHAT, Audience::sendMessage,
-        NotificationType.ACTION_BAR, Audience::sendActionBar,
-        NotificationType.TITLE, (audience, component) -> audience.showTitle(Title.title(component, Component.empty())),
-        NotificationType.SUBTITLE, (audience, component) -> audience.showTitle(Title.title(Component.empty(), component))
-    );
-
     private final AudienceProvider audienceProvider;
     private final MiniMessage miniMessage;
 
@@ -28,27 +21,10 @@ public final class NotificationAnnouncer {
         this.miniMessage = miniMessage;
     }
 
-    public void send(CommandSender commandSender, NotificationType notificationType, String text) {
-        Audience audience = this.audience(commandSender);
-        Component component = this.miniMessage.deserialize(text);
-
-        BiConsumer<Audience, Component> handler = NOTIFICATION_HANDLERS.get(notificationType);
-
-        if (handler == null) {
-            return;
-        }
-
-        handler.accept(audience, component);
-    }
-
     public void sendMessage(CommandSender commandSender, String text) {
         Audience audience = this.audience(commandSender);
 
         audience.sendMessage(this.miniMessage.deserialize(text));
-    }
-
-    public void broadcast(String text) {
-        this.audienceProvider.all().sendMessage(this.miniMessage.deserialize(text));
     }
 
     private Audience audience(CommandSender sender) {

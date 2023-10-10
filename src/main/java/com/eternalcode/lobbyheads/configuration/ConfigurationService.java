@@ -1,6 +1,6 @@
 package com.eternalcode.lobbyheads.configuration;
 
-import com.eternalcode.lobbyheads.configuration.serializer.HeadInfoSerializer;
+import com.eternalcode.lobbyheads.configuration.serializer.HeadSerializer;
 import com.eternalcode.lobbyheads.configuration.serializer.PositionSerializer;
 import eu.okaeri.configs.ConfigManager;
 import eu.okaeri.configs.OkaeriConfig;
@@ -40,7 +40,7 @@ public class ConfigurationService {
 
         configFile
             .withConfigurer(yamlConfigurer, new SerdesCommons())
-            .withSerdesPack(registry -> registry.register(new HeadInfoSerializer()))
+            .withSerdesPack(registry -> registry.register(new HeadSerializer()))
             .withSerdesPack(registry -> registry.register(new PositionSerializer()))
             .withBindFile(file)
             .saveDefaults()
@@ -56,6 +56,10 @@ public class ConfigurationService {
         for (OkaeriConfig config : this.configs) {
             config.load();
         }
+    }
+
+    public void save(OkaeriConfig config) {
+        config.save();
     }
 
 }
