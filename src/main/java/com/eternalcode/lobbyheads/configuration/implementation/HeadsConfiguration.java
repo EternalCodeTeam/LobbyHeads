@@ -57,7 +57,6 @@ public class HeadsConfiguration extends OkaeriConfig implements DelaySettings {
         public int count = 10;
     }
 
-    // TODO: Implement unsed message to code.
     public static class Messages extends OkaeriConfig {
         @Comment("# Message when usage is invalid")
         public String invalidUsage = "<color:#ff3425>Hmmm, this doesn't look like a proper usage. Try: /head <add|remove|reload></color>";

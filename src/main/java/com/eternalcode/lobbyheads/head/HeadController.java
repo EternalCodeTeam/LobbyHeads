@@ -35,11 +35,12 @@ public class HeadController implements Listener {
     private void onPlayerInteract(PlayerInteractEvent event) {
         Player player = event.getPlayer();
         Block clickedBlock = event.getClickedBlock();
-        Location location = clickedBlock.getLocation();
 
-        if (event.getHand() != EquipmentSlot.HAND) {
+        if (clickedBlock == null) {
             return;
         }
+
+        Location location = clickedBlock.getLocation();
 
         Head head = this.headManager.getHead(PositionAdapter.convert(location));
 
@@ -64,7 +65,6 @@ public class HeadController implements Listener {
         }
 
         this.headManager.updateHead(player, PositionAdapter.convert(location));
-
         this.delay.markDelay(playerUUID);
     }
 
@@ -80,7 +80,6 @@ public class HeadController implements Listener {
             return;
         }
 
-        this.notificationAnnouncer.sendMessage(player, this.config.messages.headRemoved);
         event.setCancelled(true);
     }
 }

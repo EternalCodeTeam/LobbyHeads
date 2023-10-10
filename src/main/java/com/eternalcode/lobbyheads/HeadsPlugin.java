@@ -27,8 +27,6 @@ import java.util.stream.Stream;
 
 public class HeadsPlugin extends JavaPlugin {
 
-    public static final String COMMAND_NAME = "heads";
-
     private SkullAPI skullAPI;
     private AudienceProvider audienceProvider;
     private HeadManager headManager;
@@ -61,10 +59,7 @@ public class HeadsPlugin extends JavaPlugin {
         hologramService.loadHolograms();
 
 
-        HeadCommand headCommand = new HeadCommand(config, configurationService, notificationAnnouncer, this.headManager);
-
-        this.getCommand(COMMAND_NAME).setTabCompleter(headCommand);
-        this.getCommand(COMMAND_NAME).setExecutor(headCommand);
+        this.getCommand("heads").setExecutor(new HeadCommand(config, configurationService, notificationAnnouncer, this.headManager));
 
         Stream.of(
             new HeadController(config, this.headManager, notificationAnnouncer),

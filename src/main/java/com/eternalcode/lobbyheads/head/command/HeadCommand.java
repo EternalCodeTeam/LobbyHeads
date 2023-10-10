@@ -72,6 +72,7 @@ public class HeadCommand implements CommandExecutor, TabCompleter {
                 }
 
                 this.headManager.addHead(player, convert);
+                this.notificationAnnouncer.sendMessage(player, this.config.messages.headAdded);
             }
             case "remove" -> {
                 Head head = this.headManager.getHead(convert);
@@ -82,6 +83,7 @@ public class HeadCommand implements CommandExecutor, TabCompleter {
                 }
 
                 this.headManager.removeHead(convert);
+                this.notificationAnnouncer.sendMessage(player, this.config.messages.headRemoved);
             }
             case "reload" -> {
                 this.configurationService.reload();
@@ -95,7 +97,7 @@ public class HeadCommand implements CommandExecutor, TabCompleter {
 
     @Override
     public List<String> onTabComplete(CommandSender sender, Command command, String label, String[] args) {
-        if (args.length > 1 && sender.hasPermission(HEAD_MANAGEMENT_PERMISSION)) {
+        if (sender.hasPermission(HEAD_MANAGEMENT_PERMISSION)) {
             return List.of("add", "remove", "reload");
         }
 
