@@ -6,7 +6,7 @@ plugins {
 
     id("net.minecrell.plugin-yml.bukkit") version "0.6.0"
     id("com.github.johnrengelman.shadow") version "8.1.1"
-    id("xyz.jpenilla.run-paper") version "2.1.0"
+    id("xyz.jpenilla.run-paper") version "2.2.0"
 }
 
 group = "com.eternalcode"
@@ -50,11 +50,11 @@ dependencies {
     implementation("dev.rollczi:liteskullapi:1.3.0")
 
     // spigot-api
-    compileOnly("org.spigotmc:spigot-api:1.20.1-R0.1-SNAPSHOT")
-    testImplementation("org.spigotmc:spigot-api:1.20.1-R0.1-SNAPSHOT")
+    compileOnly("org.spigotmc:spigot-api:1.20.2-R0.1-SNAPSHOT")
+    testImplementation("org.spigotmc:spigot-api:1.20.2-R0.1-SNAPSHOT")
 
     // mojang's authlib
-    compileOnly("com.mojang:authlib:1.6.25")
+    compileOnly("com.mojang:authlib:5.0.47")
 
     // HologramLib based on top of the protocolib
     implementation("com.github.unldenis:Hologram-Lib:2.6.0")

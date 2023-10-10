@@ -40,6 +40,10 @@ public class HeadController implements Listener {
             return;
         }
 
+        if (event.getHand() != EquipmentSlot.HAND) {
+            return;
+        }
+
         Location location = clickedBlock.getLocation();
 
         Head head = this.headManager.getHead(PositionAdapter.convert(location));

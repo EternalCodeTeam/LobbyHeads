@@ -12,47 +12,37 @@ class PositionTest {
 
     @BeforeEach
     void setUp() {
-        this.position = new Position(10.5, 20.5, 30.5, 10.2F, 10.1F, TEST_WORLD);
+        this.position = new Position(10.5, 20.5, 30.5, TEST_WORLD);
     }
 
     @Test
     void testGetX() {
-        assertEquals(10.5, position.getX());
+        assertEquals(10.5, position.x());
     }
 
     @Test
     void testGetY() {
-        assertEquals(20.5, position.getY());
+        assertEquals(20.5, position.y());
     }
 
     @Test
     void testGetZ() {
-        assertEquals(30.5, position.getZ());
-    }
-
-    @Test
-    void testGetYaw() {
-        assertEquals(10.2F, position.getYaw());
-    }
-
-    @Test
-    void testGetPitch() {
-        assertEquals(10.1F, position.getPitch());
+        assertEquals(30.5, position.z());
     }
 
     @Test
     void testGetWorld(){
-        assertEquals(TEST_WORLD, position.getWorld());
+        assertEquals(TEST_WORLD, position.world());
     }
 
     @Test
     void testParse() {
-        Position parsed = Position.parse("Position{x=10.5, y=20.5, z=30.5, yaw=10.2, pitch=10.1, world='TestWorld'}");
+        Position parsed = Position.parse("Position{x=10.5, y=20.5, z=30.5, world='TestWorld'}");
         assertEquals(position, parsed);
     }
 
     @Test
     void testToString() {
-        assertEquals("Position{x=10.5, y=20.5, z=30.5, yaw=10.2, pitch=10.1, world='TestWorld'}", position.toString());
+        assertEquals("Position{x=10.5, y=20.5, z=30.5, world='TestWorld'}", position.toString());
     }
 }

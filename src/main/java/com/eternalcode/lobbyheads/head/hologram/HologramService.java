@@ -89,6 +89,6 @@ public class HologramService {
     }
 
     private String getHologramName(Position position) {
-        return String.format(HOLOGRAM_NAME_PREFIX, position.getWorld(), position.getX(), position.getY(), position.getZ());
+        return String.format(HOLOGRAM_NAME_PREFIX, position.world(), position.x(), position.y(), position.z());
     }
 }
