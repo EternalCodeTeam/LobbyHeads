@@ -26,7 +26,7 @@ public class HologramController implements Listener {
 
     @EventHandler
     void createHologram(HeadCreateEvent event) {
-        UUID player = event.getPlayer();
+        UUID player = event.getUuid();
         OfflinePlayer offlinePlayer = this.server.getOfflinePlayer(player);
 
         this.hologramService.createHologram(offlinePlayer, event.getPosition(), this.config.headSection.defaultHeadFormat);
@@ -39,7 +39,7 @@ public class HologramController implements Listener {
 
     @EventHandler
     void updateHologram(HeadUpdateEvent event) {
-        UUID player = event.getPlayer();
+        UUID player = event.getUuid();
         Position position = event.getPosition();
 
         this.hologramService.updateHologram(position, player);

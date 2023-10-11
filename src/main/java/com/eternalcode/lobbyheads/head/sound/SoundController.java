@@ -24,7 +24,7 @@ public class SoundController implements Listener {
 
     @EventHandler
     private void onHeadUpdate(HeadUpdateEvent event) {
-        UUID uuid = event.getPlayer();
+        UUID uuid = event.getUuid();
         Player player = this.server.getPlayer(uuid);
 
         if (player == null) {

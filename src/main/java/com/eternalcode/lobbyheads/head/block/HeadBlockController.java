@@ -43,7 +43,7 @@ public class HeadBlockController implements Listener {
             return;
         }
 
-        SkullData skullData = this.skullAPI.awaitSkullData(event.getPlayer(), 5, TimeUnit.SECONDS);
+        SkullData skullData = this.skullAPI.awaitSkullData(event.getUuid(), 5, TimeUnit.SECONDS);
         this.prepareSkullUpdate(this.scheduler, skullData, skull);
     }
 
