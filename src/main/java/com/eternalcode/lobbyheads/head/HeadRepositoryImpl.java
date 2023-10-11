@@ -4,6 +4,8 @@ package com.eternalcode.lobbyheads.head;
 import com.eternalcode.lobbyheads.configuration.ConfigurationService;
 import com.eternalcode.lobbyheads.configuration.implementation.HeadsConfiguration;
 
+import java.util.concurrent.CompletableFuture;
+
 public class HeadRepositoryImpl implements HeadRepository {
 
     private final HeadsConfiguration config;
@@ -15,21 +17,21 @@ public class HeadRepositoryImpl implements HeadRepository {
     }
 
     @Override
-    public void saveHead(Head head) {
+    public CompletableFuture<Void> saveHead(Head head) {
         this.config.heads.add(head);
-        this.configurationService.save(this.config);
+        return CompletableFuture.runAsync(() -> this.configurationService.save(this.config));
     }
 
     @Override
-    public void removeHead(Head head) {
+    public CompletableFuture<Void> removeHead(Head head) {
         this.config.heads.remove(head);
-        this.configurationService.save(this.config);
+        return CompletableFuture.runAsync(() -> this.configurationService.save(this.config));
     }
 
     @Override
-    public void updateHead(Head head) {
+    public CompletableFuture<Void> updateHead(Head head) {
         int index = this.config.heads.indexOf(head);
         this.config.heads.set(index, head);
-        this.configurationService.save(this.config);
+        return CompletableFuture.runAsync(() -> this.configurationService.save(this.config));
     }
 }
