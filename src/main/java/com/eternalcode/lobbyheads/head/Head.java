@@ -10,13 +10,11 @@ public class Head {
     private final Position position;
     private String playerName;
     private UUID playerUUID;
-    private UUID lastReplacedUUID;
 
-    public Head(Position position, String playerName, UUID playerUUID, UUID lastReplacedUUID) {
+    public Head(Position position, String playerName, UUID playerUUID) {
         this.position = position;
         this.playerName = playerName;
         this.playerUUID = playerUUID;
-        this.lastReplacedUUID = lastReplacedUUID;
     }
 
     public Position getPosition() {
@@ -31,12 +29,7 @@ public class Head {
         return this.playerUUID;
     }
 
-    public UUID getLastReplacedUUID() {
-        return this.lastReplacedUUID;
-    }
-
     public void replacePlayer(String newPlayerName, UUID newPlayerUUID) {
-        this.lastReplacedUUID = this.playerUUID;
         this.playerName = newPlayerName;
         this.playerUUID = newPlayerUUID;
     }
@@ -54,12 +47,11 @@ public class Head {
         Head head = (Head) object;
         return Objects.equals(this.position, head.position)
             && Objects.equals(this.playerName, head.playerName)
-            && Objects.equals(this.playerUUID, head.playerUUID)
-            && Objects.equals(this.lastReplacedUUID, head.lastReplacedUUID);
+            && Objects.equals(this.playerUUID, head.playerUUID);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(this.position, this.playerName, this.playerUUID, this.lastReplacedUUID);
+        return Objects.hash(this.position, this.playerName, this.playerUUID);
     }
 }

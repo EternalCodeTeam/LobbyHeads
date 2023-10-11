@@ -63,7 +63,7 @@ public class HeadController implements Listener {
             return;
         }
 
-        if (head.getLastReplacedUUID().equals(playerUUID)) {
+        if (head.getPlayerUUID().equals(playerUUID)) {
             this.notificationAnnouncer.sendMessage(player, this.config.messages.playerAlreadyReplaceThisHead);
             return;
         }

@@ -31,7 +31,7 @@ public class HeadManager {
         this.heads.computeIfAbsent(position, pos -> {
             UUID uniqueId = player.getUniqueId();
 
-            Head head = new Head(pos, player.getName(), uniqueId, uniqueId);
+            Head head = new Head(pos, player.getName(), uniqueId);
 
             this.config.heads.add(head);
             this.configurationService.save(this.config);

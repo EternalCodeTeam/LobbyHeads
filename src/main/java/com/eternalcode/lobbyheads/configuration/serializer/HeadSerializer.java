@@ -21,17 +21,14 @@ public class HeadSerializer implements ObjectSerializer<Head> {
         data.add("position", head.getPosition());
         data.add("player", head.getPlayerName());
         data.add("uuid", head.getPlayerUUID().toString());
-        data.add("lastReplacedUUID", head.getLastReplacedUUID().toString());
     }
 
     @Override
     public Head deserialize(DeserializationData data, GenericsDeclaration generics) {
         Position position = data.get("position", Position.class);
-
         String playerName = data.get("player", String.class);
         UUID playerUUID = data.get("uuid", UUID.class);
-        UUID lastReplacedUUID = data.get("lastReplacedUUID", UUID.class);
 
-        return new Head(position, playerName, playerUUID, lastReplacedUUID);
+        return new Head(position, playerName, playerUUID);
     }
 }
