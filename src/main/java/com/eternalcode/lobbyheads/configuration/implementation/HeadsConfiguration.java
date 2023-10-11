@@ -65,8 +65,8 @@ public class HeadsConfiguration extends OkaeriConfig implements DelaySettings {
         @Comment("# Reload configs")
         public String configurationReloaded = "<color:#8ceb34>LobbyHeads configuration reloaded!</color>";
 
-        @Comment("# Message for commands that only players can execute")
-        public String onlyForPlayers = "<color:#ff521d>Hey! This command is only for real players!</color>";
+        @Comment("# Message when a head already exists at the block intended for a new one")
+        public String headAlreadyExists = "<color:#ff2d2d>Oops! It looks like this space is already occupied by another head.</color>";
 
         @Comment("# Message when a head has been added successfully")
         public String headAdded = "<color:#9ef442>Head added!</color>";
@@ -74,10 +74,16 @@ public class HeadsConfiguration extends OkaeriConfig implements DelaySettings {
         @Comment("# Message when a head has been removed successfully")
         public String headRemoved = "<color:#93f542>Head removed!</color>";
 
-        @Comment("# Message when a head already exists at the block intended for a new one")
-        public String headAlreadyExists = "<color:#ff2d2d>Oops! It looks like this space is already occupied by another head.</color>";
+        @Comment("# Message for commands that only players can execute")
+        public String onlyForPlayers = "<color:#ff521d>Hey! This command is only for real players!</color>";
 
-        @Comment("# Message when a head is expected, but the player is not looking at one")
+        @Comment("# Message when a player already replaced a head")
+        public String playerAlreadyReplaceThisHead = "<color:#ff3f2a>Hey! It looks like you've already swapped this head.</color>";
+
+        @Comment("# Message when a player must wait to replace another head")
+        public String playerMustWaitToReplaceHead = "<color:#ff3f2a>Hey! You must wait <color:#ffea00>{duration}</color> seconds for next head replace.</color>";
+
+        @Comment("# Message when a player is not looking at one")
         public String playerNotLookingAtHead = "<color:#ff3e24>Hey! You need to be looking at a head to do this.</color>";
 
         @Comment("# Message when a player is not permitted to replace heads")
@@ -85,11 +91,5 @@ public class HeadsConfiguration extends OkaeriConfig implements DelaySettings {
 
         @Comment("# Message when a player is not permitted to use an admin command")
         public String playerNotPermittedToUseThisCommand = "<color:#ff2528>You're not permitted to use this command!</color>";
-
-        @Comment("# Message when a player already replaced a head")
-        public String playerAlreadyReplaceThisHead = "<color:#ff3f2a>Hey! It looks like you've already swapped this head.</color>";
-
-        @Comment("# Message when a player must wait to replace another head")
-        public String playerMustWaitToReplaceHead = "<color:#ff3f2a>Hey! You must wait <color:#ffea00>{duration}</color> seconds for next head replace.</color>";
     }
 }
