@@ -4,8 +4,8 @@
 We wholeheartedly welcome all contributions to LobbyHeads and are excited to know you are considering making one.
 
 To ensure a robust and ideal solution, we recommend going through this guide.
-Following this guide saves both your time
-and that of our core contributors engaged in maintaining the project and reviewing proposals.
+Following this guide saves both your time, 
+and some of our core contributors are engaged in maintaining the project and reviewing proposals.
 
 ## Submitting Bug Reports and Feature Requests
 
@@ -72,4 +72,4 @@ If you need help with making a contribution or using our project, please feel fr
 our [Discord server](https://discord.gg/FQ7jmGBd6c).
 We are always happy to assist those who show an endeavor to learn!
 
-Thank you once again for your interest in contributing to LobbyHeads, and making our project even better!
+Thank you once again for your interest in contributing to LobbyHeads and making our project even better!

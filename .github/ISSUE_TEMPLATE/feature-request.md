@@ -1,6 +1,6 @@
 ---
 name: Feature Request
-about: Suggest an idea for this project
+about: For suggesting an idea for this project
 labels: '🆕 feature'
 ---
 
@@ -8,18 +8,21 @@ labels: '🆕 feature'
 
 ## Summary
 
-Please provide a brief summary of your feature request. What problem does it solve or value does it add?
+A brief summary of the feature request is desired. Kindly specify the problem it addresses or the value it adds.
 
 ## Solution Description
 
-Please elaborate on your proposed solution. How should it work? What should it look like?
+A detailed description of the proposed solution is appreciated.
+Details regarding its workings and visual representation are requested.
 
 ## Alternatives
 
-Have you considered any alternative solutions or features? Please describe them.
+Any considerations of alternative solutions or features? If so, their description is appreciated here.
 
 ## Additional Context
 
-Please provide any additional information (mock-ups, links to similar solutions in other plugins/games, etc.) related to your feature request here.
+Any additional information (mock-ups, links to similar solutions in other plugins/games, etc.),
+related to the feature request can be provided here.
 
-**Remember, the more information you provide, the more likely we are to understand and evaluate the feature you are requesting.**
+**Remember, the provision of comprehensive information enhances the understanding and evaluation of the requested
+feature.**

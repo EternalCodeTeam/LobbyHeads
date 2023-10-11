@@ -12,11 +12,11 @@ Please provide a clear and comprehensive description of what the bug is. If poss
 
 ## Expected Behavior
 
-Please describe what you'd expect to happen.
+A description of the expected behavior is requested.
 
 ## Screenshots
 
-If applicable, add screenshots to help explain your problem.
+If applicable, adding screenshots can help to explain the problem.
 
 ## Environment Information
 
@@ -28,6 +28,7 @@ If applicable, add screenshots to help explain your problem.
 
 ## Additional Context
 
-Please provide any additional context, information, or data that you think might be relevant to this bug report here.
+Any additional context, information, or data that might be relevant to this bug report is welcomed here.
 
-**Remember, the more information you provide, the more likely we are to quickly understand, diagnose, and effectively address the issue.**
+**Remember, the more information provided, the more likely the issue can be understood, diagnosed, and effectively
+addressed expediently.**
