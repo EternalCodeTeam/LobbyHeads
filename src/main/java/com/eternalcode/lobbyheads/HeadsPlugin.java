@@ -6,6 +6,8 @@ import com.eternalcode.lobbyheads.configuration.implementation.HeadsConfiguratio
 import com.eternalcode.lobbyheads.event.EventCaller;
 import com.eternalcode.lobbyheads.head.HeadController;
 import com.eternalcode.lobbyheads.head.HeadManager;
+import com.eternalcode.lobbyheads.head.HeadRepository;
+import com.eternalcode.lobbyheads.head.HeadRepositoryImpl;
 import com.eternalcode.lobbyheads.head.block.BlockController;
 import com.eternalcode.lobbyheads.head.block.BlockService;
 import com.eternalcode.lobbyheads.head.command.HeadCommand;
@@ -53,7 +55,9 @@ public class HeadsPlugin extends JavaPlugin {
 
         NotificationAnnouncer notificationAnnouncer = new NotificationAnnouncer(this.audienceProvider, miniMessage);
 
-        this.headManager = new HeadManager(eventCaller, config, configurationService);
+        HeadRepository headRepository = new HeadRepositoryImpl(config, configurationService);
+
+        this.headManager = new HeadManager(eventCaller, config, headRepository);
         this.headManager.loadHeads();
 
         HologramService hologramService = new HologramService(this, config, miniMessage, server);
