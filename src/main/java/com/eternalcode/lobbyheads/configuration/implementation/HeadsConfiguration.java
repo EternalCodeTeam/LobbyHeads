@@ -52,7 +52,7 @@ public class HeadsConfiguration extends OkaeriConfig implements DelaySettings {
         public int volume = 1;
         public int pitch = 1;
 
-        @Comment("# Particle when player replaces head")
+        @Comment("# Particle when a player replaces head")
         public boolean particleEnabled = true;
         public Particle particle = Particle.VILLAGER_HAPPY;
         public int count = 10;

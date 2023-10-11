@@ -31,8 +31,8 @@ public class ConfigurationService {
             .withSerdesPack(registry -> registry.register(new HeadSerializer()))
             .withSerdesPack(registry -> registry.register(new PositionSerializer()))
             .withBindFile(file)
-            .saveDefaults()
             .withRemoveOrphans(true)
+            .saveDefaults()
             .load(true);
 
         this.configs.add(configFile);

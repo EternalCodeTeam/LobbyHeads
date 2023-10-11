@@ -42,10 +42,16 @@ public class Head {
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Head head = (Head) o;
+    public boolean equals(Object object) {
+        if (this == object) {
+            return true;
+        }
+
+        if (object == null || getClass() != object.getClass()) {
+            return false;
+        }
+
+        Head head = (Head) object;
         return Objects.equals(this.position, head.position)
             && Objects.equals(this.playerName, head.playerName)
             && Objects.equals(this.playerUUID, head.playerUUID)

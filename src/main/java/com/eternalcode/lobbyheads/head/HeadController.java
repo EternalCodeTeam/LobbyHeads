@@ -74,7 +74,6 @@ public class HeadController implements Listener {
 
     @EventHandler
     private void onBlockBreak(BlockBreakEvent event) {
-        Player player = event.getPlayer();
         Block clickedBlock = event.getBlock();
         Location location = clickedBlock.getLocation();
 
