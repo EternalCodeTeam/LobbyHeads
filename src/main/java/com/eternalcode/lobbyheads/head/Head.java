@@ -45,13 +45,11 @@ public class Head {
         }
 
         Head head = (Head) object;
-        return Objects.equals(this.position, head.position)
-            && Objects.equals(this.playerName, head.playerName)
-            && Objects.equals(this.playerUUID, head.playerUUID);
+        return Objects.equals(this.position, head.position);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(this.position, this.playerName, this.playerUUID);
+        return Objects.hash(this.position);
     }
 }
