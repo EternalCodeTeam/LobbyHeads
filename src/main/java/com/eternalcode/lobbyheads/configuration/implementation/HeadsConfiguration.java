@@ -88,5 +88,8 @@ public class HeadsConfiguration extends OkaeriConfig implements DelaySettings {
 
         @Comment("# Message when a player already replaced a head")
         public String playerAlreadyReplaceThisHead = "<color:#ff3f2a>Hey! It looks like you've already swapped this head.</color>";
+
+        @Comment("# Message when a player must wait to replace another head")
+        public String playerMustWaitToReplaceHead = "<color:#ff3f2a>Hey! You must wait <color:#ffea00>{duration}</color> seconds for next head replace.</color>";
     }
 }

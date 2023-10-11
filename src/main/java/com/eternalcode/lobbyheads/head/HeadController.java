@@ -13,6 +13,7 @@ import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.EquipmentSlot;
 
+import java.time.Duration;
 import java.util.UUID;
 
 public class HeadController implements Listener {
@@ -60,6 +61,10 @@ public class HeadController implements Listener {
         }
 
         if (this.delay.hasDelay(playerUUID)) {
+            Duration durationToExpire = this.delay.getDurationToExpire(playerUUID);
+
+            this.notificationAnnouncer.sendMessage(player, this.config.messages.playerMustWaitToReplaceHead
+                .replace("{duration}", String.valueOf(durationToExpire.toSeconds())));
             return;
         }
 
