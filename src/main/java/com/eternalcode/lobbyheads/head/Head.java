@@ -26,23 +26,17 @@ public class Head {
         return this.playerName;
     }
 
-    public void setPlayerName(String playerName) {
-        this.playerName = playerName;
-    }
-
     public UUID getPlayerUUID() {
         return this.playerUUID;
-    }
-
-    public void setPlayerUUID(UUID playerUUID) {
-        this.playerUUID = playerUUID;
     }
 
     public UUID getLastReplacedUUID() {
         return this.lastReplacedUUID;
     }
 
-    public void setLastReplacedUUID(UUID lastReplacedUUID) {
-        this.lastReplacedUUID = lastReplacedUUID;
+    public void replacePlayer(String newPlayerName, UUID newPlayerUUID) {
+        this.lastReplacedUUID = this.playerUUID;
+        this.playerName = newPlayerName;
+        this.playerUUID = newPlayerUUID;
     }
 }
