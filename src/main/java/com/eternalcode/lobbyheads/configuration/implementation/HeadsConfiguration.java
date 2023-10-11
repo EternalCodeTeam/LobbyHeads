@@ -25,7 +25,7 @@ import java.util.List;
 public class HeadsConfiguration extends OkaeriConfig implements DelaySettings {
 
     @Comment("# Delay between replacing heads")
-    public Duration delay = Duration.ofSeconds(15);
+    public Duration headReplacementDelay = Duration.ofSeconds(15);
 
     @Comment({ " ", "# Heads list, don't touch this!" })
     public List<Head> heads = new ArrayList<>();
@@ -38,7 +38,7 @@ public class HeadsConfiguration extends OkaeriConfig implements DelaySettings {
 
     @Override
     public Duration delay() {
-        return this.delay;
+        return this.headReplacementDelay;
     }
 
     public static class HeadSection extends OkaeriConfig {
@@ -60,7 +60,7 @@ public class HeadsConfiguration extends OkaeriConfig implements DelaySettings {
 
     public static class Messages extends OkaeriConfig {
         @Comment("# Message when usage is invalid")
-        public String invalidUsage = "<color:#ff3425>Hmmm, this doesn't look like a proper usage. Try: /head <add|remove|reload></color>";
+        public String commandInvalidUsage = "<color:#ff3425>Hmmm, this doesn't look like a proper usage. Try: /head <add|remove|reload></color>";
 
         @Comment("# Reload configs")
         public String configurationReloaded = "<color:#8ceb34>LobbyHeads configuration reloaded!</color>";
@@ -78,15 +78,15 @@ public class HeadsConfiguration extends OkaeriConfig implements DelaySettings {
         public String headAlreadyExists = "<color:#ff2d2d>Oops! It looks like this space is already occupied by another head.</color>";
 
         @Comment("# Message when a head is expected, but the player is not looking at one")
-        public String youAreNotLookingAtHead = "<color:#ff3e24>Hey! You need to be looking at a head to do this.</color>";
+        public String playerNotLookingAtHead = "<color:#ff3e24>Hey! You need to be looking at a head to do this.</color>";
 
         @Comment("# Message when a player is not permitted to replace heads")
-        public String youAreNotPermittedToReplaceHeads = "<color:#ff2f30>I'm sorry, but head swapping is only available for <b><color:#ffea00>VIP</color></b> members.</color>";
+        public String playerNotPermittedToReplaceHeads = "<color:#ff2f30>I'm sorry, but head swapping is only available for <b><color:#ffea00>VIP</color></b> members.</color>";
 
         @Comment("# Message when a player is not permitted to use an admin command")
-        public String youAreNotPermittedToUseThisCommand = "<color:#ff2528>You're not permitted to use this command!</color>";
+        public String playerNotPermittedToUseThisCommand = "<color:#ff2528>You're not permitted to use this command!</color>";
 
         @Comment("# Message when a player already replaced a head")
-        public String youAreAlreadyReplaceThisHead = "<color:#ff3f2a>Hey! It looks like you've already swapped this head.</color>";
+        public String playerAlreadyReplaceThisHead = "<color:#ff3f2a>Hey! It looks like you've already swapped this head.</color>";
     }
 }

@@ -2,6 +2,7 @@ package com.eternalcode.lobbyheads.head;
 
 import com.eternalcode.lobbyheads.position.Position;
 
+import java.util.Objects;
 import java.util.UUID;
 
 public class Head {
@@ -38,5 +39,21 @@ public class Head {
         this.lastReplacedUUID = this.playerUUID;
         this.playerName = newPlayerName;
         this.playerUUID = newPlayerUUID;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Head head = (Head) o;
+        return Objects.equals(this.position, head.position)
+            && Objects.equals(this.playerName, head.playerName)
+            && Objects.equals(this.playerUUID, head.playerUUID)
+            && Objects.equals(this.lastReplacedUUID, head.lastReplacedUUID);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(this.position, this.playerName, this.playerUUID, this.lastReplacedUUID);
     }
 }

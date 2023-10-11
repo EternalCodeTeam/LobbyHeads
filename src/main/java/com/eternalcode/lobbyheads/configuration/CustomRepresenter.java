@@ -12,7 +12,7 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 
-public class CustomRepresenter extends Representer {
+class CustomRepresenter extends Representer {
 
     public CustomRepresenter(DumperOptions options) {
         super(options);

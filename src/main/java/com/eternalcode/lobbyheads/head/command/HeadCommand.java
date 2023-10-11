@@ -2,8 +2,6 @@ package com.eternalcode.lobbyheads.head.command;
 
 import com.eternalcode.lobbyheads.configuration.ConfigurationService;
 import com.eternalcode.lobbyheads.configuration.implementation.HeadsConfiguration;
-import com.eternalcode.lobbyheads.head.Head;
-import com.eternalcode.lobbyheads.head.HeadManager;
 import com.eternalcode.lobbyheads.head.block.BlockService;
 import com.eternalcode.lobbyheads.notification.NotificationAnnouncer;
 import com.eternalcode.lobbyheads.position.Position;
@@ -27,7 +25,8 @@ public class HeadCommand implements CommandExecutor, TabCompleter {
     private final NotificationAnnouncer notificationAnnouncer;
     private final BlockService blockService;
 
-    public HeadCommand(HeadsConfiguration config, ConfigurationService configurationService, NotificationAnnouncer notificationAnnouncer, BlockService blockService) {
+    public HeadCommand(HeadsConfiguration config, ConfigurationService configurationService,
+                       NotificationAnnouncer notificationAnnouncer, BlockService blockService) {
         this.config = config;
         this.configurationService = configurationService;
         this.notificationAnnouncer = notificationAnnouncer;
@@ -37,7 +36,7 @@ public class HeadCommand implements CommandExecutor, TabCompleter {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (!sender.hasPermission(HEAD_MANAGEMENT_PERMISSION)) {
-            this.notificationAnnouncer.sendMessage(sender, this.config.messages.youAreNotPermittedToUseThisCommand);
+            this.notificationAnnouncer.sendMessage(sender, this.config.messages.playerNotPermittedToUseThisCommand);
             return false;
         }
 
@@ -46,7 +45,7 @@ public class HeadCommand implements CommandExecutor, TabCompleter {
             return true;
         }
 
-        String invalidUsage = this.config.messages.invalidUsage;
+        String invalidUsage = this.config.messages.commandInvalidUsage;
 
         if (args.length < 1) {
             this.notificationAnnouncer.sendMessage(player, invalidUsage);

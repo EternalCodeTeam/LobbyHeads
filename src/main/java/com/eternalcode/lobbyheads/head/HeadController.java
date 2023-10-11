@@ -55,7 +55,7 @@ public class HeadController implements Listener {
         UUID playerUUID = player.getUniqueId();
 
         if (!player.hasPermission(HEAD_REPLACE_PERMISSION)) {
-            this.notificationAnnouncer.sendMessage(player, this.config.messages.youAreNotPermittedToReplaceHeads);
+            this.notificationAnnouncer.sendMessage(player, this.config.messages.playerNotPermittedToReplaceHeads);
             return;
         }
 
@@ -64,7 +64,7 @@ public class HeadController implements Listener {
         }
 
         if (head.getLastReplacedUUID().equals(playerUUID)) {
-            this.notificationAnnouncer.sendMessage(player, this.config.messages.youAreAlreadyReplaceThisHead);
+            this.notificationAnnouncer.sendMessage(player, this.config.messages.playerAlreadyReplaceThisHead);
             return;
         }
 

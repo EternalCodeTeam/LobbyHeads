@@ -10,7 +10,7 @@ import java.util.regex.Pattern;
  */
 public record Position(double x, double y, double z, String world) {
 
-    private final static Pattern PARSE_FORMAT = Pattern.compile("Position\\{x=(?<x>-?[\\d.]+), y=(?<y>-?[\\d.]+), z=(?<z>-?[\\d.]+), world='(?<world>.+)'}");
+    private static final Pattern PARSE_FORMAT = Pattern.compile("Position\\{x=(?<x>-?[\\d.]+), y=(?<y>-?[\\d.]+), z=(?<z>-?[\\d.]+), world='(?<world>.+)'}");
 
     @Override
     public boolean equals(Object o) {

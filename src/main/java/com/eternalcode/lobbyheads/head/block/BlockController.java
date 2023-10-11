@@ -53,7 +53,8 @@ public class BlockController implements Listener {
 
     private void updateSkull(SkullData skullData, Skull skull) {
         GameProfile gameProfile = new GameProfile(UUID.randomUUID(), null);
-        gameProfile.getProperties().put(SKULL_TEXTURE_PROPERTY_KEY, new Property(SKULL_TEXTURE_PROPERTY_KEY, skullData.getValue()));
+        gameProfile.getProperties().put(SKULL_TEXTURE_PROPERTY_KEY,
+            new Property(SKULL_TEXTURE_PROPERTY_KEY, skullData.getValue()));
 
         try {
             Field profileField = skull.getClass().getDeclaredField("profile");

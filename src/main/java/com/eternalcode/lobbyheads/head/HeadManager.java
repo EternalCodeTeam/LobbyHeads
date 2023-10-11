@@ -55,18 +55,17 @@ public class HeadManager {
 
     public void updateHead(Player player, Position position) {
         if (this.heads.containsKey(position)) {
-            Head head = this.heads.get(position);
-
-            head.replacePlayer(player.getName(), player.getUniqueId());
-
-            int index = this.config.heads.indexOf(head);
-            if (index != -1) {
-                this.config.heads.set(index, head);
-                this.configurationService.save(this.config);
-            }
-
-            this.eventCaller.callEvent(new HeadUpdateEvent(player.getUniqueId(), position));
+            return;
         }
+
+        Head head = this.heads.get(position);
+        head.replacePlayer(player.getName(), player.getUniqueId());
+
+        int index = this.config.heads.indexOf(head);
+        this.config.heads.set(index, head);
+        this.configurationService.save(this.config);
+
+        this.eventCaller.callEvent(new HeadUpdateEvent(player.getUniqueId(), position));
     }
 
     public void loadHeads() {

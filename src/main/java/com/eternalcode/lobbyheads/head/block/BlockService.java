@@ -23,7 +23,7 @@ public class BlockService {
 
     public void createHeadBlock(Location location, Player player, Position convert) {
         if (location.getBlock().getType() != Material.PLAYER_HEAD) {
-            this.notificationAnnouncer.sendMessage(player, this.config.messages.youAreNotLookingAtHead);
+            this.notificationAnnouncer.sendMessage(player, this.config.messages.playerNotLookingAtHead);
             return;
         }
 
@@ -40,7 +40,7 @@ public class BlockService {
         Head head = this.headManager.getHead(convert);
 
         if (head == null) {
-            this.notificationAnnouncer.sendMessage(player, this.config.messages.youAreNotLookingAtHead);
+            this.notificationAnnouncer.sendMessage(player, this.config.messages.playerNotLookingAtHead);
             return;
         }
 
