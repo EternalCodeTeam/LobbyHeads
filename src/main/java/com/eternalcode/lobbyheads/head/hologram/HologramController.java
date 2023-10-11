@@ -29,7 +29,7 @@ public class HologramController implements Listener {
         UUID player = event.getPlayer();
         OfflinePlayer offlinePlayer = this.server.getOfflinePlayer(player);
 
-        this.hologramService.createHologram(offlinePlayer, event.getPosition(), this.config.head.defaultHeadFormat);
+        this.hologramService.createHologram(offlinePlayer, event.getPosition(), this.config.headSection.defaultHeadFormat);
     }
 
     @EventHandler

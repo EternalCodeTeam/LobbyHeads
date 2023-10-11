@@ -1,6 +1,7 @@
 package com.eternalcode.lobbyheads.configuration.implementation;
 
 import com.eternalcode.lobbyheads.delay.DelaySettings;
+import com.eternalcode.lobbyheads.head.Head;
 import eu.okaeri.configs.OkaeriConfig;
 import eu.okaeri.configs.annotation.Comment;
 import eu.okaeri.configs.annotation.Header;
@@ -27,20 +28,20 @@ public class HeadsConfiguration extends OkaeriConfig implements DelaySettings {
     public Duration delay = Duration.ofSeconds(15);
 
     @Comment({ " ", "# Heads list, don't touch this!" })
-    public List<com.eternalcode.lobbyheads.head.Head> heads = new ArrayList<>();
+    public List<Head> heads = new ArrayList<>();
 
     @Comment({ " ", "# Messages configuration, you can change messages here" })
     public Messages messages = new Messages();
 
     @Comment({ " ", "# Head configuration, you can change head settings here" })
-    public Head head = new Head();
+    public HeadSection headSection = new HeadSection();
 
     @Override
     public Duration delay() {
         return this.delay;
     }
 
-    public static class Head extends OkaeriConfig {
+    public static class HeadSection extends OkaeriConfig {
         @Comment("# Format of the head, you can use PlaceholderAPI here")
         public String defaultHeadFormat = "<gradient:#8dc63f:#53a30e>{PLAYER}</gradient>";
         public String headFormat = "<gradient:#8dc63f:#53a30e>%luckperms_prefix% {PLAYER}</gradient>";

@@ -24,19 +24,7 @@ public class ConfigurationService {
     public <T extends OkaeriConfig> T create(Class<T> config, File file) {
         T configFile = ConfigManager.create(config);
 
-        LoaderOptions loaderOptions = new LoaderOptions();
-        Constructor constructor = new Constructor(loaderOptions);
-
-        DumperOptions dumperOptions = new DumperOptions();
-        dumperOptions.setDefaultFlowStyle(DumperOptions.FlowStyle.AUTO);
-        dumperOptions.setIndent(2);
-        dumperOptions.setSplitLines(false);
-
-        Representer representer = new CustomRepresenter(dumperOptions);
-        Resolver resolver = new Resolver();
-
-        Yaml yaml = new Yaml(constructor, representer, dumperOptions, loaderOptions, resolver);
-        YamlSnakeYamlConfigurer yamlConfigurer = new YamlSnakeYamlConfigurer(yaml);
+        YamlSnakeYamlConfigurer yamlConfigurer = new YamlSnakeYamlConfigurer(this.createYaml());
 
         configFile
             .withConfigurer(yamlConfigurer, new SerdesCommons())
@@ -50,6 +38,21 @@ public class ConfigurationService {
         this.configs.add(configFile);
 
         return configFile;
+    }
+
+    private Yaml createYaml() {
+        LoaderOptions loaderOptions = new LoaderOptions();
+        Constructor constructor = new Constructor(loaderOptions);
+
+        DumperOptions dumperOptions = new DumperOptions();
+        dumperOptions.setDefaultFlowStyle(DumperOptions.FlowStyle.AUTO);
+        dumperOptions.setIndent(2);
+        dumperOptions.setSplitLines(false);
+
+        Representer representer = new CustomRepresenter(dumperOptions);
+        Resolver resolver = new Resolver();
+
+        return new Yaml(constructor, representer, dumperOptions, loaderOptions, resolver);
     }
 
     public void reload() {

@@ -34,8 +34,8 @@ public class ParticleController implements Listener {
         Position position = event.getPosition();
         Location convert = PositionAdapter.convert(position);
 
-        if (this.config.head.particleEnabled) {
-            player.spawnParticle(this.config.head.particle, convert, this.config.head.count, 0.5, 0.5, 0.5);
+        if (this.config.headSection.particleEnabled) {
+            player.spawnParticle(this.config.headSection.particle, convert, this.config.headSection.count, 0.5, 0.5, 0.5);
         }
     }
 }

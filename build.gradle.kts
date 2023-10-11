@@ -117,6 +117,8 @@ tasks.shadowJar {
     )
 
     dependsOn("checkstyleMain")
+    dependsOn("checkstyleTest")
+    dependsOn("test")
 
     mergeServiceFiles()
 
