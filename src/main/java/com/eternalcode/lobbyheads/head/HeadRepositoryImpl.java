@@ -4,6 +4,8 @@ package com.eternalcode.lobbyheads.head;
 import com.eternalcode.lobbyheads.configuration.ConfigurationService;
 import com.eternalcode.lobbyheads.configuration.implementation.HeadsConfiguration;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
 public class HeadRepositoryImpl implements HeadRepository {
@@ -33,5 +35,10 @@ public class HeadRepositoryImpl implements HeadRepository {
         int index = this.config.heads.indexOf(head);
         this.config.heads.set(index, head);
         return CompletableFuture.runAsync(() -> this.configurationService.save(this.config));
+    }
+
+    @Override
+    public CompletableFuture<List<Head>> loadHeads() {
+        return CompletableFuture.completedFuture(new ArrayList<>(this.config.heads));
     }
 }

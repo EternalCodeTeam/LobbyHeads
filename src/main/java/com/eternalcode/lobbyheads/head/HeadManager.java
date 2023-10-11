@@ -63,9 +63,10 @@ public class HeadManager {
     }
 
     public void loadHeads() {
-        for (Head head : this.config.heads) {
-            this.heads.put(head.getPosition(), head);
-        }
+        this.headRepository.loadHeads().thenAccept(loadedHeads -> {
+            this.heads.clear();
+            loadedHeads.forEach(head -> this.heads.put(head.getPosition(), head));
+        });
     }
 
     public void clearHeads() {

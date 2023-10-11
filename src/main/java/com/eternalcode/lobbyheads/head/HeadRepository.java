@@ -1,6 +1,7 @@
 package com.eternalcode.lobbyheads.head;
 
 import java.util.concurrent.CompletableFuture;
+import java.util.List;
 
 public interface HeadRepository {
 
@@ -9,5 +10,7 @@ public interface HeadRepository {
     CompletableFuture<Void> removeHead(Head head);
 
     CompletableFuture<Void> updateHead(Head head);
+
+    CompletableFuture<List<Head>> loadHeads();
 
 }
