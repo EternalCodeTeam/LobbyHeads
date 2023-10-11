@@ -4,11 +4,11 @@ import com.eternalcode.lobbyheads.configuration.ConfigurationService;
 import com.eternalcode.lobbyheads.configuration.implementation.HeadsConfiguration;
 import com.eternalcode.lobbyheads.head.Head;
 import com.eternalcode.lobbyheads.head.HeadManager;
+import com.eternalcode.lobbyheads.head.block.BlockService;
 import com.eternalcode.lobbyheads.notification.NotificationAnnouncer;
 import com.eternalcode.lobbyheads.position.Position;
 import com.eternalcode.lobbyheads.position.PositionAdapter;
 import org.bukkit.Location;
-import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -25,13 +25,13 @@ public class HeadCommand implements CommandExecutor, TabCompleter {
     private final HeadsConfiguration config;
     private final ConfigurationService configurationService;
     private final NotificationAnnouncer notificationAnnouncer;
-    private final HeadManager headManager;
+    private final BlockService blockService;
 
-    public HeadCommand(HeadsConfiguration config, ConfigurationService configurationService, NotificationAnnouncer notificationAnnouncer, HeadManager headManager) {
+    public HeadCommand(HeadsConfiguration config, ConfigurationService configurationService, NotificationAnnouncer notificationAnnouncer, BlockService blockService) {
         this.config = config;
         this.configurationService = configurationService;
         this.notificationAnnouncer = notificationAnnouncer;
-        this.headManager = headManager;
+        this.blockService = blockService;
     }
 
     @Override
@@ -60,31 +60,8 @@ public class HeadCommand implements CommandExecutor, TabCompleter {
         Position convert = PositionAdapter.convert(location);
 
         switch (subcommand) {
-            case "add" -> {
-                if (location.getBlock().getType() != Material.PLAYER_HEAD) {
-                    this.notificationAnnouncer.sendMessage(player, this.config.messages.youAreNotLookingAtHead);
-                    return true;
-                }
-
-                if (this.headManager.getHead(convert) != null) {
-                    this.notificationAnnouncer.sendMessage(player, this.config.messages.headAlreadyExists);
-                    return true;
-                }
-
-                this.headManager.addHead(player, convert);
-                this.notificationAnnouncer.sendMessage(player, this.config.messages.headAdded);
-            }
-            case "remove" -> {
-                Head head = this.headManager.getHead(convert);
-
-                if (head == null) {
-                    this.notificationAnnouncer.sendMessage(player, this.config.messages.youAreNotLookingAtHead);
-                    return true;
-                }
-
-                this.headManager.removeHead(convert);
-                this.notificationAnnouncer.sendMessage(player, this.config.messages.headRemoved);
-            }
+            case "add" -> this.blockService.createHeadBlock(location, player, convert);
+            case "remove" -> this.blockService.removeHeadBlock(convert, player);
             case "reload" -> {
                 this.configurationService.reload();
                 this.notificationAnnouncer.sendMessage(player, this.config.messages.configurationReloaded);

@@ -19,7 +19,7 @@ import java.lang.reflect.Field;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
-public class HeadBlockController implements Listener {
+public class BlockController implements Listener {
 
     private static final String SKULL_TEXTURE_PROPERTY_KEY = "textures";
 
@@ -27,7 +27,7 @@ public class HeadBlockController implements Listener {
     private final BukkitScheduler scheduler;
     private final SkullAPI skullAPI;
 
-    public HeadBlockController(Plugin plugin, BukkitScheduler scheduler, SkullAPI skullAPI) {
+    public BlockController(Plugin plugin, BukkitScheduler scheduler, SkullAPI skullAPI) {
         this.plugin = plugin;
         this.scheduler = scheduler;
         this.skullAPI = skullAPI;
