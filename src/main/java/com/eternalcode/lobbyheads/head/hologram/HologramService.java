@@ -53,7 +53,7 @@ public class HologramService {
     }
 
     public void loadHolograms() {
-        String defaultHeadFormat = this.config.head.defaultHeadFormat;
+        String defaultHeadFormat = this.config.headSection.defaultHeadFormat;
 
         for (Head head : this.config.heads) {
             this.createHologram(this.server.getOfflinePlayer(head.getPlayerUUID()), head.getPosition(), defaultHeadFormat);
@@ -74,7 +74,7 @@ public class HologramService {
 
     public void updateHologram(Position position, UUID uuid) {
         this.removeHologram(position);
-        this.createHologram(this.server.getOfflinePlayer(uuid), position, this.config.head.headFormat);
+        this.createHologram(this.server.getOfflinePlayer(uuid), position, this.config.headSection.headFormat);
     }
 
     private Position getLocationOffset(Position position) {

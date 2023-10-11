@@ -24,7 +24,7 @@ public class SoundController implements Listener {
 
     @EventHandler
     private void onHeadUpdate(HeadUpdateEvent event) {
-        UUID uuid = event.getPlayer();
+        UUID uuid = event.getUuid();
         Player player = this.server.getPlayer(uuid);
 
         if (player == null) {
@@ -34,8 +34,8 @@ public class SoundController implements Listener {
         Position position = event.getPosition();
         Location convert = PositionAdapter.convert(position);
 
-        if (this.config.head.soundEnabled) {
-            player.playSound(convert, this.config.head.sound, this.config.head.volume, this.config.head.pitch);
+        if (this.config.headSection.soundEnabled) {
+            player.playSound(convert, this.config.headSection.sound, this.config.headSection.volume, this.config.headSection.pitch);
         }
     }
 }

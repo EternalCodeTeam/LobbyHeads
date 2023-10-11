@@ -6,7 +6,8 @@ import com.eternalcode.lobbyheads.configuration.implementation.HeadsConfiguratio
 import com.eternalcode.lobbyheads.event.EventCaller;
 import com.eternalcode.lobbyheads.head.HeadController;
 import com.eternalcode.lobbyheads.head.HeadManager;
-import com.eternalcode.lobbyheads.head.block.HeadBlockController;
+import com.eternalcode.lobbyheads.head.block.BlockController;
+import com.eternalcode.lobbyheads.head.block.BlockService;
 import com.eternalcode.lobbyheads.head.command.HeadCommand;
 import com.eternalcode.lobbyheads.head.hologram.HologramController;
 import com.eternalcode.lobbyheads.head.hologram.HologramService;
@@ -58,8 +59,9 @@ public class HeadsPlugin extends JavaPlugin {
         HologramService hologramService = new HologramService(this, config, miniMessage, server);
         hologramService.loadHolograms();
 
+        BlockService blockService = new BlockService(config, notificationAnnouncer, this.headManager);
 
-        this.getCommand("heads").setExecutor(new HeadCommand(config, configurationService, notificationAnnouncer, this.headManager));
+        this.getCommand("heads").setExecutor(new HeadCommand(config, configurationService, notificationAnnouncer, blockService));
 
         Stream.of(
             new HeadController(config, this.headManager, notificationAnnouncer),
@@ -67,7 +69,7 @@ public class HeadsPlugin extends JavaPlugin {
             // sub-controllers
             new SoundController(server, config),
             new ParticleController(server, config),
-            new HeadBlockController(this, server.getScheduler(), this.skullAPI),
+            new BlockController(this, server.getScheduler(), this.skullAPI),
             new HologramController(hologramService, config, server)
         ).forEach(listener -> server.getPluginManager().registerEvents(listener, this));
     }

@@ -57,9 +57,7 @@ public class HeadManager {
         if (this.heads.containsKey(position)) {
             Head head = this.heads.get(position);
 
-            head.setPlayerName(player.getName());
-            head.setPlayerUUID(player.getUniqueId());
-            head.setLastReplacedUUID(player.getUniqueId());
+            head.replacePlayer(player.getName(), player.getUniqueId());
 
             int index = this.config.heads.indexOf(head);
             if (index != -1) {

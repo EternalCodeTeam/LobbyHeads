@@ -10,16 +10,16 @@ import java.util.UUID;
 public class HeadRemoveEvent extends Event {
 
     private static final HandlerList handlers = new HandlerList();
-    private final UUID player;
+    private final UUID uuid;
     private final Position position;
 
-    public HeadRemoveEvent(UUID player, Position position) {
-        this.player = player;
+    public HeadRemoveEvent(UUID uuid, Position position) {
+        this.uuid = uuid;
         this.position = position;
     }
 
-    public UUID getPlayer() {
-        return this.player;
+    public UUID getUuid() {
+        return this.uuid;
     }
 
     public Position getPosition() {

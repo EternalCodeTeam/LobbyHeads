@@ -18,8 +18,7 @@ public class HeadSerializer implements ObjectSerializer<Head> {
 
     @Override
     public void serialize(Head head, SerializationData data, GenericsDeclaration generics) {
-        Position position = head.getPosition();
-        data.add("position", position);
+        data.add("position", head.getPosition());
         data.add("player", head.getPlayerName());
         data.add("uuid", head.getPlayerUUID().toString());
         data.add("lastReplacedUUID", head.getLastReplacedUUID().toString());
