@@ -33,6 +33,11 @@ public class HeadRepositoryImpl implements HeadRepository {
     @Override
     public CompletableFuture<Void> updateHead(Head head) {
         int index = this.config.heads.indexOf(head);
+
+        if (index == -1) {
+            return this.saveHead(head);
+        }
+
         this.config.heads.set(index, head);
         return CompletableFuture.runAsync(() -> this.configurationService.save(this.config));
     }
