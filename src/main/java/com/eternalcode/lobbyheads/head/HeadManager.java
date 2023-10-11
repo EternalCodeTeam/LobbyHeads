@@ -54,7 +54,7 @@ public class HeadManager {
     }
 
     public void updateHead(Player player, Position position) {
-        if (this.heads.containsKey(position)) {
+        if (!this.heads.containsKey(position)) {
             return;
         }
 
