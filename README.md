@@ -4,9 +4,11 @@
 
 [![Supported by Paper](https://raw.githubusercontent.com/intergrav/devins-badges/v3/assets/cozy/supported/paper_vector.svg)](https://papermc.io)
 [![Supported by Spigot](https://raw.githubusercontent.com/intergrav/devins-badges/v3/assets/cozy/supported/spigot_vector.svg)](https://spigotmc.org)
+
 [![Patreon](https://raw.githubusercontent.com/intergrav/devins-badges/v3/assets/cozy/donate/patreon-plural_vector.svg)](https://www.patreon.com/eternalcode)
 [![Official Website](https://raw.githubusercontent.com/intergrav/devins-badges/v3/assets/cozy/documentation/website_vector.svg)](https://eternalcode.pl/)
 [![Join Our Discord](https://raw.githubusercontent.com/intergrav/devins-badges/v3/assets/cozy/social/discord-plural_vector.svg)](https://discord.gg/FQ7jmGBd6c)
+
 [![Built with Gradle](https://raw.githubusercontent.com/intergrav/devins-badges/v3/assets/cozy/built-with/gradle_vector.svg)](https://gradle.org/)
 [![Built with Java](https://raw.githubusercontent.com/intergrav/devins-badges/v3/assets/cozy/built-with/java17_vector.svg)](https://www.java.com/)
 </div>
@@ -21,7 +23,12 @@ If you find any bugs, issues or inconsistencies, kindly report them [here](https
 
 ## Plugin Preview
 
-_TODO: Add a GIF here._
+### How head work? (You can use this example for **premium** ranks on your server!)
+![gif](/assets/head%20work%2020fps.gif)
+
+
+### How to set up heads? (`/heads add` comand)
+![gif](assets/head%20setup%2020fps.gif)
 
 ## Permission Assignments
 
