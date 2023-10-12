@@ -1,6 +1,5 @@
 package com.eternalcode.lobbyheads.head;
 
-import com.eternalcode.lobbyheads.configuration.implementation.HeadsConfiguration;
 import com.eternalcode.lobbyheads.event.EventCaller;
 import com.eternalcode.lobbyheads.head.event.HeadCreateEvent;
 import com.eternalcode.lobbyheads.head.event.HeadRemoveEvent;
@@ -10,12 +9,8 @@ import org.bukkit.entity.Player;
 
 import java.util.Collection;
 import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
 import java.util.Map;
-import java.util.Set;
 import java.util.UUID;
-import java.util.stream.Stream;
 
 public class HeadManager {
 
