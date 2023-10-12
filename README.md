@@ -21,7 +21,12 @@ If you find any bugs, issues or inconsistencies, kindly report them [here](https
 
 ## Plugin Preview
 
-_TODO: Add a GIF here._
+### How head work? (You can use this example for **premium** ranks on your server!)
+![gif](/assets/head%20work%2020fps.gif)
+
+
+### How to set up heads? (`/heads add` comand)
+![gif](/assets/head%20setup%2020fps.gif)
 
 ## Permission Assignments
 
