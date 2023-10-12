@@ -8,22 +8,24 @@ import com.eternalcode.lobbyheads.head.event.HeadUpdateEvent;
 import com.eternalcode.lobbyheads.position.Position;
 import org.bukkit.entity.Player;
 
+import java.util.Collection;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.UUID;
+import java.util.stream.Stream;
 
 public class HeadManager {
 
     private final Map<Position, Head> heads = new HashMap<>();
     private final EventCaller eventCaller;
 
-    private final HeadsConfiguration config;
     private final HeadRepository headRepository;
 
-    public HeadManager(EventCaller eventCaller, HeadsConfiguration config, HeadRepository headRepository) {
+    public HeadManager(EventCaller eventCaller, HeadRepository headRepository) {
         this.eventCaller = eventCaller;
-        this.config = config;
         this.headRepository = headRepository;
     }
 
@@ -63,8 +65,8 @@ public class HeadManager {
         return this.heads.get(position);
     }
 
-    public List<Head> getHeads() {
-        return this.heads.values().stream().toList();
+    public Collection<Head> getHeads() {
+        return this.heads.values();
     }
 
     public void loadHeads() {

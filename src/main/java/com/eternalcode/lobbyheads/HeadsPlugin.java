@@ -57,7 +57,7 @@ public class HeadsPlugin extends JavaPlugin {
 
         HeadRepository headRepository = new HeadRepositoryImpl(config, configurationService);
 
-        this.headManager = new HeadManager(eventCaller, config, headRepository);
+        this.headManager = new HeadManager(eventCaller, headRepository);
         this.headManager.loadHeads();
 
         HologramService hologramService = new HologramService(this, config, miniMessage, server, this.headManager);

@@ -62,7 +62,8 @@ public class HologramService {
         String defaultHeadFormat = this.config.headSection.defaultHeadFormat;
 
         for (Head head : this.headManager.getHeads()) {
-            this.createHologram(this.server.getOfflinePlayer(head.getPlayerUUID()), head.getPosition(), defaultHeadFormat);
+            OfflinePlayer offlinePlayer = this.server.getOfflinePlayer(head.getPlayerUUID());
+            this.createHologram(offlinePlayer, head.getPosition(), defaultHeadFormat);
         }
     }
 
