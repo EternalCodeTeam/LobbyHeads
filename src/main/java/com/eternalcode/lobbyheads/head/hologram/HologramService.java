@@ -17,7 +17,6 @@ import org.bukkit.Server;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 
-import java.util.Optional;
 import java.util.UUID;
 
 public class HologramService {
