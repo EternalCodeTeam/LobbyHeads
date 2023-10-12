@@ -51,7 +51,7 @@ public class BlockController implements Listener {
         this.processSkullUpdate(position, uuid);
     }
 
-    public void processSkullUpdate(Position position, UUID uuid) {
+    private void processSkullUpdate(Position position, UUID uuid) {
         Location convert = PositionAdapter.convert(position);
         Block block = convert.getBlock();
 
