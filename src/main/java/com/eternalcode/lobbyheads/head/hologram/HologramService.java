@@ -23,14 +23,13 @@ import java.util.UUID;
 public class HologramService {
 
     private static final String HOLOGRAM_NAME_PREFIX = "heads#%s,%s,%s,%s";
-    public static final int SPAWN_DISTANCE = 50;
+    private static final int SPAWN_DISTANCE = 50;
 
     private final Plugin plugin;
     private final HeadsConfiguration config;
     private final MiniMessage miniMessage;
     private final Server server;
     private final HeadManager headManager;
-
 
     private final HologramPool hologramPool;
 
