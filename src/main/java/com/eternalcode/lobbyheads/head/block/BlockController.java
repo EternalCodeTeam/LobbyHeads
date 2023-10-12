@@ -1,6 +1,7 @@
 package com.eternalcode.lobbyheads.head.block;
 
 import com.eternalcode.lobbyheads.head.event.HeadCreateEvent;
+import com.eternalcode.lobbyheads.head.event.HeadUpdateEvent;
 import com.eternalcode.lobbyheads.position.Position;
 import com.eternalcode.lobbyheads.position.PositionAdapter;
 import com.mojang.authlib.GameProfile;
@@ -34,8 +35,22 @@ public class BlockController implements Listener {
     }
 
     @EventHandler
-    private void block(HeadCreateEvent event) {
+    void headCreate(HeadCreateEvent event) {
         Position position = event.getPosition();
+        UUID uuid = event.getUuid();
+
+        this.processSkullUpdate(position, uuid);
+    }
+
+    @EventHandler
+    private void headUpdate(HeadUpdateEvent event) {
+        Position position = event.getPosition();
+        UUID uuid = event.getUuid();
+
+        this.processSkullUpdate(position, uuid);
+    }
+
+    private void processSkullUpdate(Position position, UUID uuid) {
         Location convert = PositionAdapter.convert(position);
         Block block = convert.getBlock();
 
@@ -43,7 +58,7 @@ public class BlockController implements Listener {
             return;
         }
 
-        SkullData skullData = this.skullAPI.awaitSkullData(event.getUuid(), 5, TimeUnit.SECONDS);
+        SkullData skullData = this.skullAPI.awaitSkullData(uuid, 5, TimeUnit.SECONDS);
         this.prepareSkullUpdate(this.scheduler, skullData, skull);
     }
 
