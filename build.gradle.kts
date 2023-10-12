@@ -29,7 +29,7 @@ repositories {
 }
 
 checkstyle {
-    toolVersion = "10.12.3"
+    toolVersion = "10.12.4"
 
     configFile = file("${rootDir}/checkstyle/checkstyle.xml")
     configProperties["checkstyle.suppressions.file"] = "${rootDir}/checkstyle/suppressions.xml"
@@ -44,7 +44,7 @@ dependencies {
     implementation("eu.okaeri:okaeri-configs-serdes-commons:5.0.0-beta.5")
 
     // a cool library, kyori
-    implementation("net.kyori:adventure-platform-bukkit:4.3.0")
+    implementation("net.kyori:adventure-platform-bukkit:4.3.1")
     implementation("net.kyori:adventure-text-minimessage:4.14.0")
 
     // Rollczi's skullapi
@@ -61,13 +61,13 @@ dependencies {
     implementation("com.github.unldenis:Hologram-Lib:2.6.0")
 
     // PlaceholderAPI, if anyone wants to parse placeholders in the head's name
-    compileOnly("me.clip:placeholderapi:2.11.3")
+    compileOnly("me.clip:placeholderapi:2.11.4")
 
     // tests setup
     testImplementation("org.codehaus.groovy:groovy-all:3.0.19")
     testImplementation("org.junit.jupiter:junit-jupiter-api:5.10.0")
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.10.0")
-    testImplementation("org.mockito:mockito-core:5.5.0")
+    testImplementation("org.mockito:mockito-core:5.6.0")
 }
 
 java {
