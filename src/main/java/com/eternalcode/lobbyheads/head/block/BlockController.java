@@ -28,7 +28,6 @@ public class BlockController implements Listener {
     private final BukkitScheduler scheduler;
     private final SkullAPI skullAPI;
 
-
     public BlockController(Plugin plugin, BukkitScheduler scheduler, SkullAPI skullAPI) {
         this.plugin = plugin;
         this.scheduler = scheduler;
