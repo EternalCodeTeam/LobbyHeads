@@ -9,6 +9,7 @@ import com.eternalcode.lobbyheads.position.Position;
 import org.bukkit.entity.Player;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
@@ -60,6 +61,10 @@ public class HeadManager {
 
     public Head getHead(Position position) {
         return this.heads.get(position);
+    }
+
+    public List<Head> getHeads() {
+        return this.heads.values().stream().toList();
     }
 
     public void loadHeads() {

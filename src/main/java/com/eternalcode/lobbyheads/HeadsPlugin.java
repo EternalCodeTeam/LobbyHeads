@@ -60,7 +60,7 @@ public class HeadsPlugin extends JavaPlugin {
         this.headManager = new HeadManager(eventCaller, config, headRepository);
         this.headManager.loadHeads();
 
-        HologramService hologramService = new HologramService(this, config, miniMessage, server);
+        HologramService hologramService = new HologramService(this, config, miniMessage, server, this.headManager);
         hologramService.loadHolograms();
 
         BlockService blockService = new BlockService(config, notificationAnnouncer, this.headManager);
