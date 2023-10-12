@@ -36,7 +36,7 @@ public class BlockController implements Listener {
     }
 
     @EventHandler
-    private void headCreate(HeadCreateEvent event) {
+    void headCreate(HeadCreateEvent event) {
         Position position = event.getPosition();
         UUID uuid = event.getUuid();
 
