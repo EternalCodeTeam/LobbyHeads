@@ -27,6 +27,9 @@ public class HeadsConfiguration extends OkaeriConfig implements DelaySettings {
     @Comment("# Delay between replacing heads")
     public Duration headReplacementDelay = Duration.ofSeconds(15);
 
+    @Comment({ " ", "# Update check" })
+    public boolean receivePluginUpdates = true;
+
     @Comment({ " ", "# Heads list, don't touch this!" })
     public List<Head> heads = new ArrayList<>();
 
