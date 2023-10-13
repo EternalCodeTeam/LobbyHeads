@@ -3,6 +3,7 @@ package com.eternalcode.lobbyheads.head.hologram;
 import com.eternalcode.lobbyheads.adventure.AdventureLegacy;
 import com.eternalcode.lobbyheads.configuration.implementation.HeadsConfiguration;
 import com.eternalcode.lobbyheads.head.Head;
+import com.eternalcode.lobbyheads.head.HeadManager;
 import com.eternalcode.lobbyheads.position.Position;
 import com.eternalcode.lobbyheads.position.PositionAdapter;
 import com.github.unldenis.hologram.Hologram;
@@ -16,25 +17,30 @@ import org.bukkit.Server;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 
-import java.util.Optional;
 import java.util.UUID;
 
 public class HologramService {
 
     private static final String HOLOGRAM_NAME_PREFIX = "heads#%s,%s,%s,%s";
+    private static final int SPAWN_DISTANCE = 50;
 
-    private final HologramPool hologramPool;
     private final Plugin plugin;
     private final HeadsConfiguration config;
     private final MiniMessage miniMessage;
     private final Server server;
+    private final HeadManager headManager;
 
-    public HologramService(Plugin plugin, HeadsConfiguration config, MiniMessage miniMessage, Server server) {
+    private final HologramPool hologramPool;
+
+    public HologramService(Plugin plugin, HeadsConfiguration config, MiniMessage miniMessage,
+                           Server server, HeadManager headManager) {
         this.plugin = plugin;
-        this.hologramPool = new HologramPool(plugin, 50);
         this.config = config;
         this.miniMessage = miniMessage;
         this.server = server;
+        this.headManager = headManager;
+
+        this.hologramPool = new HologramPool(plugin, SPAWN_DISTANCE);
     }
 
     public void createHologram(OfflinePlayer player, Position position, String headName) {
@@ -55,15 +61,10 @@ public class HologramService {
     public void loadHolograms() {
         String defaultHeadFormat = this.config.headSection.defaultHeadFormat;
 
-        for (Head head : this.config.heads) {
-            this.createHologram(this.server.getOfflinePlayer(head.getPlayerUUID()), head.getPosition(), defaultHeadFormat);
+        for (Head head : this.headManager.getHeads()) {
+            OfflinePlayer offlinePlayer = this.server.getOfflinePlayer(head.getPlayerUUID());
+            this.createHologram(offlinePlayer, head.getPosition(), defaultHeadFormat);
         }
-    }
-
-    public Optional<Head> find(Position position) {
-        return this.config.heads.stream()
-            .filter(head -> head.getPosition().equals(position))
-            .findAny();
     }
 
     public void removeHologram(Position position) {
