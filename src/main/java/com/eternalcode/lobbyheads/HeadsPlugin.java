@@ -21,6 +21,7 @@ import dev.rollczi.liteskullapi.SkullAPI;
 import net.kyori.adventure.platform.AudienceProvider;
 import net.kyori.adventure.platform.bukkit.BukkitAudiences;
 import net.kyori.adventure.text.minimessage.MiniMessage;
+import org.bstats.bukkit.Metrics;
 import org.bukkit.Server;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -76,6 +77,8 @@ public class HeadsPlugin extends JavaPlugin {
             new BlockController(this, server.getScheduler(), this.skullAPI),
             new HologramController(hologramService, config, server)
         ).forEach(listener -> server.getPluginManager().registerEvents(listener, this));
+
+        new Metrics(this, 20048);
     }
 
     @Override
