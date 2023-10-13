@@ -63,6 +63,9 @@ dependencies {
     // PlaceholderAPI, if anyone wants to parse placeholders in the head's name
     compileOnly("me.clip:placeholderapi:2.11.4")
 
+    // bstats
+    implementation("org.bstats:bstats-bukkit:3.0.2")
+
     // tests setup
     testImplementation("org.codehaus.groovy:groovy-all:3.0.19")
     testImplementation("org.junit.jupiter:junit-jupiter-api:5.10.0")
@@ -131,5 +134,6 @@ tasks.shadowJar {
             "org.yaml",
             "net.kyori",
             "com.github.unldenis",
+            "org.bstats",
     ).forEach { relocate(it, prefix) }
 }
