@@ -21,6 +21,7 @@ repositories {
     maven { url = uri("https://hub.spigotmc.org/nexus/content/repositories/snapshots/") }
     maven { url = uri("https://jitpack.io") }
     maven { url = uri("https://repo.extendedclip.com/content/repositories/placeholderapi/") }
+    maven { url = uri("https://repo.eternalcode.pl/releases") }
     maven { url = uri("https://storehouse.okaeri.eu/repository/maven-public/") }
     maven { url = uri("https://repository.minecodes.pl/releases") }
     maven { url = uri("https://libraries.minecraft.net/") }
@@ -65,6 +66,9 @@ dependencies {
 
     // bstats
     implementation("org.bstats:bstats-bukkit:3.0.2")
+
+    // GitCheck
+    implementation("com.eternalcode:gitcheck:1.0.0")
 
     // tests setup
     testImplementation("org.codehaus.groovy:groovy-all:3.0.19")
@@ -115,9 +119,9 @@ tasks.shadowJar {
     archiveFileName.set("LobbyHeads v${project.version}.jar")
 
     exclude(
-            "org/intellij/lang/annotations/**",
-            "org/jetbrains/annotations/**",
-            "META-INF/**",
+        "org/intellij/lang/annotations/**",
+        "org/jetbrains/annotations/**",
+        "META-INF/**",
     )
 
     dependsOn("checkstyleMain")
@@ -128,12 +132,13 @@ tasks.shadowJar {
 
     val prefix = "com.eternalcode.lobbyheads.libs"
     listOf(
-            "dev.rollczi",
-            "eu.okaeri",
-            "panda",
-            "org.yaml",
-            "net.kyori",
-            "com.github.unldenis",
-            "org.bstats",
+        "dev.rollczi",
+        "eu.okaeri",
+        "panda",
+        "org.yaml",
+        "net.kyori",
+        "com.github.unldenis",
+        "org.bstats",
+        "com.eternalcode.gitcheck",
     ).forEach { relocate(it, prefix) }
 }

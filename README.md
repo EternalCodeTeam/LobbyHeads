@@ -34,10 +34,11 @@ If you find any bugs, issues or inconsistencies, kindly report them [here](https
 
 LobbyHeads offers two permissions for administrators to assign:
 
-| Permission           | Description                                                     |
-|:---------------------|:----------------------------------------------------------------|
-| `lobbyheads.replace` | Allows the user to replace decorative heads whenever they want. |
-| `lobbyheads.admin`   | Grants the user permission to add or remove decorative heads.   |
+| Permission                  | Description                                                                     |
+|:----------------------------|:--------------------------------------------------------------------------------|
+| `lobbyheads.replace`        | Allows the user to replace decorative heads whenever they want.                 |
+| `lobbyheads.admin`          | Grants the user permission to add or remove decorative heads.                   |
+| `lobbyheads.receiveupdates` | Grants the user permission to receive updates about new versions of the plugin. |
 
 ## Usage Guidelines
 

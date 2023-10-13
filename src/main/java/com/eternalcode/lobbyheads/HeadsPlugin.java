@@ -16,6 +16,8 @@ import com.eternalcode.lobbyheads.head.hologram.HologramService;
 import com.eternalcode.lobbyheads.head.particle.ParticleController;
 import com.eternalcode.lobbyheads.head.sound.SoundController;
 import com.eternalcode.lobbyheads.notification.NotificationAnnouncer;
+import com.eternalcode.lobbyheads.updater.UpdaterNotificationController;
+import com.eternalcode.lobbyheads.updater.UpdaterService;
 import dev.rollczi.liteskullapi.LiteSkullFactory;
 import dev.rollczi.liteskullapi.SkullAPI;
 import net.kyori.adventure.platform.AudienceProvider;
@@ -55,6 +57,8 @@ public class HeadsPlugin extends JavaPlugin {
             .build();
 
         NotificationAnnouncer notificationAnnouncer = new NotificationAnnouncer(this.audienceProvider, miniMessage);
+        UpdaterService updaterService = new UpdaterService(this.getDescription());
+
 
         HeadRepository headRepository = new HeadRepositoryImpl(config, configurationService);
 
@@ -75,7 +79,10 @@ public class HeadsPlugin extends JavaPlugin {
             new SoundController(server, config),
             new ParticleController(server, config),
             new BlockController(this, server.getScheduler(), this.skullAPI),
-            new HologramController(hologramService, config, server)
+            new HologramController(hologramService, config, server),
+
+            // check-up-to-date
+            new UpdaterNotificationController(updaterService, config, notificationAnnouncer)
         ).forEach(listener -> server.getPluginManager().registerEvents(listener, this));
 
         new Metrics(this, 20048);
