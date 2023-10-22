@@ -1,11 +1,11 @@
 package com.eternalcode.lobbyheads.head.command;
 
-import com.eternalcode.lobbyheads.configuration.ConfigurationService;
 import com.eternalcode.lobbyheads.configuration.implementation.HeadsConfiguration;
 import com.eternalcode.lobbyheads.head.block.BlockService;
 import com.eternalcode.lobbyheads.notification.NotificationAnnouncer;
 import com.eternalcode.lobbyheads.position.Position;
 import com.eternalcode.lobbyheads.position.PositionAdapter;
+import com.eternalcode.lobbyheads.reload.ReloadService;
 import org.bukkit.Location;
 import org.bukkit.block.Block;
 import org.bukkit.command.Command;
@@ -21,16 +21,16 @@ public class HeadCommand implements CommandExecutor, TabCompleter {
     private static final String HEAD_MANAGEMENT_PERMISSION = "lobbyheads.admin";
 
     private final HeadsConfiguration config;
-    private final ConfigurationService configurationService;
     private final NotificationAnnouncer notificationAnnouncer;
     private final BlockService blockService;
+    private final ReloadService reloadService;
 
-    public HeadCommand(HeadsConfiguration config, ConfigurationService configurationService,
-                       NotificationAnnouncer notificationAnnouncer, BlockService blockService) {
+    public HeadCommand(HeadsConfiguration config, NotificationAnnouncer notificationAnnouncer,
+                       BlockService blockService, ReloadService reloadService) {
         this.config = config;
-        this.configurationService = configurationService;
         this.notificationAnnouncer = notificationAnnouncer;
         this.blockService = blockService;
+        this.reloadService = reloadService;
     }
 
     @Override
@@ -62,7 +62,7 @@ public class HeadCommand implements CommandExecutor, TabCompleter {
             case "add" -> this.blockService.createHeadBlock(location, player, convert);
             case "remove" -> this.blockService.removeHeadBlock(convert, player);
             case "reload" -> {
-                this.configurationService.reload();
+                this.reloadService.reload();
                 this.notificationAnnouncer.sendMessage(player, this.config.messages.configurationReloaded);
             }
             default -> this.notificationAnnouncer.sendMessage(player, invalidUsage);

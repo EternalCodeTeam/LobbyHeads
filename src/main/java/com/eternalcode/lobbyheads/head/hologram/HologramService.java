@@ -78,6 +78,11 @@ public class HologramService {
         this.createHologram(this.server.getOfflinePlayer(uuid), position, this.config.headSection.headFormat);
     }
 
+    public void updateHolograms() {
+        this.hologramPool.getHolograms().forEach(this.hologramPool::remove);
+        this.loadHolograms();
+    }
+
     private Position getLocationOffset(Position position) {
         Location location = PositionAdapter.convert(position).clone().add(0.5, -0.3, 0.5);
         return PositionAdapter.convert(location);

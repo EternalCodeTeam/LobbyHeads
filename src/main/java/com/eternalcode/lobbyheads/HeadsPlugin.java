@@ -16,6 +16,7 @@ import com.eternalcode.lobbyheads.head.hologram.HologramService;
 import com.eternalcode.lobbyheads.head.particle.ParticleController;
 import com.eternalcode.lobbyheads.head.sound.SoundController;
 import com.eternalcode.lobbyheads.notification.NotificationAnnouncer;
+import com.eternalcode.lobbyheads.reload.ReloadService;
 import com.eternalcode.lobbyheads.updater.UpdaterNotificationController;
 import com.eternalcode.lobbyheads.updater.UpdaterService;
 import dev.rollczi.liteskullapi.LiteSkullFactory;
@@ -70,7 +71,9 @@ public class HeadsPlugin extends JavaPlugin {
 
         BlockService blockService = new BlockService(config, notificationAnnouncer, this.headManager);
 
-        this.getCommand("heads").setExecutor(new HeadCommand(config, configurationService, notificationAnnouncer, blockService));
+        ReloadService reloadService = new ReloadService(hologramService, configurationService);
+
+        this.getCommand("heads").setExecutor(new HeadCommand(config, notificationAnnouncer, blockService, reloadService));
 
         Stream.of(
             new HeadController(config, this.headManager, notificationAnnouncer),
