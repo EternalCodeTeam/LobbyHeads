@@ -47,7 +47,7 @@ public class HeadsConfiguration extends OkaeriConfig implements DelaySettings {
     public static class HeadSection extends OkaeriConfig {
         @Comment("# Format of the head, you can use PlaceholderAPI here")
         public String defaultHeadFormat = "<gradient:#8dc63f:#53a30e>{PLAYER}</gradient>";
-        public String headFormat = "<gradient:#8dc63f:#53a30e>%luckperms_prefix% {PLAYER}</gradient>";
+        public String headFormat = "%luckperms_prefix% <gradient:#8dc63f:#53a30e>{PLAYER}</gradient>";
 
         @Comment({ " ", "# Sound when a player replaces head" })
         public boolean soundEnabled = true;
