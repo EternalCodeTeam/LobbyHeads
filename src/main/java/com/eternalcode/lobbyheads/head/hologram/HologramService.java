@@ -2,6 +2,7 @@ package com.eternalcode.lobbyheads.head.hologram;
 
 import com.eternalcode.lobbyheads.adventure.AdventureLegacy;
 import com.eternalcode.lobbyheads.configuration.implementation.HeadsConfiguration;
+import com.eternalcode.lobbyheads.reload.Reloadable;
 import com.eternalcode.lobbyheads.head.Head;
 import com.eternalcode.lobbyheads.head.HeadManager;
 import com.eternalcode.lobbyheads.position.Position;
@@ -19,7 +20,7 @@ import org.bukkit.plugin.Plugin;
 
 import java.util.UUID;
 
-public class HologramService {
+public class HologramService implements Reloadable {
 
     private static final String HOLOGRAM_NAME_PREFIX = "heads#%s,%s,%s,%s";
     private static final int SPAWN_DISTANCE = 50;
@@ -78,6 +79,11 @@ public class HologramService {
         this.createHologram(this.server.getOfflinePlayer(uuid), position, this.config.headSection.headFormat);
     }
 
+    public void updateHolograms() {
+        this.hologramPool.getHolograms().forEach(this.hologramPool::remove);
+        this.loadHolograms();
+    }
+
     private Position getLocationOffset(Position position) {
         Location location = PositionAdapter.convert(position).clone().add(0.5, -0.3, 0.5);
         return PositionAdapter.convert(location);
@@ -91,5 +97,10 @@ public class HologramService {
 
     private String getHologramName(Position position) {
         return String.format(HOLOGRAM_NAME_PREFIX, position.world(), position.x(), position.y(), position.z());
+    }
+
+    @Override
+    public void reload() {
+        this.updateHolograms();
     }
 }

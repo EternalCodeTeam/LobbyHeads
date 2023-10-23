@@ -3,6 +3,7 @@ package com.eternalcode.lobbyheads;
 import com.eternalcode.lobbyheads.adventure.AdventureLegacyColorProcessor;
 import com.eternalcode.lobbyheads.configuration.ConfigurationService;
 import com.eternalcode.lobbyheads.configuration.implementation.HeadsConfiguration;
+import com.eternalcode.lobbyheads.reload.ReloadService;
 import com.eternalcode.lobbyheads.event.EventCaller;
 import com.eternalcode.lobbyheads.head.HeadController;
 import com.eternalcode.lobbyheads.head.HeadManager;
@@ -70,7 +71,11 @@ public class HeadsPlugin extends JavaPlugin {
 
         BlockService blockService = new BlockService(config, notificationAnnouncer, this.headManager);
 
-        this.getCommand("heads").setExecutor(new HeadCommand(config, configurationService, notificationAnnouncer, blockService));
+        ReloadService reloadService = new ReloadService()
+            .register(configurationService)
+            .register(hologramService);
+
+        this.getCommand("heads").setExecutor(new HeadCommand(config, notificationAnnouncer, blockService, reloadService));
 
         Stream.of(
             new HeadController(config, this.headManager, notificationAnnouncer),

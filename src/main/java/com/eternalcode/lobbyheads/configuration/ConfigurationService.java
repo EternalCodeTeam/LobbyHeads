@@ -1,5 +1,6 @@
 package com.eternalcode.lobbyheads.configuration;
 
+import com.eternalcode.lobbyheads.reload.Reloadable;
 import com.eternalcode.lobbyheads.configuration.serializer.HeadSerializer;
 import com.eternalcode.lobbyheads.configuration.serializer.PositionSerializer;
 import eu.okaeri.configs.ConfigManager;
@@ -17,7 +18,7 @@ import java.io.File;
 import java.util.HashSet;
 import java.util.Set;
 
-public class ConfigurationService {
+public class ConfigurationService implements Reloadable {
 
     private final Set<OkaeriConfig> configs = new HashSet<>();
 
@@ -55,6 +56,7 @@ public class ConfigurationService {
         return new Yaml(constructor, representer, dumperOptions, loaderOptions, resolver);
     }
 
+    @Override
     public void reload() {
         for (OkaeriConfig config : this.configs) {
             config.load();
