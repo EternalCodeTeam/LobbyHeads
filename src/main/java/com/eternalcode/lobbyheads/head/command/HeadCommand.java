@@ -5,7 +5,7 @@ import com.eternalcode.lobbyheads.head.block.BlockService;
 import com.eternalcode.lobbyheads.notification.NotificationAnnouncer;
 import com.eternalcode.lobbyheads.position.Position;
 import com.eternalcode.lobbyheads.position.PositionAdapter;
-import com.eternalcode.lobbyheads.configuration.reload.ReloadService;
+import com.eternalcode.lobbyheads.reload.ReloadService;
 import org.bukkit.Location;
 import org.bukkit.block.Block;
 import org.bukkit.command.Command;

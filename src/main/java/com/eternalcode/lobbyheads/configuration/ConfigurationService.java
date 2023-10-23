@@ -1,6 +1,6 @@
 package com.eternalcode.lobbyheads.configuration;
 
-import com.eternalcode.lobbyheads.configuration.reload.Reloadable;
+import com.eternalcode.lobbyheads.reload.Reloadable;
 import com.eternalcode.lobbyheads.configuration.serializer.HeadSerializer;
 import com.eternalcode.lobbyheads.configuration.serializer.PositionSerializer;
 import eu.okaeri.configs.ConfigManager;

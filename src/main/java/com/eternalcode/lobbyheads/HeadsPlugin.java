@@ -3,7 +3,7 @@ package com.eternalcode.lobbyheads;
 import com.eternalcode.lobbyheads.adventure.AdventureLegacyColorProcessor;
 import com.eternalcode.lobbyheads.configuration.ConfigurationService;
 import com.eternalcode.lobbyheads.configuration.implementation.HeadsConfiguration;
-import com.eternalcode.lobbyheads.configuration.reload.ReloadService;
+import com.eternalcode.lobbyheads.reload.ReloadService;
 import com.eternalcode.lobbyheads.event.EventCaller;
 import com.eternalcode.lobbyheads.head.HeadController;
 import com.eternalcode.lobbyheads.head.HeadManager;

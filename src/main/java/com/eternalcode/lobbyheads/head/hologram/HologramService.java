@@ -2,7 +2,7 @@ package com.eternalcode.lobbyheads.head.hologram;
 
 import com.eternalcode.lobbyheads.adventure.AdventureLegacy;
 import com.eternalcode.lobbyheads.configuration.implementation.HeadsConfiguration;
-import com.eternalcode.lobbyheads.configuration.reload.Reloadable;
+import com.eternalcode.lobbyheads.reload.Reloadable;
 import com.eternalcode.lobbyheads.head.Head;
 import com.eternalcode.lobbyheads.head.HeadManager;
 import com.eternalcode.lobbyheads.position.Position;
