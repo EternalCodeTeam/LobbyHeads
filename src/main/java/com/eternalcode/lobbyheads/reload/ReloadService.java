@@ -1,4 +1,4 @@
-package com.eternalcode.lobbyheads.configuration.reload;
+package com.eternalcode.lobbyheads.reload;
 
 import java.util.HashSet;
 import java.util.Set;
