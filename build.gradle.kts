@@ -41,8 +41,9 @@ checkstyle {
 
 dependencies {
     // okaeri configs
-    implementation("eu.okaeri:okaeri-configs-yaml-snakeyaml:5.0.0-beta.5")
-    implementation("eu.okaeri:okaeri-configs-serdes-commons:5.0.0-beta.5")
+    val okaeriConfigsVersion = "5.0.0-beta.5"
+    implementation("eu.okaeri:okaeri-configs-yaml-snakeyaml:${okaeriConfigsVersion}")
+    implementation("eu.okaeri:okaeri-configs-serdes-commons:${okaeriConfigsVersion}")
 
     // a cool library, kyori
     implementation("net.kyori:adventure-platform-bukkit:4.3.1")
@@ -72,8 +73,8 @@ dependencies {
 
     // tests setup
     testImplementation("org.codehaus.groovy:groovy-all:3.0.19")
-    testImplementation("org.junit.jupiter:junit-jupiter-api:5.10.0")
-    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.10.0")
+    testImplementation(platform("org.junit:junit-bom:5.9.1"))
+    testImplementation("org.junit.jupiter:junit-jupiter")
     testImplementation("org.mockito:mockito-core:5.6.0")
 }
 
@@ -107,12 +108,17 @@ tasks.compileJava {
     options.encoding = "UTF-8"
 }
 
-tasks.getByName<Test>("test") {
+tasks.test {
     useJUnitPlatform()
 }
 
 tasks.runServer {
     minecraftVersion("1.20.1")
+
+    downloadPlugins {
+        hangar("ProtocolLib", "5.1.0")
+        hangar("PlaceholderAPI", "2.11.5")
+    }
 }
 
 tasks.shadowJar {
