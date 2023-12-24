@@ -6,7 +6,7 @@ plugins {
 
     id("net.minecrell.plugin-yml.bukkit") version "0.6.0"
     id("com.github.johnrengelman.shadow") version "8.1.1"
-    id("xyz.jpenilla.run-paper") version "2.2.0"
+    id("xyz.jpenilla.run-paper") version "2.2.2"
 }
 
 group = "com.eternalcode"
@@ -30,7 +30,7 @@ repositories {
 }
 
 checkstyle {
-    toolVersion = "10.12.4"
+    toolVersion = "10.12.6"
 
     configFile = file("${rootDir}/checkstyle/checkstyle.xml")
     configProperties["checkstyle.suppressions.file"] = "${rootDir}/checkstyle/suppressions.xml"
@@ -46,8 +46,8 @@ dependencies {
     implementation("eu.okaeri:okaeri-configs-serdes-commons:${okaeriConfigsVersion}")
 
     // a cool library, kyori
-    implementation("net.kyori:adventure-platform-bukkit:4.3.1")
-    implementation("net.kyori:adventure-text-minimessage:4.14.0")
+    implementation("net.kyori:adventure-platform-bukkit:4.3.2")
+    implementation("net.kyori:adventure-text-minimessage:4.15.0")
 
     // Rollczi's skullapi
     implementation("dev.rollczi:liteskullapi:1.3.0")
@@ -63,7 +63,7 @@ dependencies {
     implementation("com.github.unldenis:Hologram-Lib:2.6.0")
 
     // PlaceholderAPI, if anyone wants to parse placeholders in the head's name
-    compileOnly("me.clip:placeholderapi:2.11.4")
+    compileOnly("me.clip:placeholderapi:2.11.5")
 
     // bstats
     implementation("org.bstats:bstats-bukkit:3.0.2")
@@ -72,10 +72,10 @@ dependencies {
     implementation("com.eternalcode:gitcheck:1.0.0")
 
     // tests setup
-    testImplementation("org.codehaus.groovy:groovy-all:3.0.19")
-    testImplementation(platform("org.junit:junit-bom:5.9.1"))
+    testImplementation("org.codehaus.groovy:groovy-all:3.0.20")
+    testImplementation(platform("org.junit:junit-bom:5.10.1"))
     testImplementation("org.junit.jupiter:junit-jupiter")
-    testImplementation("org.mockito:mockito-core:5.6.0")
+    testImplementation("org.mockito:mockito-core:5.8.0")
 }
 
 java {
