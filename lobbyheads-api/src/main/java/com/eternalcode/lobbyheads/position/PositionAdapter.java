@@ -27,5 +27,4 @@ public final class PositionAdapter {
 
         return new Location(world, position.x(), position.y(), position.z());
     }
-
 }

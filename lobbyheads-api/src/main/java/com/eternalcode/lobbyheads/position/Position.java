@@ -12,7 +12,23 @@ import org.jetbrains.annotations.ApiStatus.Internal;
 @Internal
 public record Position(double x, double y, double z, String world) {
 
-    private static final Pattern PARSE_FORMAT = Pattern.compile("Position\\{x=(?<x>-?[\\d.]+), y=(?<y>-?[\\d.]+), z=(?<z>-?[\\d.]+), world='(?<world>.+)'}");
+    private static final Pattern PARSE_FORMAT =
+        Pattern.compile("Position\\{x=(?<x>-?[\\d.]+), y=(?<y>-?[\\d.]+), z=(?<z>-?[\\d.]+), world='(?<world>.+)'}");
+
+    public static Position parse(String parse) {
+        Matcher matcher = PARSE_FORMAT.matcher(parse);
+
+        if (!matcher.find()) {
+            throw new IllegalArgumentException("Invalid position format: " + parse);
+        }
+
+        return new Position(
+            Double.parseDouble(matcher.group("x")),
+            Double.parseDouble(matcher.group("y")),
+            Double.parseDouble(matcher.group("z")),
+            matcher.group("world")
+        );
+    }
 
     @Override
     public boolean equals(Object o) {
@@ -40,20 +56,5 @@ public record Position(double x, double y, double z, String world) {
             ", z=" + this.z +
             ", world='" + this.world + '\'' +
             '}';
-    }
-
-    public static Position parse(String parse) {
-        Matcher matcher = PARSE_FORMAT.matcher(parse);
-
-        if (!matcher.find()) {
-            throw new IllegalArgumentException("Invalid position format: " + parse);
-        }
-
-        return new Position(
-            Double.parseDouble(matcher.group("x")),
-            Double.parseDouble(matcher.group("y")),
-            Double.parseDouble(matcher.group("z")),
-            matcher.group("world")
-        );
     }
 }

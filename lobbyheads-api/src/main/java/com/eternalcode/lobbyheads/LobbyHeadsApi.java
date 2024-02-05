@@ -5,5 +5,4 @@ import com.eternalcode.lobbyheads.head.HeadManager;
 public interface LobbyHeadsApi {
 
     HeadManager getHeadManager();
-
 }

@@ -3,10 +3,9 @@ package com.eternalcode.lobbyheads;
 import com.eternalcode.lobbyheads.adventure.AdventureLegacyColorProcessor;
 import com.eternalcode.lobbyheads.configuration.ConfigurationService;
 import com.eternalcode.lobbyheads.configuration.implementation.HeadsConfiguration;
-import com.eternalcode.lobbyheads.head.HeadManager;
-import com.eternalcode.lobbyheads.reload.ReloadService;
 import com.eternalcode.lobbyheads.event.EventCaller;
 import com.eternalcode.lobbyheads.head.HeadController;
+import com.eternalcode.lobbyheads.head.HeadManager;
 import com.eternalcode.lobbyheads.head.HeadManagerImpl;
 import com.eternalcode.lobbyheads.head.HeadRepository;
 import com.eternalcode.lobbyheads.head.HeadRepositoryImpl;
@@ -18,20 +17,20 @@ import com.eternalcode.lobbyheads.head.hologram.HologramService;
 import com.eternalcode.lobbyheads.head.particle.ParticleController;
 import com.eternalcode.lobbyheads.head.sound.SoundController;
 import com.eternalcode.lobbyheads.notification.NotificationAnnouncer;
+import com.eternalcode.lobbyheads.reload.ReloadService;
 import com.eternalcode.lobbyheads.updater.UpdaterNotificationController;
 import com.eternalcode.lobbyheads.updater.UpdaterService;
 import dev.rollczi.liteskullapi.LiteSkullFactory;
 import dev.rollczi.liteskullapi.SkullAPI;
+import java.io.File;
+import java.time.Duration;
+import java.util.stream.Stream;
 import net.kyori.adventure.platform.AudienceProvider;
 import net.kyori.adventure.platform.bukkit.BukkitAudiences;
 import net.kyori.adventure.text.minimessage.MiniMessage;
 import org.bstats.bukkit.Metrics;
 import org.bukkit.Server;
 import org.bukkit.plugin.java.JavaPlugin;
-
-import java.io.File;
-import java.time.Duration;
-import java.util.stream.Stream;
 
 public class HeadsPlugin extends JavaPlugin implements LobbyHeadsApi {
 
@@ -61,7 +60,6 @@ public class HeadsPlugin extends JavaPlugin implements LobbyHeadsApi {
         NotificationAnnouncer notificationAnnouncer = new NotificationAnnouncer(this.audienceProvider, miniMessage);
         UpdaterService updaterService = new UpdaterService(this.getDescription());
 
-
         HeadRepository headRepository = new HeadRepositoryImpl(config, configurationService);
 
         this.headManagerImpl = new HeadManagerImpl(eventCaller, headRepository);
@@ -76,7 +74,8 @@ public class HeadsPlugin extends JavaPlugin implements LobbyHeadsApi {
             .register(configurationService)
             .register(hologramService);
 
-        this.getCommand("heads").setExecutor(new HeadCommand(config, notificationAnnouncer, blockService, reloadService));
+        this.getCommand("heads")
+            .setExecutor(new HeadCommand(config, notificationAnnouncer, blockService, reloadService));
 
         Stream.of(
             new HeadController(config, this.headManagerImpl, notificationAnnouncer),
