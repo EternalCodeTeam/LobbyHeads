@@ -2,13 +2,11 @@ package com.eternalcode.lobbyheads.head.hologram;
 
 import com.eternalcode.lobbyheads.adventure.AdventureLegacy;
 import com.eternalcode.lobbyheads.configuration.implementation.HeadsConfiguration;
-import com.eternalcode.lobbyheads.reload.Reloadable;
 import com.eternalcode.lobbyheads.head.Head;
 import com.eternalcode.lobbyheads.head.HeadManager;
 import com.eternalcode.lobbyheads.position.Position;
 import com.eternalcode.lobbyheads.position.PositionAdapter;
-import com.github.unldenis.hologram.Hologram;
-import com.github.unldenis.hologram.HologramPool;
+import com.eternalcode.lobbyheads.reload.Reloadable;
 import me.clip.placeholderapi.PlaceholderAPI;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.minimessage.MiniMessage;
@@ -17,8 +15,15 @@ import org.bukkit.OfflinePlayer;
 import org.bukkit.Server;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
+import org.holoeasy.HoloEasy;
+import org.holoeasy.config.HologramKey;
+import org.holoeasy.hologram.Hologram;
+import org.holoeasy.pool.IHologramPool;
 
 import java.util.UUID;
+
+import static org.holoeasy.builder.HologramBuilder.hologram;
+import static org.holoeasy.builder.HologramBuilder.textline;
 
 public class HologramService implements Reloadable {
 
@@ -31,7 +36,7 @@ public class HologramService implements Reloadable {
     private final Server server;
     private final HeadManager headManager;
 
-    private final HologramPool hologramPool;
+    private final IHologramPool hologramPool;
 
     public HologramService(Plugin plugin, HeadsConfiguration config, MiniMessage miniMessage,
                            Server server, HeadManager headManager) {
@@ -41,7 +46,7 @@ public class HologramService implements Reloadable {
         this.server = server;
         this.headManager = headManager;
 
-        this.hologramPool = new HologramPool(plugin, SPAWN_DISTANCE);
+        this.hologramPool = HoloEasy.startPool(plugin, SPAWN_DISTANCE);
     }
 
     public void createHologram(OfflinePlayer player, Position position, String headName) {
@@ -50,12 +55,10 @@ public class HologramService implements Reloadable {
         Component deserialize = this.miniMessage.deserialize(string);
         String serialize = AdventureLegacy.SECTION_SERIALIZER.serialize(deserialize);
 
-        Hologram hologram = Hologram.builder(this.plugin, PositionAdapter.convert(this.getLocationOffset(position)))
-            .addLine(serialize)
-            .name(this.getHologramName(position))
-            .loadAndBuild(this.hologramPool);
+        HologramKey key = new HologramKey(this.plugin, this.getHologramName(position), this.hologramPool);
+        Hologram hologram = hologram(key, PositionAdapter.convert(this.getLocationOffset(position)), () ->
+            textline(serialize));
 
-        this.hologramPool.takeCareOf(hologram);
         this.showHologramToPlayers(hologram);
     }
 
@@ -69,9 +72,8 @@ public class HologramService implements Reloadable {
     }
 
     public void removeHologram(Position position) {
-        this.hologramPool.getHolograms().stream()
-            .filter(hologram -> hologram.getName().equals(this.getHologramName(position)))
-            .forEach(this.hologramPool::remove);
+        HologramKey key = new HologramKey(this.plugin, this.getHologramName(position), this.hologramPool);
+        this.hologramPool.remove(key);
     }
 
     public void updateHologram(Position position, UUID uuid) {
@@ -80,8 +82,9 @@ public class HologramService implements Reloadable {
     }
 
     public void updateHolograms() {
-        this.hologramPool.getHolograms().forEach(this.hologramPool::remove);
-        this.loadHolograms();
+        for (Head head : this.headManager.getHeads()) {
+            this.updateHologram(head.getPosition(), head.getPlayerUUID());
+        }
     }
 
     private Position getLocationOffset(Position position) {
