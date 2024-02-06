@@ -5,7 +5,6 @@ import org.bukkit.Location;
 import org.bukkit.World;
 import org.jetbrains.annotations.ApiStatus.Internal;
 
-@Internal
 public final class PositionAdapter {
 
     private PositionAdapter() {}

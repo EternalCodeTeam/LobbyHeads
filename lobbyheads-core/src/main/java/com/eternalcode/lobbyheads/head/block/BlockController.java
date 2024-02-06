@@ -37,7 +37,7 @@ public class BlockController implements Listener {
     @EventHandler
     void headCreate(HeadCreateEvent event) {
         Position position = PositionAdapter.convert(event.getLocation());
-        UUID uuid = event.getUniqueId();
+        UUID uuid = event.getPlayerUniqueId();
 
         this.processSkullUpdate(position, uuid);
     }
@@ -45,7 +45,7 @@ public class BlockController implements Listener {
     @EventHandler
     private void headUpdate(HeadUpdateEvent event) {
         Position position = PositionAdapter.convert(event.getLocation());
-        UUID uuid = event.getUuid();
+        UUID uuid = event.getPlayerUniqueId();
 
         this.processSkullUpdate(position, uuid);
     }

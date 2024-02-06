@@ -9,7 +9,6 @@ import org.jetbrains.annotations.ApiStatus.Internal;
  * coordinates and {@link org.bukkit.World} reference. If you need to store location use {@link Position} and
  * {@link PositionAdapter}.
  */
-@Internal
 public record Position(double x, double y, double z, String world) {
 
     private static final Pattern PARSE_FORMAT =

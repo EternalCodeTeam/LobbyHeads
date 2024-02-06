@@ -20,7 +20,7 @@ public class ParticleController implements Listener {
 
     @EventHandler
     private void onHeadUpdate(HeadUpdateEvent event) {
-        UUID uuid = event.getUuid();
+        UUID uuid = event.getPlayerUniqueId();
         Player player = this.server.getPlayer(uuid);
 
         if (player == null) {

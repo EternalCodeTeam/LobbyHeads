@@ -2,9 +2,6 @@ package com.eternalcode.lobbyheads.head.sound;
 
 import com.eternalcode.lobbyheads.configuration.implementation.HeadsConfiguration;
 import com.eternalcode.lobbyheads.head.event.HeadUpdateEvent;
-import com.eternalcode.lobbyheads.position.Position;
-import com.eternalcode.lobbyheads.position.PositionAdapter;
-import org.bukkit.Location;
 import org.bukkit.Server;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -24,7 +21,7 @@ public class SoundController implements Listener {
 
     @EventHandler
     private void onHeadUpdate(HeadUpdateEvent event) {
-        UUID uuid = event.getUuid();
+        UUID uuid = event.getPlayerUniqueId();
         Player player = this.server.getPlayer(uuid);
 
         if (player == null) {

@@ -6,15 +6,18 @@ import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
 import org.jetbrains.annotations.NotNull;
 
+/**
+ * This event is called when a head is created.
+ **/
 public class HeadCreateEvent extends Event {
 
     private static final HandlerList HANDLER_LIST = new HandlerList();
 
-    private final UUID uniqueId;
+    private final UUID playerUniqueId;
     private final Location location;
 
-    public HeadCreateEvent(UUID uniqueId, Location location) {
-        this.uniqueId = uniqueId;
+    public HeadCreateEvent(UUID playerUniqueId, Location location) {
+        this.playerUniqueId = playerUniqueId;
         this.location = location;
     }
 
@@ -22,8 +25,8 @@ public class HeadCreateEvent extends Event {
         return HANDLER_LIST;
     }
 
-    public UUID getUniqueId() {
-        return this.uniqueId;
+    public UUID getPlayerUniqueId() {
+        return this.playerUniqueId;
     }
 
     public Location getLocation() {
