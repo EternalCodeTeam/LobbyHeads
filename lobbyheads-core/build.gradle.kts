@@ -35,7 +35,7 @@ dependencies {
     compileOnly("com.mojang:authlib:5.0.47")
 
     // HoloEasy based on top of the protocolib
-    implementation("com.github.unldenis:holoeasy:3.0.1")
+    implementation("com.github.unldenis:holoeasy:3.1.1")
 
     // PlaceholderAPI, if anyone wants to parse placeholders in the head's name
     compileOnly("me.clip:placeholderapi:2.11.4")
