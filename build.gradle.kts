@@ -22,6 +22,7 @@ repositories {
     maven { url = uri("https://jitpack.io") }
     maven { url = uri("https://repo.extendedclip.com/content/repositories/placeholderapi/") }
     maven { url = uri("https://repo.eternalcode.pl/releases") }
+    maven { url = uri("https://repo.eternalcode.pl/snapshots") }
     maven { url = uri("https://storehouse.okaeri.eu/repository/maven-public/") }
     maven { url = uri("https://repository.minecodes.pl/releases") }
     maven { url = uri("https://libraries.minecraft.net/") }
@@ -51,6 +52,9 @@ dependencies {
 
     // Rollczi's skullapi
     implementation("dev.rollczi:liteskullapi:1.3.0")
+
+    // eternalcode commons
+    implementation("com.eternalcode:eternalcode-commons-adventure:1.0.0-SNAPSHOT")
 
     // spigot-api
     compileOnly("org.spigotmc:spigot-api:1.20.2-R0.1-SNAPSHOT")
@@ -146,5 +150,6 @@ tasks.shadowJar {
         "com.github.unldenis",
         "org.bstats",
         "com.eternalcode.gitcheck",
+        "com.eternalcode.commons",
     ).forEach { relocate(it, prefix) }
 }
