@@ -1,6 +1,6 @@
 package com.eternalcode.lobbyheads;
 
-import com.eternalcode.lobbyheads.adventure.AdventureLegacyColorProcessor;
+import com.eternalcode.commons.adventure.AdventureLegacyColorProcessor;
 import com.eternalcode.lobbyheads.configuration.ConfigurationService;
 import com.eternalcode.lobbyheads.configuration.implementation.HeadsConfiguration;
 import com.eternalcode.lobbyheads.reload.ReloadService;
