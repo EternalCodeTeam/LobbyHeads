@@ -2,7 +2,6 @@ package com.eternalcode.lobbyheads.position;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import org.jetbrains.annotations.ApiStatus.Internal;
 
 /**
  * Disclaimer - Bukkit {@link org.bukkit.Location} storage may cause a memory leak, because it is a wrapper for
@@ -11,8 +10,7 @@ import org.jetbrains.annotations.ApiStatus.Internal;
  */
 public record Position(double x, double y, double z, String world) {
 
-    private static final Pattern PARSE_FORMAT =
-        Pattern.compile("Position\\{x=(?<x>-?[\\d.]+), y=(?<y>-?[\\d.]+), z=(?<z>-?[\\d.]+), world='(?<world>.+)'}");
+    private static final Pattern PARSE_FORMAT = Pattern.compile("Position\\{x=(?<x>-?[\\d.]+), y=(?<y>-?[\\d.]+), z=(?<z>-?[\\d.]+), world='(?<world>.+)'}");
 
     public static Position parse(String parse) {
         Matcher matcher = PARSE_FORMAT.matcher(parse);

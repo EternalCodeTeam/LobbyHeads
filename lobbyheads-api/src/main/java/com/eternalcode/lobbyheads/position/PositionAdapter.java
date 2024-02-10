@@ -3,7 +3,6 @@ package com.eternalcode.lobbyheads.position;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.World;
-import org.jetbrains.annotations.ApiStatus.Internal;
 
 public final class PositionAdapter {
 
