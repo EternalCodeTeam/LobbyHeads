@@ -1,5 +1,3 @@
-import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
-
 plugins {
     `lobbyheads-java-17`
     `lobbyheads-repositories`
