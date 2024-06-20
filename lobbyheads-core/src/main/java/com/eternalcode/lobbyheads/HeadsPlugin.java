@@ -1,6 +1,7 @@
 package com.eternalcode.lobbyheads;
 
-import com.eternalcode.commons.adventure.AdventureLegacyColorProcessor;
+import com.eternalcode.commons.adventure.AdventureLegacyColorPostProcessor;
+import com.eternalcode.commons.adventure.AdventureLegacyColorPreProcessor;
 import com.eternalcode.lobbyheads.configuration.ConfigurationService;
 import com.eternalcode.lobbyheads.configuration.implementation.HeadsConfiguration;
 import com.eternalcode.lobbyheads.event.EventCaller;
@@ -54,7 +55,8 @@ public class HeadsPlugin extends JavaPlugin implements LobbyHeadsApi {
 
         this.audienceProvider = BukkitAudiences.create(this);
         MiniMessage miniMessage = MiniMessage.builder()
-            .postProcessor(new AdventureLegacyColorProcessor())
+            .postProcessor(new AdventureLegacyColorPostProcessor())
+            .preProcessor(new AdventureLegacyColorPreProcessor())
             .build();
 
         NotificationAnnouncer notificationAnnouncer = new NotificationAnnouncer(this.audienceProvider, miniMessage);
