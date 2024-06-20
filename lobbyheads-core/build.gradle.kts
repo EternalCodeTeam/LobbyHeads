@@ -25,6 +25,9 @@ dependencies {
     // Rollczi's skullapi
     implementation("dev.rollczi:liteskullapi:1.3.0")
 
+    // eternalcode commons
+    implementation("com.eternalcode:eternalcode-commons-adventure:1.1.3")
+
     // spigot-api
     compileOnly("org.spigotmc:spigot-api:1.20.2-R0.1-SNAPSHOT")
     testImplementation("org.spigotmc:spigot-api:1.20.2-R0.1-SNAPSHOT")
@@ -119,5 +122,6 @@ tasks.shadowJar {
         "com.unldenis",
         "org.bstats",
         "com.eternalcode.gitcheck",
+        "com.eternalcode.commons",
     ).forEach { relocate(it, prefix) }
 }

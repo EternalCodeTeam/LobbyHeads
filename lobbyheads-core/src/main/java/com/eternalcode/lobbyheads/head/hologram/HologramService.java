@@ -1,6 +1,6 @@
 package com.eternalcode.lobbyheads.head.hologram;
 
-import com.eternalcode.lobbyheads.adventure.AdventureLegacy;
+import com.eternalcode.commons.adventure.AdventureUtil;
 import com.eternalcode.lobbyheads.configuration.implementation.HeadsConfiguration;
 import com.eternalcode.lobbyheads.head.Head;
 import com.eternalcode.lobbyheads.head.HeadManagerImpl;
@@ -53,7 +53,7 @@ public class HologramService implements Reloadable {
         String replace = headName.replace("{PLAYER}", player.getName());
         String string = PlaceholderAPI.setPlaceholders(player, replace);
         Component deserialize = this.miniMessage.deserialize(string);
-        String serialize = AdventureLegacy.SECTION_SERIALIZER.serialize(deserialize);
+        String serialize = AdventureUtil.SECTION_SERIALIZER.serialize(deserialize);
 
         HologramKey key = new HologramKey(this.plugin, this.getHologramName(position), this.hologramPool);
         Hologram hologram = hologram(key, PositionAdapter.convert(this.getLocationOffset(position)), () ->
