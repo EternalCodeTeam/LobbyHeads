@@ -21,7 +21,7 @@ dependencies {
     api(project(":lobbyheads-api"))
 
     // a cool library, kyori
-    implementation("net.kyori:adventure-platform-bukkit:4.3.2")
+    implementation("net.kyori:adventure-platform-bukkit:4.3.3")
     implementation("net.kyori:adventure-text-minimessage:4.17.0")
 
     // Rollczi's skullapi
