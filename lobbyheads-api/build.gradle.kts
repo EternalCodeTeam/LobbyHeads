@@ -5,7 +5,7 @@ plugins {
 }
 
 dependencies {
-    api("org.spigotmc:spigot-api:1.20.2-R0.1-SNAPSHOT")
+    api("org.spigotmc:spigot-api:1.20.2-experimental-SNAPSHOT")
     api("org.jetbrains:annotations:24.1.0")
 }
 
