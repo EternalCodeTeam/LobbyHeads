@@ -48,7 +48,7 @@ dependencies {
     implementation("com.eternalcode:gitcheck:1.0.0")
 
     // tests setup
-    testImplementation("org.codehaus.groovy:groovy-all:3.0.21")
+    testImplementation("org.codehaus.groovy:groovy-all:3.0.22")
     testImplementation(platform("org.junit:junit-bom:5.10.2"))
     testImplementation("org.junit.jupiter:junit-jupiter")
     testImplementation("org.mockito:mockito-core:5.12.0")
