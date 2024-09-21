@@ -5,7 +5,7 @@ plugins {
     `lobbyheads-checkstyle`
 
     id("net.minecrell.plugin-yml.bukkit") version "0.6.0"
-    id("com.github.johnrengelman.shadow") version "8.1.1"
+    id("com.gradleup.shadow") version "8.3.2"
     id("xyz.jpenilla.run-paper") version "2.3.0"
 }
 
@@ -55,8 +55,7 @@ dependencies {
 }
 
 java {
-    sourceCompatibility = JavaVersion.VERSION_17
-    targetCompatibility = JavaVersion.VERSION_17
+    toolchain.languageVersion.set(JavaLanguageVersion.of(21))
 }
 
 bukkit {
@@ -80,8 +79,9 @@ bukkit {
 }
 
 tasks.compileJava {
-    options.compilerArgs = listOf("-Xlint:deprecation", "-Xlint:unchecked")
+    options.compilerArgs = listOf("-Xlint:deprecation", "-parameters")
     options.encoding = "UTF-8"
+    options.release = 17
 }
 
 tasks.test {
