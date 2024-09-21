@@ -29,8 +29,8 @@ dependencies {
     implementation("com.eternalcode:eternalcode-commons-adventure:1.1.3")
 
     // spigot-api
-    compileOnly("org.spigotmc:spigot-api:1.20.2-R0.1-SNAPSHOT")
-    testImplementation("org.spigotmc:spigot-api:1.20.2-R0.1-SNAPSHOT")
+    compileOnly("org.spigotmc:spigot-api:1.20.2-experimental-SNAPSHOT")
+    testImplementation("org.spigotmc:spigot-api:1.20.2-experimental-SNAPSHOT")
 
     // mojang's authlib
     compileOnly("com.mojang:authlib:5.0.47")
