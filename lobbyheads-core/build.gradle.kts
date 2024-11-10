@@ -5,13 +5,13 @@ plugins {
     `lobbyheads-checkstyle`
 
     id("net.minecrell.plugin-yml.bukkit") version "0.6.0"
-    id("com.gradleup.shadow") version "8.3.2"
-    id("xyz.jpenilla.run-paper") version "2.3.0"
+    id("com.gradleup.shadow") version "8.3.5"
+    id("xyz.jpenilla.run-paper") version "2.3.1"
 }
 
 dependencies {
     // okaeri configs
-    val okaeriConfigsVersion = "5.0.2"
+    val okaeriConfigsVersion = "5.0.5"
     implementation("eu.okaeri:okaeri-configs-yaml-snakeyaml:${okaeriConfigsVersion}")
     implementation("eu.okaeri:okaeri-configs-serdes-commons:${okaeriConfigsVersion}")
 
@@ -19,14 +19,14 @@ dependencies {
     api(project(":lobbyheads-api"))
 
     // a cool library, kyori
-    implementation("net.kyori:adventure-platform-bukkit:4.3.3")
+    implementation("net.kyori:adventure-platform-bukkit:4.3.4")
     implementation("net.kyori:adventure-text-minimessage:4.17.0")
 
     // Rollczi's skullapi
     implementation("dev.rollczi:liteskullapi:1.3.0")
 
     // eternalcode commons
-    implementation("com.eternalcode:eternalcode-commons-adventure:1.1.3")
+    implementation("com.eternalcode:eternalcode-commons-adventure:1.1.4")
 
     // spigot-api
     compileOnly("org.spigotmc:spigot-api:1.20.2-R0.1-SNAPSHOT")
@@ -42,16 +42,16 @@ dependencies {
     compileOnly("me.clip:placeholderapi:2.11.6")
 
     // bstats
-    implementation("org.bstats:bstats-bukkit:3.0.2")
+    implementation("org.bstats:bstats-bukkit:3.1.0")
 
     // GitCheck
     implementation("com.eternalcode:gitcheck:1.0.0")
 
     // tests setup
-    testImplementation("org.codehaus.groovy:groovy-all:3.0.21")
-    testImplementation(platform("org.junit:junit-bom:5.10.2"))
+    testImplementation("org.codehaus.groovy:groovy-all:3.0.23")
+    testImplementation(platform("org.junit:junit-bom:5.11.3"))
     testImplementation("org.junit.jupiter:junit-jupiter")
-    testImplementation("org.mockito:mockito-core:5.12.0")
+    testImplementation("org.mockito:mockito-core:5.14.2")
 }
 
 java {

@@ -3,10 +3,10 @@ plugins {
 }
 
 dependencies {
-    testImplementation("org.codehaus.groovy:groovy-all:3.0.21")
-    testImplementation(platform("org.junit:junit-bom:5.10.2"))
+    testImplementation("org.codehaus.groovy:groovy-all:3.0.23")
+    testImplementation(platform("org.junit:junit-bom:5.11.3"))
     testImplementation("org.junit.jupiter:junit-jupiter")
-    testImplementation("org.mockito:mockito-core:5.12.0")
+    testImplementation("org.mockito:mockito-core:5.14.2")
 }
 
 tasks.getByName<Test>("test") {
