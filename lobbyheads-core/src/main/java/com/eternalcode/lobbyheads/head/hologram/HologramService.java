@@ -83,7 +83,7 @@ public class HologramService implements Reloadable {
     }
 
     private Position getLocationOffset(Position position) {
-        Location location = PositionAdapter.convert(position).clone().add(0.5, -0.3, 0.5);
+        Location location = PositionAdapter.convert(position).clone().add(0.5, 1, 0.5);
         return PositionAdapter.convert(location);
     }
 
