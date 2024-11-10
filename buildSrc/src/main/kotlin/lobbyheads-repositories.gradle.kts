@@ -10,6 +10,6 @@ repositories {
     maven { url = uri("https://repo.extendedclip.com/content/repositories/placeholderapi/") }
     maven { url = uri("https://repo.eternalcode.pl/releases") }
     maven { url = uri("https://storehouse.okaeri.eu/repository/maven-public/") }
-    maven { url = uri("https://repository.minecodes.pl/releases") }
     maven { url = uri("https://libraries.minecraft.net/") }
+    maven { url = uri("https://projectunified.github.io/MavenRepo/") }
 }

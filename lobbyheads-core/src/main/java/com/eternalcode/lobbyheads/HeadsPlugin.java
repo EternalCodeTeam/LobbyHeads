@@ -23,6 +23,8 @@ import com.eternalcode.lobbyheads.updater.UpdaterNotificationController;
 import com.eternalcode.lobbyheads.updater.UpdaterService;
 import dev.rollczi.liteskullapi.LiteSkullFactory;
 import dev.rollczi.liteskullapi.SkullAPI;
+import io.github.projectunified.unihologram.api.HologramProvider;
+import io.github.projectunified.unihologram.spigot.picker.SpigotHologramProviderPicker;
 import java.io.File;
 import java.time.Duration;
 import java.util.stream.Stream;
@@ -30,6 +32,7 @@ import net.kyori.adventure.platform.AudienceProvider;
 import net.kyori.adventure.platform.bukkit.BukkitAudiences;
 import net.kyori.adventure.text.minimessage.MiniMessage;
 import org.bstats.bukkit.Metrics;
+import org.bukkit.Location;
 import org.bukkit.Server;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -44,7 +47,8 @@ public class HeadsPlugin extends JavaPlugin implements LobbyHeadsApi {
         Server server = this.getServer();
 
         ConfigurationService configurationService = new ConfigurationService();
-        HeadsConfiguration config = configurationService.create(HeadsConfiguration.class, new File(this.getDataFolder(), "config.yml"));
+        HeadsConfiguration config =
+            configurationService.create(HeadsConfiguration.class, new File(this.getDataFolder(), "config.yml"));
 
         EventCaller eventCaller = new EventCaller(server);
 
@@ -67,7 +71,10 @@ public class HeadsPlugin extends JavaPlugin implements LobbyHeadsApi {
         this.headManagerImpl = new HeadManagerImpl(eventCaller, headRepository);
         this.headManagerImpl.loadHeads();
 
-        HologramService hologramService = new HologramService(this, config, miniMessage, server, this.headManagerImpl);
+        HologramProvider<Location> provider = new SpigotHologramProviderPicker(this).pick();
+
+        HologramService hologramService =
+            new HologramService(config, miniMessage, server, this.headManagerImpl, provider);
         hologramService.loadHolograms();
 
         BlockService blockService = new BlockService(config, notificationAnnouncer, this.headManagerImpl);
