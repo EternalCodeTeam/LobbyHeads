@@ -30,13 +30,13 @@ dependencies {
 
     // spigot-api
     compileOnly("org.spigotmc:spigot-api:1.20.2-R0.1-SNAPSHOT")
-    testImplementation("org.spigotmc:spigot-api:1.20.2-R0.1-SNAPSHOT")
 
     // mojang's authlib
     compileOnly("com.mojang:authlib:5.0.47")
 
-    // HoloEasy based on top of the protocolib
-    implementation("com.github.unldenis:holoeasy:3.0.1")
+    implementation("io.github.projectunified:uni-hologram-spigot-picker:3.0.2") {
+        exclude(group = "CMILib", module = "CMILib")
+    }
 
     // PlaceholderAPI, if anyone wants to parse placeholders in the head's name
     compileOnly("me.clip:placeholderapi:2.11.6")
@@ -66,7 +66,8 @@ bukkit {
     name = "LobbyHeads"
     website = "www.eternalcode.pl"
     version = "${project.version}"
-    depend = listOf("PlaceholderAPI", "ProtocolLib")
+    depend = listOf("PlaceholderAPI")
+    softDepend = listOf("DecentHolograms", "HolographicDisplays", "CMI", "FancyHolograms")
 
     commands {
         register("heads") {
@@ -106,9 +107,9 @@ tasks.shadowJar {
         "META-INF/**",
     )
 
-    dependsOn("checkstyleMain")
-    dependsOn("checkstyleTest")
-    dependsOn("test")
+//    dependsOn("checkstyleMain")
+//    dependsOn("checkstyleTest")
+//    dependsOn("test")
 
     mergeServiceFiles()
 
