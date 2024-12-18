@@ -36,7 +36,7 @@ dependencies {
     compileOnly("com.mojang:authlib:5.0.47")
 
     // HoloEasy based on top of the protocolib
-    implementation("com.github.unldenis:holoeasy:3.0.1")
+    implementation("com.github.unldenis:holoeasy:3.4.4")
 
     // PlaceholderAPI, if anyone wants to parse placeholders in the head's name
     compileOnly("me.clip:placeholderapi:2.11.6")
@@ -49,7 +49,7 @@ dependencies {
 
     // tests setup
     testImplementation("org.codehaus.groovy:groovy-all:3.0.23")
-    testImplementation(platform("org.junit:junit-bom:5.11.3"))
+    testImplementation(platform("org.junit:junit-bom:5.11.4"))
     testImplementation("org.junit.jupiter:junit-jupiter")
     testImplementation("org.mockito:mockito-core:5.14.2")
 }
