@@ -1,5 +1,6 @@
 package com.eternalcode.lobbyheads.configuration;
 
+import com.eternalcode.lobbyheads.configuration.serializer.SoundSerializer;
 import com.eternalcode.lobbyheads.reload.Reloadable;
 import com.eternalcode.lobbyheads.configuration.serializer.HeadSerializer;
 import com.eternalcode.lobbyheads.configuration.serializer.PositionSerializer;
@@ -31,6 +32,7 @@ public class ConfigurationService implements Reloadable {
             .withConfigurer(yamlConfigurer, new SerdesCommons())
             .withSerdesPack(registry -> registry.register(new HeadSerializer()))
             .withSerdesPack(registry -> registry.register(new PositionSerializer()))
+            .withSerdesPack(registry -> registry.register(new SoundSerializer()))
             .withBindFile(file)
             .withRemoveOrphans(true)
             .saveDefaults()

@@ -15,6 +15,8 @@ import com.eternalcode.lobbyheads.head.block.BlockService;
 import com.eternalcode.lobbyheads.head.command.HeadCommand;
 import com.eternalcode.lobbyheads.head.hologram.HologramController;
 import com.eternalcode.lobbyheads.head.hologram.HologramService;
+import com.eternalcode.lobbyheads.head.hologram.provider.HologramProvider;
+import com.eternalcode.lobbyheads.head.hologram.provider.HologramProviderPicker;
 import com.eternalcode.lobbyheads.head.particle.ParticleController;
 import com.eternalcode.lobbyheads.head.sound.SoundController;
 import com.eternalcode.lobbyheads.notification.NotificationAnnouncer;
@@ -23,8 +25,6 @@ import com.eternalcode.lobbyheads.updater.UpdaterNotificationController;
 import com.eternalcode.lobbyheads.updater.UpdaterService;
 import dev.rollczi.liteskullapi.LiteSkullFactory;
 import dev.rollczi.liteskullapi.SkullAPI;
-import io.github.projectunified.unihologram.api.HologramProvider;
-import io.github.projectunified.unihologram.spigot.picker.SpigotHologramProviderPicker;
 import java.io.File;
 import java.time.Duration;
 import java.util.stream.Stream;
@@ -32,7 +32,6 @@ import net.kyori.adventure.platform.AudienceProvider;
 import net.kyori.adventure.platform.bukkit.BukkitAudiences;
 import net.kyori.adventure.text.minimessage.MiniMessage;
 import org.bstats.bukkit.Metrics;
-import org.bukkit.Location;
 import org.bukkit.Server;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -71,10 +70,16 @@ public class HeadsPlugin extends JavaPlugin implements LobbyHeadsApi {
         this.headManagerImpl = new HeadManagerImpl(eventCaller, headRepository);
         this.headManagerImpl.loadHeads();
 
-        HologramProvider<Location> provider = new SpigotHologramProviderPicker(this).pick();
+        HologramProviderPicker hologramProviderPicker = new HologramProviderPicker();
+        HologramProvider hologramProvider = hologramProviderPicker.pickProvider(this);
 
-        HologramService hologramService =
-            new HologramService(config, miniMessage, server, this.headManagerImpl, provider);
+        HologramService hologramService = new HologramService(
+            config,
+            miniMessage,
+            server,
+            this.headManagerImpl,
+            hologramProvider
+        );
         hologramService.loadHolograms();
 
         BlockService blockService = new BlockService(config, notificationAnnouncer, this.headManagerImpl);

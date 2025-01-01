@@ -1,5 +1,7 @@
 package com.eternalcode.lobbyheads.configuration.implementation;
 
+import com.cryptomorin.xseries.XSound;
+import com.cryptomorin.xseries.particles.XParticle;
 import com.eternalcode.lobbyheads.delay.DelaySettings;
 import com.eternalcode.lobbyheads.head.Head;
 import eu.okaeri.configs.OkaeriConfig;
@@ -50,7 +52,7 @@ public class HeadsConfiguration extends OkaeriConfig implements DelaySettings {
 
         @Comment({ " ", "# Sound when a player replaces head" })
         public boolean soundEnabled = true;
-        public Sound sound = Sound.ENTITY_PLAYER_LEVELUP;
+        public XSound sound = XSound.ENTITY_PLAYER_LEVELUP;
         public int volume = 1;
         public int pitch = 1;
 

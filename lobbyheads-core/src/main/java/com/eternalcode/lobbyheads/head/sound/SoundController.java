@@ -1,5 +1,6 @@
 package com.eternalcode.lobbyheads.head.sound;
 
+import com.cryptomorin.xseries.XSound;
 import com.eternalcode.lobbyheads.configuration.implementation.HeadsConfiguration;
 import com.eternalcode.lobbyheads.head.event.HeadUpdateEvent;
 import org.bukkit.Server;
@@ -29,7 +30,7 @@ public class SoundController implements Listener {
         }
 
         if (this.config.headSection.soundEnabled) {
-            player.playSound(event.getLocation(), this.config.headSection.sound, this.config.headSection.volume, this.config.headSection.pitch);
+            this.config.headSection.sound.play(player, this.config.headSection.volume, this.config.headSection.pitch);
         }
     }
 }

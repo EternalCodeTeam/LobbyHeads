@@ -11,5 +11,7 @@ repositories {
     maven { url = uri("https://repo.eternalcode.pl/releases") }
     maven { url = uri("https://storehouse.okaeri.eu/repository/maven-public/") }
     maven { url = uri("https://libraries.minecraft.net/") }
-    maven { url = uri("https://projectunified.github.io/MavenRepo/") }
+    maven {
+        url = uri("https://repo.fancyplugins.de/releases")
+    }
 }

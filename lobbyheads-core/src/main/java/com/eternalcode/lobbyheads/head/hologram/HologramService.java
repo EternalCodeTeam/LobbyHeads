@@ -6,13 +6,10 @@ import com.eternalcode.commons.adventure.AdventureUtil;
 import com.eternalcode.lobbyheads.configuration.implementation.HeadsConfiguration;
 import com.eternalcode.lobbyheads.head.Head;
 import com.eternalcode.lobbyheads.head.HeadManager;
+import com.eternalcode.lobbyheads.head.hologram.provider.HologramProvider;
 import com.eternalcode.lobbyheads.position.Position;
 import com.eternalcode.lobbyheads.position.PositionAdapter;
 import com.eternalcode.lobbyheads.reload.Reloadable;
-import io.github.projectunified.unihologram.api.Hologram;
-import io.github.projectunified.unihologram.api.HologramProvider;
-import io.github.projectunified.unihologram.spigot.api.visibility.PlayerVisibility;
-import io.github.projectunified.unihologram.spigot.line.TextHologramLine;
 import java.util.UUID;
 import me.clip.placeholderapi.PlaceholderAPI;
 import net.kyori.adventure.text.Component;
@@ -20,7 +17,6 @@ import net.kyori.adventure.text.minimessage.MiniMessage;
 import org.bukkit.Location;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.Server;
-import org.bukkit.entity.Player;
 
 public class HologramService implements Reloadable {
 
@@ -50,11 +46,7 @@ public class HologramService implements Reloadable {
         String serialize = AdventureUtil.SECTION_SERIALIZER.serialize(deserialized);
         Location location = PositionAdapter.convert(this.getLocationOffset(position));
 
-        Hologram<Location> hologram = this.provider.createHologram(generateHologramName(position), location);
-        hologram.init();
-        hologram.addLine(new TextHologramLine(serialize));
-
-        this.showHologramToPlayers(hologram);
+        this.provider.createHologram(generateHologramName(position), location, serialize);
     }
 
     public void loadHolograms() {
@@ -67,8 +59,7 @@ public class HologramService implements Reloadable {
     }
 
     public void removeHologram(Position position) {
-        this.provider.getHologram(generateHologramName(position))
-            .ifPresent(hologram -> ((Hologram<Location>) hologram).clear());
+        this.provider.removeHologram(generateHologramName(position));
     }
 
     public void updateHologram(Position position, UUID uuid) {
@@ -85,14 +76,6 @@ public class HologramService implements Reloadable {
     private Position getLocationOffset(Position position) {
         Location location = PositionAdapter.convert(position).clone().add(0.5, 1, 0.5);
         return PositionAdapter.convert(location);
-    }
-
-    private void showHologramToPlayers(Hologram<Location> hologram) {
-        if (hologram instanceof PlayerVisibility visibility) {
-            for (Player player : this.server.getOnlinePlayers()) {
-                visibility.showTo(player);
-            }
-        }
     }
 
     @Override

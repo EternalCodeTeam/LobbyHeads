@@ -31,12 +31,9 @@ dependencies {
     // spigot-api
     compileOnly("org.spigotmc:spigot-api:1.20.2-R0.1-SNAPSHOT")
 
-    // mojang's authlib
-    compileOnly("com.mojang:authlib:5.0.47")
+    implementation("com.github.cryptomorin:XSeries:12.1.0")
 
-    implementation("io.github.projectunified:uni-hologram-spigot-picker:3.0.2") {
-        exclude(group = "CMILib", module = "CMILib")
-    }
+    compileOnly("de.oliver:FancyHolograms:2.4.0")
 
     // PlaceholderAPI, if anyone wants to parse placeholders in the head's name
     compileOnly("me.clip:placeholderapi:2.11.6")
