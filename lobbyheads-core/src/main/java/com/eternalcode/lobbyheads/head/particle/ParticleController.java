@@ -20,18 +20,18 @@ public class ParticleController implements Listener {
 
     @EventHandler
     private void onHeadUpdate(HeadUpdateEvent event) {
-        UUID uuid = event.getPlayerUniqueId();
+        UUID uuid = event.getPlayerUuid();
         Player player = this.server.getPlayer(uuid);
 
         if (player == null) {
             return;
         }
 
-        if (this.config.headSection.particleEnabled) {
+        if (this.config.headSettings.particleEnabled) {
             player.spawnParticle(
-                this.config.headSection.particle,
+                this.config.headSettings.particle,
                 event.getLocation(),
-                this.config.headSection.count,
+                this.config.headSettings.count,
                 0.5,
                 0.5,
                 0.5);

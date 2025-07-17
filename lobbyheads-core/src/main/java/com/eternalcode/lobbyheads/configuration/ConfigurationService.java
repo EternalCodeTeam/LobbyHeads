@@ -1,8 +1,10 @@
 package com.eternalcode.lobbyheads.configuration;
 
+import com.eternalcode.lobbyheads.configuration.migration.HeadsConfigMigration_2025_07_17;
+import com.eternalcode.lobbyheads.configuration.migration.HeadsPositionMigration_2025_07_17;
+import com.eternalcode.lobbyheads.configuration.serializer.SoundSerializer;
 import com.eternalcode.lobbyheads.reload.Reloadable;
-import com.eternalcode.lobbyheads.configuration.serializer.HeadSerializer;
-import com.eternalcode.lobbyheads.configuration.serializer.PositionSerializer;
+import com.eternalcode.lobbyheads.configuration.serializer.PositionTransformer;
 import eu.okaeri.configs.ConfigManager;
 import eu.okaeri.configs.OkaeriConfig;
 import eu.okaeri.configs.serdes.commons.SerdesCommons;
@@ -29,12 +31,16 @@ public class ConfigurationService implements Reloadable {
 
         configFile
             .withConfigurer(yamlConfigurer, new SerdesCommons())
-            .withSerdesPack(registry -> registry.register(new HeadSerializer()))
-            .withSerdesPack(registry -> registry.register(new PositionSerializer()))
+            .withSerdesPack(registry -> registry.register(new PositionTransformer()))
+            .withSerdesPack(registry -> registry.register(new SoundSerializer()))
             .withBindFile(file)
-            .withRemoveOrphans(true)
             .saveDefaults()
-            .load(true);
+            .load(true)
+            .migrate(
+                new HeadsConfigMigration_2025_07_17(),
+                new HeadsPositionMigration_2025_07_17()
+            );
+
 
         this.configs.add(configFile);
 

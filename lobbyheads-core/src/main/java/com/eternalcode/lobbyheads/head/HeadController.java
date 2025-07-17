@@ -3,7 +3,8 @@ package com.eternalcode.lobbyheads.head;
 import com.eternalcode.lobbyheads.configuration.implementation.HeadsConfiguration;
 import com.eternalcode.lobbyheads.delay.Delay;
 import com.eternalcode.lobbyheads.notification.NotificationAnnouncer;
-import com.eternalcode.lobbyheads.position.PositionAdapter;
+import java.time.Duration;
+import java.util.UUID;
 import org.bukkit.Location;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
@@ -13,21 +14,22 @@ import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.EquipmentSlot;
 
-import java.time.Duration;
-import java.util.UUID;
-
 public class HeadController implements Listener {
 
     public static final String HEAD_REPLACE_PERMISSION = "lobbyheads.replace";
 
     private final HeadsConfiguration config;
     private final Delay<UUID> delay;
-    private final HeadManagerImpl headManagerImpl;
+    private final HeadManager headManager;
     private final NotificationAnnouncer notificationAnnouncer;
 
-    public HeadController(HeadsConfiguration config, HeadManagerImpl headManagerImpl, NotificationAnnouncer notificationAnnouncer) {
+    public HeadController(
+        HeadsConfiguration config,
+        HeadManager headManager,
+        NotificationAnnouncer notificationAnnouncer
+    ) {
         this.config = config;
-        this.headManagerImpl = headManagerImpl;
+        this.headManager = headManager;
         this.notificationAnnouncer = notificationAnnouncer;
         this.delay = new Delay<>(this.config);
     }
@@ -47,7 +49,7 @@ public class HeadController implements Listener {
 
         Location location = clickedBlock.getLocation();
 
-        Head head = this.headManagerImpl.getHead(PositionAdapter.convert(location));
+        Head head = this.headManager.getHead(location);
 
         if (head == null) {
             return;
@@ -56,24 +58,24 @@ public class HeadController implements Listener {
         UUID playerUUID = player.getUniqueId();
 
         if (!player.hasPermission(HEAD_REPLACE_PERMISSION)) {
-            this.notificationAnnouncer.sendMessage(player, this.config.messages.playerNotPermittedToReplaceHeads);
+            this.notificationAnnouncer.sendMessage(player, this.config.messages.noPermissionReplace);
             return;
         }
 
         if (this.delay.hasDelay(playerUUID)) {
             Duration durationToExpire = this.delay.getDurationToExpire(playerUUID);
 
-            this.notificationAnnouncer.sendMessage(player, this.config.messages.playerMustWaitToReplaceHead
-                .replace("{duration}", String.valueOf(durationToExpire.toSeconds())));
+            this.notificationAnnouncer.sendMessage(player, this.config.messages.replaceCooldown
+                    .replace("{duration}", String.valueOf(durationToExpire.toSeconds())));
             return;
         }
 
-        if (head.getPlayerUUID().equals(playerUUID)) {
-            this.notificationAnnouncer.sendMessage(player, this.config.messages.playerAlreadyReplaceThisHead);
+        if (head.getPlayerUuid().equals(playerUUID)) {
+            this.notificationAnnouncer.sendMessage(player, this.config.messages.alreadyReplaced);
             return;
         }
 
-        this.headManagerImpl.updateHead(player, PositionAdapter.convert(location));
+        this.headManager.updateHead(player, location);
         this.delay.markDelay(playerUUID);
     }
 
@@ -82,7 +84,7 @@ public class HeadController implements Listener {
         Block clickedBlock = event.getBlock();
         Location location = clickedBlock.getLocation();
 
-        Head head = this.headManagerImpl.getHead(PositionAdapter.convert(location));
+        Head head = this.headManager.getHead(location);
 
         if (head == null) {
             return;

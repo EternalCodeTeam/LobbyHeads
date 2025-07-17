@@ -1,40 +1,54 @@
 package com.eternalcode.lobbyheads.head;
 
-import com.eternalcode.lobbyheads.position.Position;
-import com.eternalcode.lobbyheads.position.PositionAdapter;
+import java.io.Serializable;
 import java.util.Objects;
 import java.util.UUID;
 import org.bukkit.Location;
+import org.jetbrains.annotations.NotNull;
 
-public class Head {
+public class Head implements Serializable {
 
-    private final Position position;
+    private final String world;
+    private final double x, y, z;
+    private final float yaw, pitch;
+
     private String playerName;
     private UUID playerUUID;
 
-    public Head(Position position, String playerName, UUID playerUUID) {
-        this.position = position;
+    public Head() {
+        this.world = null;
+        this.x = this.y = this.z = 0;
+        this.yaw = this.pitch = 0;
+    }
+
+    public Head(@NotNull Location location, String playerName, UUID playerUUID) {
+        this.world = location.getWorld().getName();
+        this.x = location.getX();
+        this.y = location.getY();
+        this.z = location.getZ();
+        this.yaw = location.getYaw();
+        this.pitch = location.getPitch();
         this.playerName = playerName;
         this.playerUUID = playerUUID;
     }
 
-    public Position getPosition() {
-        return this.position;
+    public @NotNull Location getLocation() {
+        return new Location(
+            org.bukkit.Bukkit.getWorld(this.world),
+            this.x, this.y, this.z,
+            this.yaw, this.pitch
+        );
     }
 
-    public Location getLocation() {
-        return PositionAdapter.convert(this.position);
-    }
-
-    public String getPlayerName() {
-        return this.playerName;
-    }
-
-    public UUID getPlayerUUID() {
+    public @NotNull UUID getPlayerUuid() {
         return this.playerUUID;
     }
 
-    public void replacePlayer(String newPlayerName, UUID newPlayerUUID) {
+    public @NotNull String getPlayerName() {
+        return this.playerName;
+    }
+
+    public void replacePlayer(@NotNull String newPlayerName, @NotNull UUID newPlayerUUID) {
         this.playerName = newPlayerName;
         this.playerUUID = newPlayerUUID;
     }
@@ -44,17 +58,15 @@ public class Head {
         if (this == object) {
             return true;
         }
-
-        if (object == null || getClass() != object.getClass()) {
+        if (!(object instanceof Head other)) {
             return false;
         }
-
-        Head head = (Head) object;
-        return Objects.equals(this.position, head.position);
+        return this.world.equals(other.world) &&
+            this.x == other.x && this.y == other.y && this.z == other.z;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(this.position);
+        return Objects.hash(this.world, this.x, this.y, this.z);
     }
 }

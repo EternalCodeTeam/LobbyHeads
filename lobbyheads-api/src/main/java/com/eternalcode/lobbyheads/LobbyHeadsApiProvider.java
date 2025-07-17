@@ -1,30 +1,44 @@
 package com.eternalcode.lobbyheads;
 
-public class LobbyHeadsApiProvider {
+import org.jetbrains.annotations.NotNull;
 
-    private static LobbyHeadsApi lobbyHeadsApi;
+/**
+ * Provides global access to the LobbyHeads API.
+ */
+public final class LobbyHeadsApiProvider {
 
-    public static LobbyHeadsApi provide() {
-        if (lobbyHeadsApi == null) {
-            throw new IllegalStateException("LobbyHeadsApi has not been initialized yet!");
-        }
+    private static volatile LobbyHeadsApi api;
 
-        return lobbyHeadsApi;
+    private LobbyHeadsApiProvider() {
+        throw new UnsupportedOperationException("This is a utility class.");
     }
 
-    static void initialize(LobbyHeadsApi lobbyHeadsApi) {
-        if (LobbyHeadsApiProvider.lobbyHeadsApi != null) {
-            throw new IllegalStateException("LobbyHeadsApi has already been initialized!");
+    /**
+     * @return The initialized LobbyHeadsApi instance.
+     * @throws IllegalStateException if not initialized.
+     */
+    public static @NotNull LobbyHeadsApi get() {
+        LobbyHeadsApi instance = api;
+        if (instance == null) {
+            throw new IllegalStateException("LobbyHeadsApi is not initialized yet.");
         }
+        return instance;
+    }
 
-        LobbyHeadsApiProvider.lobbyHeadsApi = lobbyHeadsApi;
+    /**
+     * Internal use only.
+     */
+    static void initialize(@NotNull LobbyHeadsApi lobbyHeadsApi) {
+        if (api != null) {
+            throw new IllegalStateException("LobbyHeadsApi is already initialized.");
+        }
+        api = lobbyHeadsApi;
     }
 
     static void deinitialize() {
-        if (lobbyHeadsApi == null) {
-            throw new IllegalStateException("LobbyHeadsApi has not been initialized yet!");
+        if (api == null) {
+            throw new IllegalStateException("LobbyHeadsApi is not initialized.");
         }
-
-        lobbyHeadsApi = null;
+        api = null;
     }
 }

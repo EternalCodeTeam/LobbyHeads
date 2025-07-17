@@ -2,9 +2,8 @@ package com.eternalcode.lobbyheads.head.block;
 
 import com.eternalcode.lobbyheads.configuration.implementation.HeadsConfiguration;
 import com.eternalcode.lobbyheads.head.Head;
-import com.eternalcode.lobbyheads.head.HeadManagerImpl;
+import com.eternalcode.lobbyheads.head.HeadManager;
 import com.eternalcode.lobbyheads.notification.NotificationAnnouncer;
-import com.eternalcode.lobbyheads.position.Position;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -13,38 +12,42 @@ public class BlockService {
 
     private final HeadsConfiguration config;
     private final NotificationAnnouncer notificationAnnouncer;
-    private final HeadManagerImpl headManagerImpl;
+    private final HeadManager headManager;
 
-    public BlockService(HeadsConfiguration config, NotificationAnnouncer notificationAnnouncer, HeadManagerImpl headManagerImpl) {
+    public BlockService(
+        HeadsConfiguration config,
+        NotificationAnnouncer notificationAnnouncer,
+        HeadManager headManager
+    ) {
         this.config = config;
         this.notificationAnnouncer = notificationAnnouncer;
-        this.headManagerImpl = headManagerImpl;
+        this.headManager = headManager;
     }
 
-    public void createHeadBlock(Location location, Player player, Position convert) {
+    public void createHeadBlock(Location location, Player player) {
         if (location.getBlock().getType() != Material.PLAYER_HEAD) {
-            this.notificationAnnouncer.sendMessage(player, this.config.messages.playerNotLookingAtHead);
+            this.notificationAnnouncer.sendMessage(player, this.config.messages.notLookingAtHead);
             return;
         }
 
-        if (this.headManagerImpl.getHead(convert) != null) {
-            this.notificationAnnouncer.sendMessage(player, this.config.messages.headAlreadyExists);
+        if (this.headManager.getHead(location) != null) {
+            this.notificationAnnouncer.sendMessage(player, this.config.messages.headExists);
             return;
         }
 
-        this.headManagerImpl.addHead(player, convert);
+        this.headManager.addHead(player, location);
         this.notificationAnnouncer.sendMessage(player, this.config.messages.headAdded);
     }
 
-    public void removeHeadBlock(Position convert, Player player) {
-        Head head = this.headManagerImpl.getHead(convert);
+    public void removeHeadBlock(Location location, Player player) {
+        Head head = this.headManager.getHead(location);
 
         if (head == null) {
-            this.notificationAnnouncer.sendMessage(player, this.config.messages.playerNotLookingAtHead);
+            this.notificationAnnouncer.sendMessage(player, this.config.messages.notLookingAtHead);
             return;
         }
 
-        this.headManagerImpl.removeHead(convert);
+        this.headManager.removeHead(location);
         this.notificationAnnouncer.sendMessage(player, this.config.messages.headRemoved);
     }
 }

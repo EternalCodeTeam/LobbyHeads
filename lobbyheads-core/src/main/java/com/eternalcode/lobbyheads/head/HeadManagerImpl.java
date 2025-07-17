@@ -1,104 +1,90 @@
 package com.eternalcode.lobbyheads.head;
 
+import com.eternalcode.commons.bukkit.position.Position;
+import com.eternalcode.commons.bukkit.position.PositionAdapter;
 import com.eternalcode.lobbyheads.event.EventCaller;
 import com.eternalcode.lobbyheads.head.event.HeadCreateEvent;
 import com.eternalcode.lobbyheads.head.event.HeadRemoveEvent;
 import com.eternalcode.lobbyheads.head.event.HeadUpdateEvent;
-import com.eternalcode.lobbyheads.position.Position;
-import com.eternalcode.lobbyheads.position.PositionAdapter;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
-import org.jetbrains.annotations.ApiStatus.Internal;
+import org.jetbrains.annotations.NotNull;
 
 public class HeadManagerImpl implements HeadManager {
 
     private final Map<Position, Head> heads = new HashMap<>();
     private final EventCaller eventCaller;
-
     private final HeadRepository headRepository;
 
-    public HeadManagerImpl(EventCaller eventCaller, HeadRepository headRepository) {
+    public HeadManagerImpl(@NotNull EventCaller eventCaller, @NotNull HeadRepository headRepository) {
         this.eventCaller = eventCaller;
         this.headRepository = headRepository;
     }
 
-    @Internal
-    public void addHead(Player player, Position position) {
-        this.heads.computeIfAbsent(position, pos -> {
-            UUID uniqueId = player.getUniqueId();
-            Head head = new Head(pos, player.getName(), uniqueId);
-            this.headRepository.saveHead(head);
-            this.eventCaller.callEvent(new HeadCreateEvent(uniqueId, PositionAdapter.convert(pos)));
-            return head;
-        });
+    @Override
+    public void addHead(@NotNull Player player, @NotNull Location location) {
+        Position position = PositionAdapter.convert(location);
+        heads.computeIfAbsent(
+            position, pos -> {
+                UUID uuid = player.getUniqueId();
+                String name = player.getName();
+                Head head = new Head(location, name, uuid);
+
+                headRepository.saveHead(head);
+                eventCaller.callEvent(new HeadCreateEvent(uuid, PositionAdapter.convert(pos)));
+                return head;
+            });
     }
 
     @Override
-    public void addHead(Player player, Location location) {
-        this.addHead(player, PositionAdapter.convert(location));
-    }
-
-    @Internal
-    public void removeHead(Position position) {
-        if (!this.heads.containsKey(position)) {
+    public void removeHead(@NotNull Location location) {
+        Position position = PositionAdapter.convert(location);
+        Head removed = heads.remove(position);
+        if (removed == null) {
             return;
         }
 
-        Head head = this.heads.get(position);
-        this.heads.remove(position);
-        this.headRepository.removeHead(head);
-        this.eventCaller.callEvent(new HeadRemoveEvent(head.getPlayerUUID(), PositionAdapter.convert(position)));
+        headRepository.removeHead(removed);
+        eventCaller.callEvent(new HeadRemoveEvent(removed.getPlayerUuid(), PositionAdapter.convert(position)));
     }
 
     @Override
-    public void removeHead(Location location) {
-        this.removeHead(PositionAdapter.convert(location));
-    }
-
-    @Internal
-    public void updateHead(Player player, Position position) {
-        if (!this.heads.containsKey(position)) {
+    public void updateHead(@NotNull Player player, @NotNull Location location) {
+        Position position = PositionAdapter.convert(location);
+        Head head = heads.get(position);
+        if (head == null) {
             return;
         }
 
-        Head head = this.heads.get(position);
         head.replacePlayer(player.getName(), player.getUniqueId());
-        this.headRepository.updateHead(head);
-        this.eventCaller.callEvent(new HeadUpdateEvent(player.getUniqueId(), PositionAdapter.convert(position)));
+        headRepository.updateHead(head);
+        eventCaller.callEvent(new HeadUpdateEvent(player.getUniqueId(), PositionAdapter.convert(position)));
     }
 
     @Override
-    public void updateHead(Player player, Location location) {
-        this.updateHead(player, PositionAdapter.convert(location));
-    }
-
-    @Internal
-    public Head getHead(Position position) {
+    public Head getHead(@NotNull Location location) {
+        Position position = PositionAdapter.convert(location);
         return this.heads.get(position);
     }
 
-    @Override
-    public Head getHead(Location location) {
-        return this.getHead(PositionAdapter.convert(location));
-    }
 
     @Override
-    public Collection<Head> getHeads() {
-        return this.heads.values();
+    public @NotNull Collection<Head> getHeads() {
+        return Collections.unmodifiableCollection(heads.values());
     }
 
     public void loadHeads() {
-        this.headRepository.loadHeads().thenAccept(loadedHeads -> {
-            this.heads.clear();
-            loadedHeads.forEach(head -> this.heads.put(head.getPosition(), head));
+        headRepository.loadHeads().thenAccept(loadedHeads -> {
+            heads.clear();
+            for (Head head : loadedHeads) {
+                Position pos = PositionAdapter.convert(head.getLocation());
+                heads.put(pos, head);
+            }
         });
-    }
-
-    public void clearHeads() {
-        this.heads.clear();
     }
 }

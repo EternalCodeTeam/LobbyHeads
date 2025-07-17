@@ -21,15 +21,15 @@ public class SoundController implements Listener {
 
     @EventHandler
     private void onHeadUpdate(HeadUpdateEvent event) {
-        UUID uuid = event.getPlayerUniqueId();
+        UUID uuid = event.getPlayerUuid();
         Player player = this.server.getPlayer(uuid);
 
         if (player == null) {
             return;
         }
 
-        if (this.config.headSection.soundEnabled) {
-            player.playSound(event.getLocation(), this.config.headSection.sound, this.config.headSection.volume, this.config.headSection.pitch);
+        if (this.config.headSettings.soundEnabled) {
+            this.config.headSettings.sound.play(player, this.config.headSettings.volume, this.config.headSettings.pitch);
         }
     }
 }

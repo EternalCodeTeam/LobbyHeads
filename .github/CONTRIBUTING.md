@@ -1,6 +1,6 @@
 # Contributing to LobbyHeads
 
-:Wave: Hello there!
+🖐 Hello there!
 We wholeheartedly welcome all contributions to LobbyHeads and are excited to know you are considering making one.
 
 To ensure a robust and ideal solution, we recommend going through this guide.

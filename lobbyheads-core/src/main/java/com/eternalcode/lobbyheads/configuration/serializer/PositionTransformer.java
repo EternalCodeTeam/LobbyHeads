@@ -1,12 +1,12 @@
 package com.eternalcode.lobbyheads.configuration.serializer;
 
-import com.eternalcode.lobbyheads.position.Position;
+import com.eternalcode.commons.bukkit.position.Position;
 import eu.okaeri.configs.schema.GenericsDeclaration;
 import eu.okaeri.configs.serdes.DeserializationData;
 import eu.okaeri.configs.serdes.ObjectSerializer;
 import eu.okaeri.configs.serdes.SerializationData;
 
-public class PositionSerializer implements ObjectSerializer<Position> {
+public class PositionTransformer implements ObjectSerializer<Position> {
 
     @Override
     public boolean supports(Class<? super Position> type) {

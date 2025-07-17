@@ -3,80 +3,87 @@ package com.eternalcode.lobbyheads.head.command;
 import com.eternalcode.lobbyheads.configuration.implementation.HeadsConfiguration;
 import com.eternalcode.lobbyheads.head.block.BlockService;
 import com.eternalcode.lobbyheads.notification.NotificationAnnouncer;
-import com.eternalcode.lobbyheads.position.Position;
-import com.eternalcode.lobbyheads.position.PositionAdapter;
 import com.eternalcode.lobbyheads.reload.ReloadService;
-import org.bukkit.Location;
+import java.util.Locale;
+import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
-import org.bukkit.command.TabCompleter;
 import org.bukkit.entity.Player;
 
-import java.util.List;
-
-public class HeadCommand implements CommandExecutor, TabCompleter {
+public class HeadCommand implements CommandExecutor {
 
     private static final String HEAD_MANAGEMENT_PERMISSION = "lobbyheads.admin";
 
     private final HeadsConfiguration config;
-    private final NotificationAnnouncer notificationAnnouncer;
+    private final NotificationAnnouncer announcer;
     private final BlockService blockService;
     private final ReloadService reloadService;
 
-    public HeadCommand(HeadsConfiguration config, NotificationAnnouncer notificationAnnouncer,
-                       BlockService blockService, ReloadService reloadService) {
+    public HeadCommand(
+        HeadsConfiguration config,
+        NotificationAnnouncer announcer,
+        BlockService blockService,
+        ReloadService reloadService
+    ) {
         this.config = config;
-        this.notificationAnnouncer = notificationAnnouncer;
+        this.announcer = announcer;
         this.blockService = blockService;
         this.reloadService = reloadService;
     }
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-        if (!sender.hasPermission(HEAD_MANAGEMENT_PERMISSION)) {
-            this.notificationAnnouncer.sendMessage(sender, this.config.messages.playerNotPermittedToUseThisCommand);
-            return false;
+        if (!canUse(sender)) {
+            announcer.sendMessage(sender, config.messages.noPermissionCommand);
+            return true;
         }
 
         if (!(sender instanceof Player player)) {
-            this.notificationAnnouncer.sendMessage(sender, this.config.messages.onlyForPlayers);
+            announcer.sendMessage(sender, config.messages.onlyForPlayers);
             return true;
         }
-
-        String invalidUsage = this.config.messages.commandInvalidUsage;
 
         if (args.length < 1) {
-            this.notificationAnnouncer.sendMessage(player, invalidUsage);
+            announcer.sendMessage(player, config.messages.invalidCommand);
             return true;
         }
 
-        String subcommand = args[0].toLowerCase();
-
-        Block block = player.getTargetBlock(null, 5);
-        Location location = block.getLocation();
-        Position convert = PositionAdapter.convert(location);
+        String subcommand = args[0].toLowerCase(Locale.ROOT);
 
         switch (subcommand) {
-            case "add" -> this.blockService.createHeadBlock(location, player, convert);
-            case "remove" -> this.blockService.removeHeadBlock(convert, player);
-            case "reload" -> {
-                this.reloadService.reload();
-                this.notificationAnnouncer.sendMessage(player, this.config.messages.configurationReloaded);
+            case "add" -> {
+                Block targetBlock = player.getTargetBlockExact(5);
+                if (targetBlock == null || targetBlock.getType() == Material.AIR) {
+                    announcer.sendMessage(player, config.messages.noBlockInSight);
+                    return true;
+                }
+                blockService.createHeadBlock(targetBlock.getLocation(), player);
+                return true;
             }
-            default -> this.notificationAnnouncer.sendMessage(player, invalidUsage);
+            case "remove" -> {
+                Block targetBlock = player.getTargetBlockExact(5);
+                if (targetBlock == null || targetBlock.getType() == Material.AIR) {
+                    announcer.sendMessage(player, config.messages.noBlockInSight);
+                    return true;
+                }
+                blockService.removeHeadBlock(targetBlock.getLocation(), player);
+                return true;
+            }
+            case "reload" -> {
+                reloadService.reload();
+                announcer.sendMessage(player, config.messages.configurationReloaded);
+                return true;
+            }
+            default -> {
+                announcer.sendMessage(player, config.messages.invalidCommand);
+                return true;
+            }
         }
-        return true;
     }
 
-
-    @Override
-    public List<String> onTabComplete(CommandSender sender, Command command, String label, String[] args) {
-        if (sender.hasPermission(HEAD_MANAGEMENT_PERMISSION)) {
-            return List.of("add", "remove", "reload");
-        }
-
-        return List.of();
+    private boolean canUse(CommandSender sender) {
+        return sender.hasPermission(HEAD_MANAGEMENT_PERMISSION);
     }
 }
