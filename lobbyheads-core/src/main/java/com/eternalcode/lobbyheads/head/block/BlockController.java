@@ -1,9 +1,9 @@
 package com.eternalcode.lobbyheads.head.block;
 
+import com.eternalcode.commons.bukkit.position.Position;
+import com.eternalcode.commons.bukkit.position.PositionAdapter;
 import com.eternalcode.lobbyheads.head.event.HeadCreateEvent;
 import com.eternalcode.lobbyheads.head.event.HeadUpdateEvent;
-import com.eternalcode.lobbyheads.position.Position;
-import com.eternalcode.lobbyheads.position.PositionAdapter;
 import dev.rollczi.liteskullapi.SkullAPI;
 import dev.rollczi.liteskullapi.SkullData;
 import java.util.UUID;
@@ -32,7 +32,7 @@ public class BlockController implements Listener {
     @EventHandler
     void headCreate(HeadCreateEvent event) {
         Position position = PositionAdapter.convert(event.getLocation());
-        UUID uuid = event.getPlayerUniqueId();
+        UUID uuid = event.getPlayerUuid();
 
         this.processSkullUpdate(position, uuid);
     }
@@ -40,7 +40,7 @@ public class BlockController implements Listener {
     @EventHandler
     private void headUpdate(HeadUpdateEvent event) {
         Position position = PositionAdapter.convert(event.getLocation());
-        UUID uuid = event.getPlayerUniqueId();
+        UUID uuid = event.getPlayerUuid();
 
         this.processSkullUpdate(position, uuid);
     }

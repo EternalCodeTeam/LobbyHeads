@@ -1,6 +1,5 @@
 package com.eternalcode.lobbyheads.head.sound;
 
-import com.cryptomorin.xseries.XSound;
 import com.eternalcode.lobbyheads.configuration.implementation.HeadsConfiguration;
 import com.eternalcode.lobbyheads.head.event.HeadUpdateEvent;
 import org.bukkit.Server;
@@ -22,15 +21,15 @@ public class SoundController implements Listener {
 
     @EventHandler
     private void onHeadUpdate(HeadUpdateEvent event) {
-        UUID uuid = event.getPlayerUniqueId();
+        UUID uuid = event.getPlayerUuid();
         Player player = this.server.getPlayer(uuid);
 
         if (player == null) {
             return;
         }
 
-        if (this.config.headSection.soundEnabled) {
-            this.config.headSection.sound.play(player, this.config.headSection.volume, this.config.headSection.pitch);
+        if (this.config.headSettings.soundEnabled) {
+            this.config.headSettings.sound.play(player, this.config.headSettings.volume, this.config.headSettings.pitch);
         }
     }
 }

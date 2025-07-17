@@ -28,7 +28,7 @@ public class UpdaterNotificationController implements Listener {
     void onJoin(PlayerJoinEvent event) {
         Player player = event.getPlayer();
 
-        if (!player.hasPermission("lobbyheads.receiveupdates") || !this.config.receivePluginUpdates) {
+        if (!player.hasPermission("lobbyheads.receiveupdates") || !this.config.checkUpdates) {
             return;
         }
 

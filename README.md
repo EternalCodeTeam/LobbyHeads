@@ -2,15 +2,13 @@
 
 ![LobbyHeads](/assets/lobbyheads-banner.png)
 
-[![Supported by Paper](https://raw.githubusercontent.com/intergrav/devins-badges/v3/assets/cozy/supported/paper_vector.svg)](https://papermc.io)
-[![Supported by Spigot](https://raw.githubusercontent.com/intergrav/devins-badges/v3/assets/cozy/supported/spigot_vector.svg)](https://spigotmc.org)
+[![Available on SpigotMC](https://raw.githubusercontent.com/vLuckyyy/badges/main/available-on-spigotmc.svg)](https://www.spigotmc.org/resources/lobbyheads-%E2%9C%A8-decorative-heads-for-your-server-hub.113065/)
+[![Available on Modrinth](https://raw.githubusercontent.com/vLuckyyy/badges/main/avaiable-on-modrinth.svg)](https://modrinth.com/plugin/LobbyHeads)
+[![Available on Hangar](https://raw.githubusercontent.com/vLuckyyy/badges/main/avaiable-on-hangar.svg)](https://hangar.papermc.io/EternalCodeTeam/LobbyHeads)
 
-[![Patreon](https://raw.githubusercontent.com/intergrav/devins-badges/v3/assets/cozy/donate/patreon-plural_vector.svg)](https://www.patreon.com/eternalcode)
-[![Official Website](https://raw.githubusercontent.com/intergrav/devins-badges/v3/assets/cozy/documentation/website_vector.svg)](https://eternalcode.pl/)
-[![Join Our Discord](https://raw.githubusercontent.com/intergrav/devins-badges/v3/assets/cozy/social/discord-plural_vector.svg)](https://discord.gg/FQ7jmGBd6c)
-
-[![Built with Gradle](https://raw.githubusercontent.com/intergrav/devins-badges/v3/assets/cozy/built-with/gradle_vector.svg)](https://gradle.org/)
-[![Built with Java](https://raw.githubusercontent.com/intergrav/devins-badges/v3/assets/cozy/built-with/java17_vector.svg)](https://www.java.com/)
+[![Chat on Discord](https://raw.githubusercontent.com/vLuckyyy/badges/main//chat-with-us-on-discord.svg)](https://discord.com/invite/FQ7jmGBd6c)
+[![Read the Docs](https://raw.githubusercontent.com/vLuckyyy/badges/main/read-the-documentation.svg)](https://docs.eternalcode.pl/eternalcore/introduction)
+[![Available on BStats](https://raw.githubusercontent.com/vLuckyyy/badges/main/available-on-bstats.svg)](https://bstats.org/plugin/bukkit/LobbyHeads/20048)
 </div>
 
 ## About LobbyHeads
@@ -24,11 +22,11 @@ If you find any bugs, issues or inconsistencies, kindly report them [here](https
 ## Plugin Preview
 
 ### How head work? (You can use this example for **premium** ranks on your server!)
-![gif](/assets/head%20work%2020fps.gif)
+![gif](https://github.com/EternalCodeTeam/LobbyHeads/blob/master/assets/head%20work%2020fps.gif?raw=true)
 
 
 ### How to set up heads? (`/heads add` comand)
-![gif](assets/head%20setup%2020fps.gif)
+![gif](https://github.com/EternalCodeTeam/LobbyHeads/blob/master/assets/head%20setup%2020fps.gif?raw=true)
 
 ## Permission Assignments
 
@@ -59,7 +57,7 @@ The output file `LobbyHeads-<version>.jar` will be located in the `build/libs` d
 
 ### Contributions
 
-We wholeheartedly welcome your contributions to LobbyHeads! Please refer to our [contribution guidelines](.github/CONTRIBUTING.md) for detailed procedures on how you can contribute, and our [code of conduct](./.github/CODE_OF_CONDUCT.md) to ensure a harmonious and welcoming community.
+We wholeheartedly welcome your contributions to LobbyHeads! Please refer to our [contribution guidelines](https://github.com/EternalCodeTeam/LobbyHeads/blob/master/.github/CONTRIBUTING.md) for detailed procedures on how you can contribute, and our [code of conduct](./.github/CODE_OF_CONDUCT.md) to ensure a harmonious and welcoming community.
 
 ### Issue Reporting
 

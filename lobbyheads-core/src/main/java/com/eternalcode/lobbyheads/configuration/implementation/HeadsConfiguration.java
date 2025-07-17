@@ -1,17 +1,12 @@
 package com.eternalcode.lobbyheads.configuration.implementation;
 
 import com.cryptomorin.xseries.XSound;
-import com.cryptomorin.xseries.particles.XParticle;
 import com.eternalcode.lobbyheads.delay.DelaySettings;
 import com.eternalcode.lobbyheads.head.Head;
 import eu.okaeri.configs.OkaeriConfig;
 import eu.okaeri.configs.annotation.Comment;
 import eu.okaeri.configs.annotation.Header;
-import eu.okaeri.configs.annotation.NameModifier;
-import eu.okaeri.configs.annotation.NameStrategy;
-import eu.okaeri.configs.annotation.Names;
 import org.bukkit.Particle;
-import org.bukkit.Sound;
 
 import java.time.Duration;
 import java.util.ArrayList;
@@ -29,7 +24,7 @@ public class HeadsConfiguration extends OkaeriConfig implements DelaySettings {
     public Duration headReplacementDelay = Duration.ofSeconds(15);
 
     @Comment({ " ", "# Update check" })
-    public boolean receivePluginUpdates = true;
+    public boolean checkUpdates = true;
 
     @Comment({ " ", "# Heads list, don't touch this!" })
     public List<Head> heads = new ArrayList<>();
@@ -38,14 +33,14 @@ public class HeadsConfiguration extends OkaeriConfig implements DelaySettings {
     public Messages messages = new Messages();
 
     @Comment({ " ", "# Head configuration, you can change head settings here" })
-    public HeadSection headSection = new HeadSection();
+    public HeadSettings headSettings = new HeadSettings();
 
     @Override
     public Duration delay() {
         return this.headReplacementDelay;
     }
 
-    public static class HeadSection extends OkaeriConfig {
+    public static class HeadSettings extends OkaeriConfig {
         @Comment("# Format of the head, you can use PlaceholderAPI here")
         public String defaultHeadFormat = "<gradient:#8dc63f:#53a30e>{PLAYER}</gradient>";
         public String headFormat = "%luckperms_prefix% <gradient:#8dc63f:#53a30e>{PLAYER}</gradient>";
@@ -58,19 +53,19 @@ public class HeadsConfiguration extends OkaeriConfig implements DelaySettings {
 
         @Comment("# Particle when a player replaces head")
         public boolean particleEnabled = true;
-        public Particle particle = Particle.VILLAGER_HAPPY;
+        public Particle particle = Particle.HEART;
         public int count = 10;
     }
 
     public static class Messages extends OkaeriConfig {
         @Comment("# Message when usage is invalid")
-        public String commandInvalidUsage = "<color:#ff3425>Hmmm, this doesn't look like a proper usage. Try: /head <add|remove|reload></color>";
+        public String invalidCommand = "<color:#ff3425>Hmmm, this doesn't look like a proper usage. Try: /head <add|remove|reload></color>";
 
         @Comment("# Reload configs")
         public String configurationReloaded = "<color:#8ceb34>LobbyHeads configuration reloaded!</color>";
 
         @Comment("# Message when a head already exists at the block intended for a new one")
-        public String headAlreadyExists = "<color:#ff2d2d>Oops! It looks like this space is already occupied by another head.</color>";
+        public String headExists = "<color:#ff2d2d>Oops! It looks like this space is already occupied by another head.</color>";
 
         @Comment("# Message when a head has been added successfully")
         public String headAdded = "<color:#9ef442>Head added!</color>";
@@ -82,18 +77,21 @@ public class HeadsConfiguration extends OkaeriConfig implements DelaySettings {
         public String onlyForPlayers = "<color:#ff521d>Hey! This command is only for real players!</color>";
 
         @Comment("# Message when a player already replaced a head")
-        public String playerAlreadyReplaceThisHead = "<color:#ff3f2a>Hey! It looks like you've already swapped this head.</color>";
+        public String alreadyReplaced = "<color:#ff3f2a>Hey! It looks like you've already swapped this head.</color>";
 
         @Comment("# Message when a player must wait to replace another head")
-        public String playerMustWaitToReplaceHead = "<color:#ff3f2a>Hey! You must wait <color:#ffea00>{duration}</color> seconds for next head replace.</color>";
+        public String replaceCooldown = "<color:#ff3f2a>Hey! You must wait <color:#ffea00>{duration}</color> seconds for next head replace.</color>";
 
         @Comment("# Message when a player is not looking at one")
-        public String playerNotLookingAtHead = "<color:#ff3e24>Hey! You need to be looking at a head to do this.</color>";
+        public String notLookingAtHead = "<color:#ff3e24>Hey! You need to be looking at a head to do this.</color>";
 
         @Comment("# Message when a player is not permitted to replace heads")
-        public String playerNotPermittedToReplaceHeads = "<color:#ff2f30>I'm sorry, but head swapping is only available for <b><color:#ffea00>VIP</color></b> members.</color>";
+        public String noPermissionReplace = "<color:#ff2f30>I'm sorry, but head swapping is only available for <b><color:#ffea00>VIP</color></b> members.</color>";
 
         @Comment("# Message when a player is not permitted to use an admin command")
-        public String playerNotPermittedToUseThisCommand = "<color:#ff2528>You're not permitted to use this command!</color>";
+        public String noPermissionCommand = "<color:#ff2528>You're not permitted to use this command!</color>";
+
+        @Comment("# Message when a player is not looking at a block")
+        public String noBlockInSight = "<color:#ff3e24>Hey! You need to be looking at a block to do this.</color>";
     }
 }
