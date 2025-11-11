@@ -16,9 +16,9 @@ jobs:
       fail-fast: false
     steps:
       - name: Checkout
-        uses: actions/checkout@v4.2.2
+        uses: actions/checkout@v5.0.0
       - name: 'Set up JDK ${{ matrix.java }}'
-        uses: actions/setup-java@v4.5.0
+        uses: actions/setup-java@v5.0.0
         with:
           distribution: adopt
           java-version: '${{ matrix.java }}'
@@ -35,7 +35,7 @@ jobs:
       - name: Build the Jar
         run: './gradlew clean shadowJar'
       - name: Upload a Build Artifact
-        uses: actions/upload-artifact@v4.4.3
+        uses: actions/upload-artifact@v5.0.0
         with:
           name: 'LobbyHeads'
           path: build/libs/LobbyHeads*.jar

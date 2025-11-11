@@ -5,8 +5,8 @@ plugins {
     `lobbyheads-checkstyle`
 
     id("net.minecrell.plugin-yml.bukkit") version "0.6.0"
-    id("com.gradleup.shadow") version "8.3.5"
-    id("xyz.jpenilla.run-paper") version "2.3.1"
+    id("com.gradleup.shadow") version "9.2.2"
+    id("xyz.jpenilla.run-paper") version "3.0.2"
 }
 
 dependencies {
@@ -23,7 +23,7 @@ dependencies {
     implementation("net.kyori:adventure-text-minimessage:4.17.0")
 
     // Rollczi's skullapi
-    implementation("dev.rollczi:liteskullapi:1.3.0")
+    implementation("dev.rollczi:liteskullapi:2.0.0")
 
     // eternalcode commons
     implementation("com.eternalcode:eternalcode-commons-adventure:1.1.4")
@@ -36,7 +36,7 @@ dependencies {
     compileOnly("com.mojang:authlib:5.0.47")
 
     // HoloEasy based on top of the protocolib
-    implementation("com.github.unldenis:holoeasy:3.0.1")
+    implementation("com.github.unldenis:holoeasy:4.3.2")
 
     // PlaceholderAPI, if anyone wants to parse placeholders in the head's name
     compileOnly("me.clip:placeholderapi:2.11.6")
@@ -49,7 +49,7 @@ dependencies {
 
     // tests setup
     testImplementation("org.codehaus.groovy:groovy-all:3.0.23")
-    testImplementation(platform("org.junit:junit-bom:5.11.3"))
+    testImplementation(platform("org.junit:junit-bom:6.0.1"))
     testImplementation("org.junit.jupiter:junit-jupiter")
     testImplementation("org.mockito:mockito-core:5.14.2")
 }
