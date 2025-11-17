@@ -11,7 +11,7 @@ plugins {
 
 dependencies {
     // okaeri configs
-    val okaeriConfigsVersion = "5.0.5"
+    val okaeriConfigsVersion = "5.0.13"
     implementation("eu.okaeri:okaeri-configs-yaml-snakeyaml:${okaeriConfigsVersion}")
     implementation("eu.okaeri:okaeri-configs-serdes-commons:${okaeriConfigsVersion}")
 
