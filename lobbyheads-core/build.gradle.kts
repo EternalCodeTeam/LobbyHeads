@@ -26,7 +26,7 @@ dependencies {
     implementation("dev.rollczi:liteskullapi:1.3.0")
 
     // eternalcode commons
-    implementation("com.eternalcode:eternalcode-commons-adventure:1.1.7")
+    implementation("com.eternalcode:eternalcode-commons-adventure:1.3.1")
 
     // spigot-api
     compileOnly("org.spigotmc:spigot-api:1.20.2-R0.1-SNAPSHOT")
