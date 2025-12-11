@@ -3,7 +3,7 @@ plugins {
 }
 
 checkstyle {
-    toolVersion = "10.26.1"
+    toolVersion = "11.1.0"
 
     configFile = file("${rootDir}/checkstyle/checkstyle.xml")
     configProperties["checkstyle.suppressions.file"] = "${rootDir}/checkstyle/suppressions.xml"
