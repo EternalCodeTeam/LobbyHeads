@@ -20,7 +20,7 @@ dependencies {
 
     // a cool library, kyori
     implementation("net.kyori:adventure-platform-bukkit:4.4.1")
-    implementation("net.kyori:adventure-text-minimessage:4.25.0")
+    implementation("net.kyori:adventure-text-minimessage:4.26.1")
 
     // Rollczi's skullapi
     implementation("dev.rollczi:liteskullapi:1.3.0")
