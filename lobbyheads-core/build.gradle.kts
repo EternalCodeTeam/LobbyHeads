@@ -39,7 +39,7 @@ dependencies {
     implementation("com.github.unldenis:holoeasy:3.0.1")
 
     // PlaceholderAPI, if anyone wants to parse placeholders in the head's name
-    compileOnly("me.clip:placeholderapi:2.11.7")
+    compileOnly("me.clip:placeholderapi:2.12.1")
 
     // bstats
     implementation("org.bstats:bstats-bukkit:3.1.0")
