@@ -42,7 +42,7 @@ dependencies {
     compileOnly("me.clip:placeholderapi:2.12.2")
 
     // bstats
-    implementation("org.bstats:bstats-bukkit:3.1.0")
+    implementation("org.bstats:bstats-bukkit:3.2.0")
 
     // GitCheck
     implementation("com.eternalcode:gitcheck:1.0.0")
