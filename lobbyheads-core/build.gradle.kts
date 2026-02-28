@@ -23,7 +23,7 @@ dependencies {
     implementation("net.kyori:adventure-text-minimessage:4.26.1")
 
     // Rollczi's skullapi
-    implementation("dev.rollczi:liteskullapi:1.3.0")
+    implementation("dev.rollczi:liteskullapi:2.0.0")
 
     // eternalcode commons
     implementation("com.eternalcode:eternalcode-commons-adventure:1.3.4")
