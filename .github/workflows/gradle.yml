@@ -35,7 +35,7 @@ jobs:
       - name: Build the Jar
         run: './gradlew clean shadowJar'
       - name: Upload a Build Artifact
-        uses: actions/upload-artifact@v6.0.0
+        uses: actions/upload-artifact@v7.0.0
         with:
           name: 'LobbyHeads'
           path: build/libs/LobbyHeads*.jar
