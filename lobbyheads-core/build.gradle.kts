@@ -49,7 +49,7 @@ dependencies {
 
     // tests setup
     testImplementation("org.codehaus.groovy:groovy-all:3.0.25")
-    testImplementation(platform("org.junit:junit-bom:6.1.0"))
+    testImplementation(platform("org.junit:junit-bom:6.1.1"))
     testImplementation("org.junit.jupiter:junit-jupiter")
     testImplementation("org.mockito:mockito-core:5.23.0")
 }
